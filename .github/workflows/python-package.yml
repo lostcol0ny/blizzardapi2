@@ -39,16 +39,3 @@ jobs:
       run: |
         pytest
 
-  suggest:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so that typilus can access it.
-    - uses: actions/checkout@v4
-    - uses: typilus/typilus-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SUGGESTION_CONFIDENCE_THRESHOLD: 0.8   # Configure this to limit the confidence of suggestions on un-annotated locations. A float in [0, 1]. Default 0.8
-        DISAGREEMENT_CONFIDENCE_THRESHOLD: 0.95  # Configure this to limit the confidence of suggestions on annotated locations.  A float in [0, 1]. Default 0.95
-
