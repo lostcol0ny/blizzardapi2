@@ -10,13 +10,13 @@ class BattlenetOauthApi(Api):
         client_secret: A string client secret supplied by Blizzard.
     """
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id: str, client_secret: str) -> None:
         """Init BattlenetOauthApi."""
         super().__init__(client_id, client_secret)
 
     # User Authentication
 
-    def get_user_info(self, region, access_token):
+    def get_user_info(self, region: str, access_token: str) -> dict:
         """Return basic information about the user associated with the current bearer token."""
         resource = "/oauth/userinfo"
         query_params = {

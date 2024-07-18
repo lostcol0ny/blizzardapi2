@@ -1,4 +1,5 @@
 """wow_profile_api.py file."""
+from typing import Dict, Any
 from ..api import Api
 
 
@@ -10,13 +11,13 @@ class WowProfileApi(Api):
         client_secret: A string client secret supplied by Blizzard.
     """
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id: str, client_secret: str) -> None:
         """Init WowProfileApi."""
         super().__init__(client_id, client_secret)
 
     # Account Profile API
 
-    def get_account_profile_summary(self, region, locale, access_token):
+    def get_account_profile_summary(self, region: str, locale: str, access_token: str) -> Dict[str, Any]:
         """Return a profile summary for an account."""
         resource = "/profile/user/wow"
         query_params = {
@@ -27,8 +28,8 @@ class WowProfileApi(Api):
         return super().get_resource(resource, region, query_params)
 
     def get_protected_character_profile_summary(
-        self, region, locale, access_token, realm_id, character_id
-    ):
+        self, region: str, locale: str, access_token: str, realm_id: int, character_id: int
+    ) -> Dict[str, Any]:
         """Return a protected profile summary for a character."""
         resource = f"/profile/user/wow/protected-character/{realm_id}-{character_id}"
         query_params = {
@@ -38,7 +39,7 @@ class WowProfileApi(Api):
         }
         return super().get_resource(resource, region, query_params)
 
-    def get_account_collections_index(self, region, locale, access_token):
+    def get_account_collections_index(self, region: str, locale: str, access_token: str) -> Dict[str, Any]:
         """Return an index of collection types for an account."""
         resource = "/profile/user/wow/collections"
         query_params = {
@@ -48,7 +49,7 @@ class WowProfileApi(Api):
         }
         return super().get_resource(resource, region, query_params)
 
-    def get_account_mounts_collection_summary(self, region, locale, access_token):
+    def get_account_mounts_collection_summary(self, region: str, locale: str, access_token: str) -> Dict[str, Any]:
         """Return a summary of the mounts an account has obtained."""
         resource = "/profile/user/wow/collections/mounts"
         query_params = {
@@ -58,7 +59,7 @@ class WowProfileApi(Api):
         }
         return super().get_resource(resource, region, query_params)
 
-    def get_account_pets_collection_summary(self, region, locale, access_token):
+    def get_account_pets_collection_summary(self, region: str, locale: str, access_token: str) -> Dict[str, Any]:
         """Return a summary of the battle pets an account has obtained."""
         resource = "/profile/user/wow/collections/pets"
         query_params = {
@@ -71,16 +72,16 @@ class WowProfileApi(Api):
     # Character Achievements API
 
     def get_character_achievements_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of the achievements a character has completed."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/achievements"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
     def get_character_achievement_statistics(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a character's statistics as they pertain to achievements."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/achievements/statistics"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -89,8 +90,8 @@ class WowProfileApi(Api):
     # Character Appearance API
 
     def get_character_appearance_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of a character's appearance settings."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/appearance"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -99,16 +100,16 @@ class WowProfileApi(Api):
     # Character Collections API
 
     def get_character_collections_index(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return an index of collection types for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/collections"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
     def get_character_mounts_collection_index(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of the mounts a character has obtained."""
         resource = (
             f"/profile/wow/character/{realm_slug}/{character_name}/collections/mounts"
@@ -117,8 +118,8 @@ class WowProfileApi(Api):
         return super().get_resource(resource, region, query_params)
 
     def get_character_pets_collection_index(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of the battle pets a character has obtained."""
         resource = (
             f"/profile/wow/character/{realm_slug}/{character_name}/collections/pets"
@@ -129,14 +130,15 @@ class WowProfileApi(Api):
     # Character Encounters API
 
     def get_character_encounters_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of a character's encounters."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/encounters"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_character_dungeons(self, region, locale, realm_slug, character_name):
+    def get_character_dungeons(self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of a character's completed dungeons."""
         resource = (
             f"/profile/wow/character/{realm_slug}/{character_name}/encounters/dungeons"
@@ -144,7 +146,8 @@ class WowProfileApi(Api):
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_character_raids(self, region, locale, realm_slug, character_name):
+    def get_character_raids(self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of a character's completed raids."""
         resource = (
             f"/profile/wow/character/{realm_slug}/{character_name}/encounters/raids"
@@ -155,8 +158,8 @@ class WowProfileApi(Api):
     # Character Equipment API
 
     def get_character_equipment_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of the items equipped by a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/equipment"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -165,8 +168,8 @@ class WowProfileApi(Api):
     # Character Hunter Pets API
 
     def get_character_hunter_pets_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """If the character is a hunter, returns a summary of the character's hunter pets."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/hunter-pets"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -174,7 +177,8 @@ class WowProfileApi(Api):
 
     # Character Media API
 
-    def get_character_media_summary(self, region, locale, realm_slug, character_name):
+    def get_character_media_summary(self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of the media assets available for a character (such as an avatar render)."""
         resource = (
             f"/profile/wow/character/{realm_slug}/{character_name}/character-media"
@@ -185,15 +189,15 @@ class WowProfileApi(Api):
     # Character Mythic Keystone Profile API
 
     def get_character_mythic_keystone_profile_index(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return the Mythic Keystone profile index for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/mythic-keystone-profile"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
     def get_character_mythic_keystone_profile_season_details(
-        self, region, locale, realm_slug, character_name, season_id
+        self, region: str, locale: str, realm_slug: str, character_name: str, season_id: int
     ):
         """Return the Mythic Keystone season details for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/mythic-keystone-profile/season/{season_id}"
@@ -203,8 +207,8 @@ class WowProfileApi(Api):
     # Character Professions API
 
     def get_character_professions_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of professions for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/professions"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -212,13 +216,15 @@ class WowProfileApi(Api):
 
     # Character Profile API
 
-    def get_character_profile_summary(self, region, locale, realm_slug, character_name):
+    def get_character_profile_summary(self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a profile summary for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_character_profile_status(self, region, locale, realm_slug, character_name):
+    def get_character_profile_status(self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return the status and a unique ID for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/status"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -227,14 +233,15 @@ class WowProfileApi(Api):
     # Character Pvp API
 
     def get_character_pvp_bracket_statistics(
-        self, region, locale, realm_slug, character_name, pvp_bracket
+        self, region: str, locale: str, realm_slug: str, character_name: str, pvp_bracket: str
     ):
         """Return the Pvp bracket statistics for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/pvp-bracket/{pvp_bracket}"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_character_pvp_summary(self, region, locale, realm_slug, character_name):
+    def get_character_pvp_summary(elf, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a Pvp summary for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/pvp-summary"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -242,15 +249,16 @@ class WowProfileApi(Api):
 
     # Character Quests API
 
-    def get_character_quests(self, region, locale, realm_slug, character_name):
+    def get_character_quests(self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a character's active quests as well as a link to the character's completed quests."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/quests"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
     def get_character_completed_quests(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a list of quests that a character has completed."""
         resource = (
             f"/profile/wow/character/{realm_slug}/{character_name}/quests/completed"
@@ -261,8 +269,8 @@ class WowProfileApi(Api):
     # Character Reputations API
 
     def get_character_reputations_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of a character's reputations."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/reputations"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -271,8 +279,8 @@ class WowProfileApi(Api):
     # Character Specializations API
 
     def get_character_specializations_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of a character's specializations."""
         resource = (
             f"/profile/wow/character/{realm_slug}/{character_name}/specializations"
@@ -283,8 +291,8 @@ class WowProfileApi(Api):
     # Character Statistics API
 
     def get_character_statistics_summary(
-        self, region, locale, realm_slug, character_name
-    ):
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a statistics summary for a character."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/statistics"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -292,7 +300,8 @@ class WowProfileApi(Api):
 
     # Character Titles API
 
-    def get_character_titles_summary(self, region, locale, realm_slug, character_name):
+    def get_character_titles_summary(self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
         """Return a summary of titles a character has obtained."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/titles"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
@@ -300,25 +309,25 @@ class WowProfileApi(Api):
 
     # Guild API
 
-    def get_guild(self, region, locale, realm_slug, name_slug):
+    def get_guild(self, region: str, locale: str, realm_slug: str, name_slug: str) -> Dict[str, Any]:
         """Return a single guild by its name and realm."""
         resource = f"/data/wow/guild/{realm_slug}/{name_slug}"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_guild_activity(self, region, locale, realm_slug, name_slug):
+    def get_guild_activity(self, region: str, locale: str, realm_slug: str, name_slug: str) -> Dict[str, Any]:
         """Return a single guild's activity by name and realm."""
         resource = f"/data/wow/guild/{realm_slug}/{name_slug}/activity"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_guild_achievements(self, region, locale, realm_slug, name_slug):
+    def get_guild_achievements(self, region: str, locale: str, realm_slug: str, name_slug: str) -> Dict[str, Any]:
         """Return a single guild's achievements by name and realm."""
         resource = f"/data/wow/guild/{realm_slug}/{name_slug}/achievements"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_guild_roster(self, region, locale, realm_slug, name_slug):
+    def get_guild_roster(self, region: str, locale: str, realm_slug: str, name_slug: str) -> Dict[str, Any]:
         """Return a single guild's roster by its name and realm."""
         resource = f"/data/wow/guild/{realm_slug}/{name_slug}/roster"
         query_params = {"namespace": f"profile-{region}", "locale": locale}

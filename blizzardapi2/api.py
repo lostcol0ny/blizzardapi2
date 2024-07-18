@@ -1,4 +1,5 @@
 """api.py file."""
+from typing import Dict, Any
 import requests
 
 
@@ -16,7 +17,7 @@ class Api:
         _session: An open requests.Session instance.
     """
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id: str, client_secret: str) -> None:
         """Init Api."""
         self._client_id = client_id
         self._client_secret = client_secret
@@ -30,7 +31,7 @@ class Api:
 
         self._session = requests.Session()
 
-    def _get_client_token(self, region):
+    def _get_client_token(self, region: str) -> Dict[str, Any]:
         """Fetch an access token based on client id and client secret credentials.
 
         Args:
@@ -48,11 +49,11 @@ class Api:
 
         return self._response_handler(response)
 
-    def _response_handler(self, response):
+    def _response_handler(self, response: requests.Response) -> Dict[str, Any]:
         """Handle the response."""
         return response.json()
 
-    def _request_handler(self, url, region, query_params):
+    def _request_handler(self, url: str, region: str, query_params: Dict[str, Any]) -> Dict[str, Any]:
         """Handle the request."""
         if self._access_token is None:
             json = self._get_client_token(region)
@@ -65,7 +66,7 @@ class Api:
 
         return self._response_handler(response)
 
-    def _format_api_url(self, resource, region):
+    def _format_api_url(self, resource: str, region: str) -> str:
         """Format the API url into a usable url."""
         if region == "cn":
             url = self._api_url_cn.format(resource)
@@ -74,12 +75,12 @@ class Api:
 
         return url
 
-    def get_resource(self, resource, region, query_params={}):
+    def get_resource(self, resource: str, region:str, query_params={}) -> Dict[str, Any]:
         """Direction handler for when fetching resources."""
         url = self._format_api_url(resource, region)
         return self._request_handler(url, region, query_params)
 
-    def _format_oauth_url(self, resource, region):
+    def _format_oauth_url(self, resource: str, region: str) -> str:
         """Format the oauth url into a usable url."""
         if region == "cn":
             url = self._oauth_url_cn.format(resource)
@@ -88,7 +89,7 @@ class Api:
 
         return url
 
-    def get_oauth_resource(self, resource, region, query_params={}):
+    def get_oauth_resource(self, resource: str, region: str, query_params={}) -> Dict[str, Any]:
         """Direction handler for when fetching oauth resources."""
         url = self._format_oauth_url(resource, region)
         return self._request_handler(url, region, query_params)

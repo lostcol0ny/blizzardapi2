@@ -1,4 +1,5 @@
 """battlenet_api.py file."""
+from typing import Dict, Any
 from .battlenet_oauth_api import BattlenetOauthApi
 
 
@@ -10,6 +11,6 @@ class BattlenetApi:
         client_secret: A string client secret supplied by Blizzard.
     """
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id: str, client_secret: str) -> Dict[str, Any]:
         """Init BattlenetApi."""
         self.oauth = BattlenetOauthApi(client_id, client_secret)

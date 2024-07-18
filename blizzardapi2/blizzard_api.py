@@ -14,7 +14,7 @@ class BlizzardApi:
         client_secret: A string client secret supplied by Blizzard.
     """
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self, client_id: str, client_secret: str) -> None:
         """Init BlizzardApi."""
         self.battlenet = BattlenetApi(client_id, client_secret)
         self.diablo3 = Diablo3Api(client_id, client_secret)
