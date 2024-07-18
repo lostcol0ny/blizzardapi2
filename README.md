@@ -1,7 +1,7 @@
 # python-blizzardapi
-![Python package](https://github.com/trevorphillips/python-blizzardapi/workflows/Python%20package/badge.svg) [![codecov](https://codecov.io/gh/trevorphillipscoding/python-blizzardapi/branch/main/graph/badge.svg?token=67MW8UHAG1)](https://codecov.io/gh/trevorphillipscoding/python-blizzardapi) ![GitHub](https://img.shields.io/github/license/trevorphillips/python-blizzardapi) ![PyPI](https://img.shields.io/pypi/v/python-blizzardapi) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/python-blizzardapi)
+![GitHub](https://img.shields.io/github/license/lostcol0ny/python-blizzardapi2) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/python-blizzardapi)
 
-python-blizzardapi is a client library for Blizzard's APIs.
+python-blizzardapi2 is a client library for Blizzard's APIs. It's a fork of [the original library](https://github.com/trevorphillipscoding/python-blizzardapi/) and I'm trying to update it and keep its packages managed.
 
 Current supported features include:
 - Battle.net User
@@ -21,17 +21,17 @@ For more information on Blizzard's API visit:
 
 # Requirements
 
-Python (3.6, 3.7, 3.8, 3.9)
+Python (3.9, 3.10, 3.11)
 
-# Installing
+# Installing -- Not pushed up to PyPI yet! Still a work in progress.
 
-`pip install python-blizzardapi`
+`pip install python-blizzardapi2`
     
 # Example
 
 **main.py**
 ```python
-from blizzardapi import BlizzardApi
+from blizzardapi2 import BlizzardApi
 
 api_client = BlizzardApi("client_id", "client_secret")
 
