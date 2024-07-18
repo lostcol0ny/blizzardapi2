@@ -1,18 +1,20 @@
 # blizzardapi2
 ![GitHub](https://img.shields.io/github/license/lostcol0ny/python-blizzardapi2)[![Python package](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/python-package.yml)[![Dependabot Updates](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/dependabot/dependabot-updates/badge.svg?branch=main)](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/dependabot/dependabot-updates)[![CodeQL](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/github-code-scanning/codeql)
 
-blizzardapi2 is a client library for Blizzard's APIs. It's a fork of [the original library](https://github.com/trevorphillipscoding/python-blizzardapi/) and I'm trying to update it and keep its packages managed.
-
-It currently has the exact same functionality as the original version, but with updated dependencies. As I go through Blizzard's API categories, I'll update the library as necessary.
+blizzardapi2 is a client library for Blizzard's APIs. It's a fork of [the original library](https://github.com/trevorphillipscoding/python-blizzardapi/).
 
 Current supported features include:
 - Battle.net User
-- Wow Profile
-- Wow Game Data
-- Wow Classic Game Data
+- WoW Profile
+- WoW Game Data
+- WoW Classic Game Data
 - Diablo 3 Community
 - Diablo 3 Game Data
 - Hearthstone Game Data
+- Starcraft 2 Community
+- Starcraft 2 Game Data
+
+Type hints have been added as well.
 
 To gain access to Blizzard's API please register [here](https://develop.battle.net/access/) to obtain a client id and client secret.
 
