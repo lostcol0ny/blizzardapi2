@@ -2,6 +2,7 @@
 from .battlenet.battlenet_api import BattlenetApi
 from .diablo3.diablo3_api import Diablo3Api
 from .hearthstone.hearthstone_api import HearthstoneApi
+from .starcraft2.starcraft2_api import Starcraft2Api
 from .wow.wow_api import WowApi
 
 
@@ -19,3 +20,4 @@ class BlizzardApi:
         self.diablo3 = Diablo3Api(client_id, client_secret)
         self.hearthstone = HearthstoneApi(client_id, client_secret)
         self.wow = WowApi(client_id, client_secret)
+        self.starcraft2 = Starcraft2Api(client_id, client_secret)
