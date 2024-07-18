@@ -3,6 +3,8 @@
 
 blizzardapi2 is a client library for Blizzard's APIs. It's a fork of [the original library](https://github.com/trevorphillipscoding/python-blizzardapi/) and I'm trying to update it and keep its packages managed.
 
+It currently has the exact same functionality as the original version, but with updated dependencies. As I go through Blizzard's API categories, I'll update the library as necessary.
+
 Current supported features include:
 - Battle.net User
 - Wow Profile
