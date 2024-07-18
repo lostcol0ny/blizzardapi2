@@ -1,4 +1,4 @@
-# python-blizzardapi
+# python-blizzardapi2
 ![GitHub](https://img.shields.io/github/license/lostcol0ny/python-blizzardapi2) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/python-blizzardapi)
 
 python-blizzardapi2 is a client library for Blizzard's APIs. It's a fork of [the original library](https://github.com/trevorphillipscoding/python-blizzardapi/) and I'm trying to update it and keep its packages managed.
