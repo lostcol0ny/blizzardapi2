@@ -2,7 +2,7 @@ from blizzardapi import BlizzardApi
 
 
 class TestWowGameDataApi:
-    def setup(self):
+    def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
         self.api.wow.game_data._access_token = "access_token"
 
