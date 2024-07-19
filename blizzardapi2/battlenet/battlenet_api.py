@@ -1,4 +1,5 @@
 """battlenet_api.py file."""
+
 from typing import Dict, Any
 from .battlenet_oauth_api import BattlenetOauthApi
 

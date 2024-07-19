@@ -1,4 +1,5 @@
 """blizzard_api.py file."""
+
 from .battlenet.battlenet_api import BattlenetApi
 from .diablo3.diablo3_api import Diablo3Api
 from .hearthstone.hearthstone_api import HearthstoneApi

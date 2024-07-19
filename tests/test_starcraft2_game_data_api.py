@@ -14,6 +14,5 @@ class TestStarcraft2GameDataApi:
             "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/sc2/league/37/201/1/6",
-            params=params
+            "https://us.api.blizzard.com/data/sc2/league/37/201/1/6", params=params
         )

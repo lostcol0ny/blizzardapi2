@@ -1,4 +1,5 @@
 """api.py file."""
+
 from typing import Dict, Any
 import requests
 
@@ -53,7 +54,9 @@ class Api:
         """Handle the response."""
         return response.json()
 
-    def _request_handler(self, url: str, region: str, query_params: Dict[str, Any]) -> Dict[str, Any]:
+    def _request_handler(
+        self, url: str, region: str, query_params: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Handle the request."""
         if self._access_token is None:
             json = self._get_client_token(region)
@@ -75,7 +78,9 @@ class Api:
 
         return url
 
-    def get_resource(self, resource: str, region:str, query_params={}) -> Dict[str, Any]:
+    def get_resource(
+        self, resource: str, region: str, query_params={}
+    ) -> Dict[str, Any]:
         """Direction handler for when fetching resources."""
         url = self._format_api_url(resource, region)
         return self._request_handler(url, region, query_params)
@@ -89,7 +94,9 @@ class Api:
 
         return url
 
-    def get_oauth_resource(self, resource: str, region: str, query_params={}) -> Dict[str, Any]:
+    def get_oauth_resource(
+        self, resource: str, region: str, query_params={}
+    ) -> Dict[str, Any]:
         """Direction handler for when fetching oauth resources."""
         url = self._format_oauth_url(resource, region)
         return self._request_handler(url, region, query_params)

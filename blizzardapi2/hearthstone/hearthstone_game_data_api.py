@@ -4,7 +4,6 @@ from ..api import Api
 """hearthstone_game_data_api.py file."""
 
 
-
 class HearthstoneGameDataApi(Api):
     """All Hearthstone Game Data API methods.
 
@@ -19,13 +18,17 @@ class HearthstoneGameDataApi(Api):
 
     # Cards
 
-    def search_cards(self, region: str, locale: str, **query_params: Any) -> Dict[str, Any]:
+    def search_cards(
+        self, region: str, locale: str, **query_params: Any
+    ) -> Dict[str, Any]:
         """Return an up-to-date list of all cards matching the search criteria."""
         resource = "/hearthstone/cards"
         query_params.update({"locale": locale})
         return super().get_resource(resource, region, query_params)
 
-    def get_card(self, region: str, locale: str, id_or_slug: str, game_mode: str = "constructed") -> Dict[str, Any]:
+    def get_card(
+        self, region: str, locale: str, id_or_slug: str, game_mode: str = "constructed"
+    ) -> Dict[str, Any]:
         """Return the card with an ID or slug that matches the one you specify."""
         resource = f"/hearthstone/cards/{id_or_slug}"
         query_params = {"locale": locale, "game_mode": game_mode}
@@ -33,13 +36,17 @@ class HearthstoneGameDataApi(Api):
 
     # Card Backs
 
-    def search_card_backs(self, region: str, locale: str, **query_params: Any) -> Dict[str, Any]:
+    def search_card_backs(
+        self, region: str, locale: str, **query_params: Any
+    ) -> Dict[str, Any]:
         """Return an up-to-date list of all card backs matching the search criteria."""
         resource = "/hearthstone/cardbacks"
         query_params.update({"locale": locale})
         return super().get_resource(resource, region, query_params)
 
-    def get_card_back(self, region: str, locale: str, id_or_slug: str) -> Dict[str, Any]:
+    def get_card_back(
+        self, region: str, locale: str, id_or_slug: str
+    ) -> Dict[str, Any]:
         """Return a specific card back by using card back ID or slug."""
         resource = f"/hearthstone/cardbacks/{id_or_slug}"
         query_params = {"locale": locale}
@@ -61,7 +68,9 @@ class HearthstoneGameDataApi(Api):
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_metadata_type(self, region: str, locale: str, type_id: str) -> Dict[str, Any]:
+    def get_metadata_type(
+        self, region: str, locale: str, type_id: str
+    ) -> Dict[str, Any]:
         """Return information about just one type of metadata."""
         resource = f"/hearthstone/metadata/{type_id}"
         query_params = {"locale": locale}

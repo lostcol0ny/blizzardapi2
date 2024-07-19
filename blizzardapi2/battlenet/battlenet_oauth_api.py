@@ -1,4 +1,5 @@
 """battlenet_oauth_api.py file."""
+
 from ..api import Api
 
 

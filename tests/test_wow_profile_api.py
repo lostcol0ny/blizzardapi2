@@ -49,7 +49,6 @@ class TestWowProfileApi(object):
             params=params,
         )
 
-
     # Character Achievements APIa
 
     def test_get_character_achievements_summary(self, success_response_mock):
@@ -167,7 +166,7 @@ class TestWowProfileApi(object):
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/heirlooms",
             params=params,
         )
-    
+
     # Character Encounters API
 
     def test_get_character_encounters_summary(self, success_response_mock):
@@ -410,9 +409,7 @@ class TestWowProfileApi(object):
 
     # Character Soulbinds API
     def test_get_character_soulbinds(self, success_response_mock):
-        self.api.wow.profile.get_character_soulbinds(
-            "us", "en_US", "khadgar", "asmon"
-        )
+        self.api.wow.profile.get_character_soulbinds("us", "en_US", "khadgar", "asmon")
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
