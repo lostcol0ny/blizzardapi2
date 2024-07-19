@@ -3,6 +3,7 @@
 If Blizzard adds a new API endpoint and you get to it before I do, feel free to open a PR. There are a few things I ask if you contribute:
 <ul>Follow the conventions already in the code -- keep everything uniform.</ul>
 <ul>If you write an API endpoint function, write its accompanying test in the proper file.</ul>
+<ul>black is the preferred formatting system for this project</ul>
 
 ## Bugs
 I'm a hobbyist with Python so there's a decent chance I'll make a mistake. I run PyTest against every function I write, but that won't catch everything.
