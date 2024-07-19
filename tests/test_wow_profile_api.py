@@ -49,33 +49,6 @@ class TestWowProfileApi(object):
             params=params,
         )
 
-    def test_get_account_mounts_collection_summary(self, success_response_mock):
-        self.api.wow.profile.get_account_mounts_collection_summary(
-            "us", "en_US", "new_access_token"
-        )
-        params = {
-            "namespace": "profile-us",
-            "locale": "en_US",
-            "access_token": "new_access_token",
-        }
-        success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/profile/user/wow/collections/mounts",
-            params=params,
-        )
-
-    def test_get_account_pets_collection_summary(self, success_response_mock):
-        self.api.wow.profile.get_account_pets_collection_summary(
-            "us", "en_US", "new_access_token"
-        )
-        params = {
-            "namespace": "profile-us",
-            "locale": "en_US",
-            "access_token": "new_access_token",
-        }
-        success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/profile/user/wow/collections/pets",
-            params=params,
-        )
 
     # Character Achievements APIa
 
@@ -139,8 +112,8 @@ class TestWowProfileApi(object):
             params=params,
         )
 
-    def test_get_character_mounts_collection_index(self, success_response_mock):
-        self.api.wow.profile.get_character_mounts_collection_index(
+    def test_get_character_mounts_collection_summary(self, success_response_mock):
+        self.api.wow.profile.get_character_mounts_collection_summary(
             "us", "en_US", "khadgar", "asmon"
         )
         params = {
@@ -153,8 +126,8 @@ class TestWowProfileApi(object):
             params=params,
         )
 
-    def test_get_character_pets_collection_index(self, success_response_mock):
-        self.api.wow.profile.get_character_pets_collection_index(
+    def test_get_character_pets_collection_summary(self, success_response_mock):
+        self.api.wow.profile.get_character_pets_collection_summary(
             "us", "en_US", "khadgar", "asmon"
         )
         params = {
@@ -167,6 +140,34 @@ class TestWowProfileApi(object):
             params=params,
         )
 
+    def test_get_character_toys_collection_summary(self, success_response_mock):
+        self.api.wow.profile.get_character_toys_collection_summary(
+            "us", "en_US", "khadgar", "asmon"
+        )
+        params = {
+            "namespace": "profile-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/toys",
+            params=params,
+        )
+
+    def test_get_character_heirlooms_collection_summary(self, success_response_mock):
+        self.api.wow.profile.get_character_heirlooms_collection_summary(
+            "us", "en_US", "khadgar", "asmon"
+        )
+        params = {
+            "namespace": "profile-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/heirlooms",
+            params=params,
+        )
+    
     # Character Encounters API
 
     def test_get_character_encounters_summary(self, success_response_mock):
@@ -404,6 +405,21 @@ class TestWowProfileApi(object):
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/reputations",
+            params=params,
+        )
+
+    # Character Soulbinds API
+    def test_get_character_soulbinds(self, success_response_mock):
+        self.api.wow.profile.get_character_soulbinds(
+            "us", "en_US", "khadgar", "asmon"
+        )
+        params = {
+            "namespace": "profile-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/soulbinds",
             params=params,
         )
 

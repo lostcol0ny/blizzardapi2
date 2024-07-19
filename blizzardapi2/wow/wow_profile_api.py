@@ -68,6 +68,26 @@ class WowProfileApi(Api):
             "access_token": access_token,
         }
         return super().get_resource(resource, region, query_params)
+    
+    def get_account_toys_collection_summary(self, region: str, locale: str, access_token: str) -> Dict[str, Any]:
+        """Return a summary of the toys an account has obtained."""
+        resource = "/profile/user/wow/collections/toys"
+        query_params = {
+            "namespace": f"profile-{region}",
+            "locale": locale,
+            "access_token": access_token,
+        }
+        return super().get_resource(resource, region, query_params)
+    
+    def get_account_heirlooms_collection_summary(self, region: str, locale: str, access_token: str) -> Dict[str, Any]:
+        """Return a summary of the heirlooms an account has obtained."""
+        resource = "/profile/user/wow/collections/heirlooms"
+        query_params = {
+            "namespace": f"profile-{region}",
+            "locale": locale,
+            "access_token": access_token,
+        }
+        return super().get_resource(resource, region, query_params)
 
     # Character Achievements API
 
@@ -107,7 +127,7 @@ class WowProfileApi(Api):
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_character_mounts_collection_index(
+    def get_character_mounts_collection_summary(
         self, region: str, locale: str, realm_slug: str, character_name: str
     ) -> Dict[str, Any]:
         """Return a summary of the mounts a character has obtained."""
@@ -117,7 +137,7 @@ class WowProfileApi(Api):
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_character_pets_collection_index(
+    def get_character_pets_collection_summary(
         self, region: str, locale: str, realm_slug: str, character_name: str
     ) -> Dict[str, Any]:
         """Return a summary of the battle pets a character has obtained."""
@@ -126,6 +146,27 @@ class WowProfileApi(Api):
         )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
+    
+    def get_character_toys_collection_summary(
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
+        """Return a summary of the toys a character has obtained."""
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/collections/toys"
+        )
+        query_params = {"namespace": f"profile-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_character_heirlooms_collection_summary(
+        self, region: str, locale: str, realm_slug: str, character_name: str
+    ) -> Dict[str, Any]:
+        """Return a summary of the toys a character has obtained."""
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/collections/heirlooms"
+        )
+        query_params = {"namespace": f"profile-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
 
     # Character Encounters API
 
@@ -273,6 +314,14 @@ class WowProfileApi(Api):
     ) -> Dict[str, Any]:
         """Return a summary of a character's reputations."""
         resource = f"/profile/wow/character/{realm_slug}/{character_name}/reputations"
+        query_params = {"namespace": f"profile-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    # Character Soulbinds API
+    
+    def get_character_soulbinds(self, region: str, locale: str, realm_slug: str, character_name: str) -> Dict[str, Any]:
+        """Return a summary of a character's soulbinds."""
+        resource = f"/profile/wow/character/{realm_slug}/{character_name}/soulbinds"
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 

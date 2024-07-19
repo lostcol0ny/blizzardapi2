@@ -104,6 +104,18 @@ class TestWowGameDataApi:
             "https://us.api.blizzard.com/data/wow/connected-realm/1146/auctions",
             params=params,
         )
+        
+    def test_get_commodities(self, success_response_mock):
+        self.api.wow.game_data.get_commodities("us", "en_US")
+        params = {
+            "namespace": "dynamic-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/auctions/commodities",
+            params=params,
+        )
 
     # Azerite Essence API
 
@@ -140,6 +152,92 @@ class TestWowGameDataApi:
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/azerite-essence/2",
+            params=params,
+        )
+        
+    # Covenant API
+
+    def test_get_covenant_index(self, success_response_mock):
+        self.api.wow.game_data.get_covenant_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/covenant/index",
+            params=params,
+        )
+
+    def test_get_covenant(self, success_response_mock):
+        self.api.wow.game_data.get_covenant("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/covenant/1",
+            params=params,
+        )
+
+    def test_get_covenant_media(self, success_response_mock):
+        self.api.wow.game_data.get_covenant_media("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/media/covenant/1",
+            params=params,
+        )
+
+    def test_get_soulbind_index(self, success_response_mock):
+        self.api.wow.game_data.get_soulbind_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/covenant/soulbind/index",
+            params=params,
+        )
+
+    def test_get_soulbind(self, success_response_mock):
+        self.api.wow.game_data.get_soulbind("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/covenant/soulbind/1",
+            params=params,
+        )
+        
+    def test_get_conduit_index(self, success_response_mock):
+        self.api.wow.game_data.get_conduit_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/covenant/conduit/index",
+            params=params,
+        )
+        
+    def test_get_conduit(self, success_response_mock):
+        self.api.wow.game_data.get_conduit("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/covenant/conduit/1",
             params=params,
         )
 
@@ -289,6 +387,31 @@ class TestWowGameDataApi:
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/guild-crest/emblem/0",
+            params=params,
+        )
+
+    # Heirloom API
+    def test_get_heirloom_index(self, success_response_mock):
+        self.api.wow.game_data.get_heirloom_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/heirloom/index",
+            params=params,
+        )
+
+    def test_get_heirloom(self, success_response_mock):
+        self.api.wow.game_data.get_heirloom("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/heirloom/1",
             params=params,
         )
 
@@ -1363,6 +1486,94 @@ class TestWowGameDataApi:
             "https://us.api.blizzard.com/data/wow/pvp-talent/3", params=params
         )
 
+    # Tech Talent API
+    
+    def test_get_tech_talent_tree_index(self, success_response_mock):
+        self.api.wow.game_data.get_tech_talent_tree_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/tech-talent-tree/index",
+            params=params,
+        )
+        
+    def test_get_tech_talent_tree(self, success_response_mock):
+        self.api.wow.game_data.get_tech_talent_tree("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/tech-talent-tree/1",
+            params=params,
+        )
+        
+    def test_get_tech_talent_index(self, success_response_mock):
+        self.api.wow.game_data.get_tech_talent_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/tech-talent/index",
+            params=params,
+        )
+        
+    def test_get_tech_talent(self, success_response_mock):
+        self.api.wow.game_data.get_tech_talent("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/tech-talent/1",
+            params=params,
+        )
+        
+    def test_get_tech_talent_media(self, success_response_mock):
+        self.api.wow.game_data.get_tech_talent_media("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/media/tech-talent/1",
+            params=params,
+        )
+    
+    # Toy API
+    
+    def test_get_toy_index(self, success_response_mock):
+        self.api.wow.game_data.get_toy_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/toy/index",
+            params=params
+        )   
+        
+    def test_get_toy(self, success_response_mock):
+        self.api.wow.game_data.get_toy("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/toy/1", 
+        params=params
+        ) 
+    
     # Title API
 
     def test_get_titles_index(self, success_response_mock):
