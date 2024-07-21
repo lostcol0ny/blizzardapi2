@@ -1,3 +1,6 @@
+import sys
+import os
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -16,8 +19,13 @@ release = '0.1.3'
 
 extensions = []
 
+sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('.'))
+
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = [
+    'sphinx.ext.autodoc',
+]
 
 
 
