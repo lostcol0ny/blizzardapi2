@@ -3,6 +3,8 @@
 from typing import Dict, Any
 import requests
 
+import time
+
 
 class Api:
     """Base API class.
@@ -23,6 +25,7 @@ class Api:
         self._client_id = client_id
         self._client_secret = client_secret
         self._access_token = None
+        self._token_expiration = 0
 
         self._api_url = "https://{0}.api.blizzard.com{1}"
         self._api_url_cn = "https://gateway.battlenet.com.cn{0}"
@@ -31,6 +34,10 @@ class Api:
         self._oauth_url_cn = "https://www.battlenet.com.cn{0}"
 
         self._session = requests.Session()
+
+    def _is_token_expired(self) -> bool:
+        """Check if the token has expired."""
+        return time() >= self._access_token["expires_at"]
 
     def _get_client_token(self, region: str) -> Dict[str, Any]:
         """Fetch an access token based on client id and client secret credentials.
@@ -48,7 +55,14 @@ class Api:
             auth=(self._client_id, self._client_secret),
         )
 
-        return self._response_handler(response)
+        json_response = self.response_handler(response)
+        self._access_token = json_response["access_token"]
+        self._token_expiration = time() + json_response["expires_in"] - 300
+
+    def _ensure_valid_token (self, region: str) -> None:
+        """Ensure that the token is valid."""
+        if self._access_token is None or self._is_token_expired():
+            self._get_client_token(region)
 
     def _response_handler(self, response: requests.Response) -> Dict[str, Any]:
         """Handle the response."""
@@ -58,15 +72,18 @@ class Api:
         self, url: str, region: str, query_params: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Handle the request."""
-        if self._access_token is None:
-            json = self._get_client_token(region)
-            self._access_token = json["access_token"]
-
+        self._ensure_valid_token(region)
+        
         if query_params.get("access_token") is None:
             query_params["access_token"] = self._access_token
-
+            
         response = self._session.get(url, params=query_params)
-
+        
+        if response.status_code == 401:
+            self._get_client_token(region)
+            query_params["access_token"] = self._access_token
+            response = self._session.get(url, params=query_params)
+            
         return self._response_handler(response)
 
     def _format_api_url(self, resource: str, region: str) -> str:
