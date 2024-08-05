@@ -55,7 +55,7 @@ class Api:
             auth=(self._client_id, self._client_secret),
         )
 
-        json_response = self.response_handler(response)
+        json_response = self._response_handler(response)
         self._access_token = json_response["access_token"]
         self._token_expiration = time() + json_response["expires_in"] - 300
 
