@@ -36,8 +36,8 @@ class Api:
         self._session = requests.Session()
 
     def _is_token_expired(self) -> bool:
-        """Check if the token has expired."""
-        return time() >= self._token_expiration
+        """Check if the token is within 5 minutes of expiring."""
+        return self._token_expiration <= 300
 
     def _get_client_token(self, region: str) -> Dict[str, Any]:
         """Fetch an access token based on client id and client secret credentials.
@@ -57,7 +57,7 @@ class Api:
 
         json_response = self._response_handler(response)
         self._access_token = json_response["access_token"]
-        self._token_expiration = time() + json_response["expires_in"] - 300
+        self._token_expiration = json_response["expires_in"]
 
         return json_response
 
