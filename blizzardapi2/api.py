@@ -3,7 +3,7 @@
 from typing import Dict, Any
 import requests
 
-import time
+from time import time
 
 
 class Api:
@@ -37,7 +37,7 @@ class Api:
 
     def _is_token_expired(self) -> bool:
         """Check if the token has expired."""
-        return time() >= self._access_token["expires_at"]
+        return time() >= self._token_expiration
 
     def _get_client_token(self, region: str) -> Dict[str, Any]:
         """Fetch an access token based on client id and client secret credentials.
@@ -58,6 +58,8 @@ class Api:
         json_response = self._response_handler(response)
         self._access_token = json_response["access_token"]
         self._token_expiration = time() + json_response["expires_in"] - 300
+        
+        return json_response
 
     def _ensure_valid_token (self, region: str) -> None:
         """Ensure that the token is valid."""
@@ -66,6 +68,7 @@ class Api:
 
     def _response_handler(self, response: requests.Response) -> Dict[str, Any]:
         """Handle the response."""
+        response.raise_for_status()
         return response.json()
 
     def _request_handler(
