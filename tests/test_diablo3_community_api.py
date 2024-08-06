@@ -1,9 +1,11 @@
 from blizzardapi2 import BlizzardApi
+from time import time
 
 
 class TestDiablo3CommunityApi:
     def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
+        self.api.diablo3.community._token_expiration = time() + 3600
         self.api.diablo3.community._access_token = "access_token"
 
     # D3 Act API

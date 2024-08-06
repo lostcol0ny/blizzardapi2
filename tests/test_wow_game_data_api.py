@@ -1,12 +1,37 @@
 from blizzardapi2 import BlizzardApi
+from time import time
 
 
 class TestWowGameDataApi:
     def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
+        self.api.wow.game_data._token_expiration = time() + 3600
         self.api.wow.game_data._access_token = "access_token"
 
     # Achievement API
+
+    def test_get_achievements_index(self, success_response_mock):
+        self.api.wow.game_data.get_achievements_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/achievement/index",
+            params=params,
+        )
+
+    def test_get_achievement(self, success_response_mock):
+        self.api.wow.game_data.get_achievement("us", "en_US", 6)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/achievement/6", params=params
+        )
 
     def test_get_achievement_categories_index(self, success_response_mock):
         self.api.wow.game_data.get_achievement_categories_index("us", "en_US")
@@ -30,29 +55,6 @@ class TestWowGameDataApi:
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/achievement-category/81",
             params=params,
-        )
-
-    def test_get_achievements_index(self, success_response_mock):
-        self.api.wow.game_data.get_achievements_index("us", "en_US")
-        params = {
-            "namespace": "static-us",
-            "locale": "en_US",
-            "access_token": "access_token",
-        }
-        success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/achievement/index",
-            params=params,
-        )
-
-    def test_get_achievement(self, success_response_mock):
-        self.api.wow.game_data.get_achievement("us", "en_US", 6)
-        params = {
-            "namespace": "static-us",
-            "locale": "en_US",
-            "access_token": "access_token",
-        }
-        success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/achievement/6", params=params
         )
 
     def test_get_achievement_media(self, success_response_mock):

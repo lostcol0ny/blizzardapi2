@@ -1,9 +1,11 @@
 from blizzardapi2 import BlizzardApi
+from time import time
 
 
 class TestBattlenetOauthApi:
     def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
+        self.api.battlenet.oauth._token_expiration = time() + 3600
         self.api.battlenet.oauth._access_token = "access_token"
 
     # User Authentication

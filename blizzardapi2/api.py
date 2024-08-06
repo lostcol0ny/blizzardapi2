@@ -58,10 +58,10 @@ class Api:
         json_response = self._response_handler(response)
         self._access_token = json_response["access_token"]
         self._token_expiration = time() + json_response["expires_in"] - 300
-        
+
         return json_response
 
-    def _ensure_valid_token (self, region: str) -> None:
+    def _ensure_valid_token(self, region: str) -> None:
         """Ensure that the token is valid."""
         if self._access_token is None or self._is_token_expired():
             self._get_client_token(region)
@@ -76,17 +76,17 @@ class Api:
     ) -> Dict[str, Any]:
         """Handle the request."""
         self._ensure_valid_token(region)
-        
+
         if query_params.get("access_token") is None:
             query_params["access_token"] = self._access_token
-            
+
         response = self._session.get(url, params=query_params)
-        
+
         if response.status_code == 401:
             self._get_client_token(region)
             query_params["access_token"] = self._access_token
             response = self._session.get(url, params=query_params)
-            
+
         return self._response_handler(response)
 
     def _format_api_url(self, resource: str, region: str) -> str:

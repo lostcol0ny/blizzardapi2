@@ -1,9 +1,11 @@
 from blizzardapi2 import BlizzardApi
+from time import time
 
 
 class TestStarcraft2GameDataApi:
     def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
+        self.api.starcraft2.game_data._token_expiration = time() + 3600
         self.api.starcraft2.game_data._access_token = "access_token"
 
     # Starcraft 2 League API

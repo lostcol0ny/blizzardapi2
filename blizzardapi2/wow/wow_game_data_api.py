@@ -18,6 +18,20 @@ class WowGameDataApi(Api):
 
     # Achievement API
 
+    def get_achievements_index(self, region: str, locale: str) -> Dict[str, Any]:
+        """Return an index of achievements."""
+        resource = "/data/wow/achievement/index"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_achievement(
+        self, region: str, locale: str, achievement_id: int
+    ) -> Dict[str, Any]:
+        """Return an achievement by ID."""
+        resource = f"/data/wow/achievement/{achievement_id}"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
     def get_achievement_categories_index(
         self, region: str, locale: str
     ) -> Dict[str, Any]:
@@ -31,20 +45,6 @@ class WowGameDataApi(Api):
     ) -> Dict[str, Any]:
         """Return an achievement category by ID."""
         resource = f"/data/wow/achievement-category/{achievement_category_id}"
-        query_params = {"namespace": f"static-{region}", "locale": locale}
-        return super().get_resource(resource, region, query_params)
-
-    def get_achievements_index(self, region: str, locale: str) -> Dict[str, Any]:
-        """Return an index of achievements."""
-        resource = "/data/wow/achievement/index"
-        query_params = {"namespace": f"static-{region}", "locale": locale}
-        return super().get_resource(resource, region, query_params)
-
-    def get_achievement(
-        self, region: str, locale: str, achievement_id: int
-    ) -> Dict[str, Any]:
-        """Return an achievement by ID."""
-        resource = f"/data/wow/achievement/{achievement_id}"
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
