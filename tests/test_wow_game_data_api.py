@@ -1,11 +1,9 @@
 from blizzardapi2 import BlizzardApi
-from time import time
 
 
 class TestWowGameDataApi:
     def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
-        self.api.wow.game_data._token_expiration = time() + 3600
         self.api.wow.game_data._access_token = "access_token"
 
     # Achievement API
@@ -497,6 +495,68 @@ class TestWowGameDataApi:
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/item/9999",
+            params=params,
+        )
+
+    # Item Appearance API
+
+    def test_get_item_appearance(self, success_response_mock):
+        self.api.wow.game_data.get_item_appearance("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/item-appearance/1",
+            params=params,
+        )
+
+    def test_get_item_appearance_sets_index(self, success_response_mock):
+        self.api.wow.game_data.get_item_appearance_sets_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/item-appearance/set/index",
+            params=params,
+        )
+
+    def test_get_item_appearance_set(self, success_response_mock):
+        self.api.wow.game_data.get_item_appearance_set("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/item-appearance/set/1",
+            params=params,
+        )
+
+    def test_get_item_appearance_slot_index(self, success_response_mock):
+        self.api.wow.game_data.get_item_appearance_slot_index("us", "en_US")
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/item-appearance/slot/index",
+            params=params,
+        )
+
+    def test_get_item_appearance_slot(self, success_response_mock):
+        self.api.wow.game_data.get_item_appearance_slot("us", "en_US", 1)
+        params = {
+            "namespace": "static-us",
+            "locale": "en_US",
+            "access_token": "access_token",
+        }
+        success_response_mock.assert_called_with(
+            "https://us.api.blizzard.com/data/wow/item-appearance/slot/1",
             params=params,
         )
 

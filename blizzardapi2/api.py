@@ -3,7 +3,7 @@
 from typing import Dict, Any
 import requests
 
-from time import time
+from datetime import datetime, timezone, timedelta
 
 
 class Api:
@@ -22,10 +22,10 @@ class Api:
 
     def __init__(self, client_id: str, client_secret: str) -> None:
         """Init Api."""
-        self._client_id = client_id
-        self._client_secret = client_secret
-        self._access_token = None
-        self._token_expiration = 0
+        self._client_id: str = client_id
+        self._client_secret: str = client_secret
+        self._access_token: str = None
+        self._access_token_expiration_datetime: str = "2024-08-06T12:38:15.125Z"
 
         self._api_url = "https://{0}.api.blizzard.com{1}"
         self._api_url_cn = "https://gateway.battlenet.com.cn{0}"
@@ -36,8 +36,21 @@ class Api:
         self._session = requests.Session()
 
     def _is_token_expired(self) -> bool:
-        """Check if the token is within 5 minutes of expiring."""
-        return self._token_expiration <= 300
+        """Check if the token is expiring within next 5 minutes."""
+        current_time = (
+            datetime.now(timezone.utc)
+            .isoformat(timespec="milliseconds")
+            .replace("+00:00", "Z")
+        )
+        datetime_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+        blizz_expire_obj = datetime.strptime(
+            self._access_token_expiration_datetime, datetime_format
+        )
+        current_datetime_obj = datetime.strptime(current_time, datetime_format)
+
+        time_difference = abs(blizz_expire_obj - current_datetime_obj)
+
+        return time_difference <= timedelta(minutes=5)
 
     def _get_client_token(self, region: str) -> Dict[str, Any]:
         """Fetch an access token based on client id and client secret credentials.
@@ -57,7 +70,6 @@ class Api:
 
         json_response = self._response_handler(response)
         self._access_token = json_response["access_token"]
-        self._token_expiration = json_response["expires_in"]
 
         return json_response
 
@@ -82,7 +94,11 @@ class Api:
 
         response = self._session.get(url, params=query_params)
 
-        if response.status_code == 401:
+        self._access_token_expiration_datetime = response.headers.get(
+            "blizzard-token-expires"
+        )
+
+        if response.status_code == 401 or self._is_token_expired():
             self._get_client_token(region)
             query_params["access_token"] = self._access_token
             response = self._session.get(url, params=query_params)

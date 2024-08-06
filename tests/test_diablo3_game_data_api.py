@@ -1,11 +1,9 @@
 from blizzardapi2 import BlizzardApi
-from time import time
 
 
 class TestDiablo3GameDataApi:
     def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
-        self.api.diablo3.game_data._token_expiration = time() + 3600
         self.api.diablo3.game_data._access_token = "access_token"
 
     # D3

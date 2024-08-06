@@ -387,6 +387,53 @@ class WowGameDataApi(Api):
         query_params = {"namespace": namespace, "locale": locale}
         return super().get_resource(resource, region, query_params)
 
+    # Item Appearance API
+
+    def get_item_appearance(
+        self, region: str, locale: str, appearance_id: int, is_classic: bool = False
+    ) -> Dict[str, Any]:
+        """Returns an item appearance by ID."""
+        resource = f"/data/wow/item-appearance/{appearance_id}"
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {"namespace": namespace, "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_item_appearance_sets_index(
+        self, region: str, locale: str, is_classic: bool = False
+    ) -> Dict[str, Any]:
+        """Returns an index of item appearance sets."""
+        resource = f"/data/wow/item-appearance/set/index"
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {"namespace": namespace, "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_item_appearance_set(
+        self, region: str, locale: str, appearance_set_id: int, is_classic: bool = False
+    ) -> Dict[str, Any]:
+        """Returns an item appearance set by ID."""
+        resource = f"/data/wow/item-appearance/set/{appearance_set_id}"
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {"namespace": namespace, "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_item_appearance_slot_index(
+        self, region: str, locale: str, is_classic: bool = False
+    ) -> Dict[str, Any]:
+        """Returns an index of item appearance slots."""
+        resource = f"/data/wow/item-appearance/slot/index"
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {"namespace": namespace, "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_item_appearance_slot(
+        self, region: str, locale: str, slot_type: str, is_classic: bool = False
+    ) -> Dict[str, Any]:
+        """Returns an item appearance slot slot type."""
+        resource = f"/data/wow/item-appearance/slot/{slot_type}"
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {"namespace": namespace, "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
     # Journal API
 
     def get_journal_expansions_index(self, region: str, locale: str) -> Dict[str, Any]:
