@@ -4,18 +4,18 @@ from blizzardapi2 import BlizzardApi
 class TestWowProfileApi:
     def setup_method(self):
         self.api = BlizzardApi("client_id", "client_secret")
-        self.api.wow.profile._access_token = "mocked_access_token"
+        self.api.wow.profile._access_token = "access_token"
 
     # Account Profile API
 
     def test_get_account_profile_summary(self, success_response_mock):
         self.api.wow.profile.get_account_profile_summary(
-            "us", "en_US", "mocked_access_token"
+            "us", "en_US", "access_token"
         )
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/user/wow",
@@ -24,12 +24,12 @@ class TestWowProfileApi:
 
     def test_get_protected_character_profile_summary(self, success_response_mock):
         self.api.wow.profile.get_protected_character_profile_summary(
-            "us", "en_US", "mocked_access_token", 1, 9000
+            "us", "en_US", "access_token", 1, 9000
         )
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/user/wow/protected-character/1-9000",
@@ -38,12 +38,12 @@ class TestWowProfileApi:
 
     def test_get_account_collections_index(self, success_response_mock):
         self.api.wow.profile.get_account_collections_index(
-            "us", "en_US", "mocked_access_token"
+            "us", "en_US", "access_token"
         )
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/user/wow/collections",
@@ -52,12 +52,12 @@ class TestWowProfileApi:
 
     def test_get_account_collections_index(self, success_response_mock):
         self.api.wow.profile.get_account_collections_index(
-            "us", "en_US", "mocked_access_token"
+            "us", "en_US", "access_token"
         )
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/user/wow/collections",
@@ -66,12 +66,12 @@ class TestWowProfileApi:
 
     def test_get_account_transmog_collection_summary(self, success_response_mock):
         self.api.wow.profile.get_account_transmog_collection_summary(
-            "us", "en_US", "mocked_access_token"
+            "us", "en_US", "access_token"
         )
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/user/wow/collections/transmogs",
@@ -87,7 +87,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/achievements",
@@ -101,7 +101,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/moon/asmon/achievements/statistics",
@@ -117,7 +117,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/appearance",
@@ -133,7 +133,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections",
@@ -147,7 +147,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/mounts",
@@ -161,7 +161,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/pets",
@@ -175,7 +175,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/toys",
@@ -189,7 +189,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/heirlooms",
@@ -203,7 +203,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/collections/transmogs",
@@ -219,7 +219,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/encounters",
@@ -231,7 +231,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/encounters/dungeons",
@@ -243,7 +243,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/encounters/raids",
@@ -259,7 +259,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/equipment",
@@ -275,7 +275,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/hunter-pets",
@@ -291,7 +291,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/character-media",
@@ -307,7 +307,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/blackmoore/ayanda/mythic-keystone-profile",
@@ -323,7 +323,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/blackmoore/ayanda/mythic-keystone-profile/season/1",
@@ -339,7 +339,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/professions",
@@ -355,7 +355,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon",
@@ -369,7 +369,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/status",
@@ -385,7 +385,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/pvp-bracket/3v3",
@@ -399,7 +399,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/pvp-summary",
@@ -413,7 +413,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/quests",
@@ -427,7 +427,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/quests/completed",
@@ -443,7 +443,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/reputations",
@@ -456,7 +456,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/soulbinds",
@@ -472,7 +472,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/specializations",
@@ -488,7 +488,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/statistics",
@@ -504,7 +504,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/profile/wow/character/khadgar/asmon/titles",
@@ -518,7 +518,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/guild/khadgar/bestguild",
@@ -530,7 +530,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/guild/khadgar/bestguild/activity",
@@ -544,7 +544,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/guild/khadgar/bestguild/achievements",
@@ -556,7 +556,7 @@ class TestWowProfileApi:
         params = {
             "namespace": "profile-us",
             "locale": "en_US",
-            "access_token": "mocked_access_token",
+            "access_token": "access_token",
         }
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/guild/khadgar/bestguild/roster",
