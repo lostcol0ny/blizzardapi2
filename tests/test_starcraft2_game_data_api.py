@@ -10,9 +10,10 @@ class TestStarcraft2GameDataApi:
 
     def test_get_league_data(self, success_response_mock):
         self.api.starcraft2.game_data.get_league_data("us", 37, 201, 1, 6)
-        params = {
-            "access_token": "access_token",
+        params = {}
+        headers = {
+            "Authorization": "Bearer access_token",
         }
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/sc2/league/37/201/1/6", params=params
+            "https://us.api.blizzard.com/data/sc2/league/37/201/1/6", params=params, headers=headers
         )

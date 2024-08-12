@@ -84,15 +84,24 @@ class Api:
         return response.json()
 
     def _request_handler(
-        self, url: str, region: str, query_params: Dict[str, Any]
+        self, url: str, region: str, query_params: Dict[str, Any] = None
     ) -> Dict[str, Any]:
         """Handle the request."""
         self._ensure_valid_token(region)
 
-        if query_params.get("access_token") is None:
-            query_params["access_token"] = self._access_token
+        headers = {"Authorization": f"Bearer {self._access_token}"}
 
-        response = self._session.get(url, params=query_params)
+        # Initialize query_params if it's None
+        if query_params is None:
+            query_params = {}
+        else:
+            # Create a copy of query_params to avoid modifying the original
+            query_params = query_params.copy()
+
+        # Remove access_token from query_params if it exists
+        query_params.pop("access_token", None)
+
+        response = self._session.get(url, params=query_params, headers=headers)
 
         self._access_token_expiration_datetime = response.headers.get(
             "blizzard-token-expires"
@@ -100,8 +109,8 @@ class Api:
 
         if response.status_code == 401 or self._is_token_expired():
             self._get_client_token(region)
-            query_params["access_token"] = self._access_token
-            response = self._session.get(url, params=query_params)
+            headers["Authorization"] = f"Bearer {self._access_token}"
+            response = self._session.get(url, params=query_params, headers=headers)
 
         return self._response_handler(response)
 

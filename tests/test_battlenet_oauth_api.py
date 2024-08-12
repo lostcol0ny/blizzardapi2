@@ -10,9 +10,8 @@ class TestBattlenetOauthApi:
 
     def test_get_user_info(self, success_response_mock):
         self.api.battlenet.oauth.get_user_info("us", "new_access_token")
-        params = {
-            "access_token": "new_access_token",
-        }
+        params = {}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.battle.net/oauth/userinfo", params=params
+            "https://us.battle.net/oauth/userinfo", params=params, headers=headers
         )

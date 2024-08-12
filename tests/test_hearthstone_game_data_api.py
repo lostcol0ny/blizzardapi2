@@ -12,10 +12,10 @@ class TestHearthstoneGameDataApi:
         self.api.hearthstone.game_data.search_cards("us", "en_US")
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/cards", params=params
+            "https://us.api.blizzard.com/hearthstone/cards", params=params, headers=headers
         )
 
     def test_get_card(self, success_response_mock):
@@ -24,12 +24,12 @@ class TestHearthstoneGameDataApi:
         )
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
             "game_mode": "constructed",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/hearthstone/cards/52119-arch-villain-rafaam",
-            params=params,
+            params=params, headers=headers,
         )
 
     # Card Backs
@@ -38,21 +38,21 @@ class TestHearthstoneGameDataApi:
         self.api.hearthstone.game_data.search_card_backs("us", "en_US")
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/cardbacks", params=params
+            "https://us.api.blizzard.com/hearthstone/cardbacks", params=params, headers=headers
         )
 
     def test_get_card_back(self, success_response_mock):
         self.api.hearthstone.game_data.get_card_back("us", "en_US", "155-pizza-stone")
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/hearthstone/cardbacks/155-pizza-stone",
-            params=params,
+            params=params, headers=headers,
         )
 
     # Decks
@@ -61,10 +61,10 @@ class TestHearthstoneGameDataApi:
         self.api.hearthstone.game_data.get_deck("us", "en_US")
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/deck", params=params
+            "https://us.api.blizzard.com/hearthstone/deck", params=params, headers=headers
         )
 
     # Metadata
@@ -73,19 +73,19 @@ class TestHearthstoneGameDataApi:
         self.api.hearthstone.game_data.get_metadata("us", "en_US")
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/metadata", params=params
+            "https://us.api.blizzard.com/hearthstone/metadata", params=params, headers=headers
         )
 
     def test_get_metadata_type(self, success_response_mock):
         self.api.hearthstone.game_data.get_metadata_type("us", "en_US", "sets")
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/hearthstone/metadata/sets",
-            params=params,
+            params=params, headers=headers,
         )

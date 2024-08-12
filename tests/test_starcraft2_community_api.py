@@ -12,53 +12,53 @@ class TestStarcraft2CommunityApi:
         self.api.starcraft2.community.get_static("us", "en_US", 1)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/static/profile/1", params=params
+            "https://us.api.blizzard.com/sc2/static/profile/1", params=params, headers=headers
         )
 
     def test_get_metadata(self, success_response_mock):
         self.api.starcraft2.community.get_metadata("us", "en_US", 1, 1, 11073152)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/sc2/metadata/profile/1/1/11073152",
-            params=params,
+            params=params, headers=headers,
         )
 
     def test_get_profile(self, success_response_mock):
         self.api.starcraft2.community.get_profile("us", "en_US", 1, 1, 11073152)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/profile/1/1/11073152", params=params
+            "https://us.api.blizzard.com/sc2/profile/1/1/11073152", params=params, headers=headers
         )
 
     def test_get_ladder_summary(self, success_response_mock):
         self.api.starcraft2.community.get_ladder_summary("us", "en_US", 1, 1, 11073152)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/sc2/profile/1/1/11073152/ladder/summary",
-            params=params,
+            params=params, headers=headers,
         )
 
     def test_get_ladder(self, success_response_mock):
         self.api.starcraft2.community.get_ladder("us", "en_US", 1, 1, 11073152, 5)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/sc2/profile/1/1/11073152/ladder/5",
-            params=params,
+            params=params, headers=headers,
         )
 
     # Ladder API
@@ -67,20 +67,20 @@ class TestStarcraft2CommunityApi:
         self.api.starcraft2.community.get_grandmaster_leaderboard("us", "en_US", 1)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/ladder/grandmaster1", params=params
+            "https://us.api.blizzard.com/sc2/ladder/grandmaster1", params=params, headers=headers
         )
 
     def test_get_season(self, success_response_mock):
         self.api.starcraft2.community.get_season("us", "en_US", 1)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/ladder/season/1", params=params
+            "https://us.api.blizzard.com/sc2/ladder/season/1", params=params, headers=headers
         )
 
     # D3 Follower API
@@ -89,8 +89,9 @@ class TestStarcraft2CommunityApi:
         self.api.starcraft2.community.get_player("us", "en_US", 90210)
         params = {
             "locale": "en_US",
-            "access_token": "access_token",
         }
+        headers = {"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/player/90210", params=params
+            "https://us.api.blizzard.com/sc2/player/90210", params=params, headers=headers
         )

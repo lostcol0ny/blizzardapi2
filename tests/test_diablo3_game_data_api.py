@@ -10,56 +10,50 @@ class TestDiablo3GameDataApi:
 
     def test_get_season_index(self, success_response_mock):
         self.api.diablo3.game_data.get_season_index("us")
-        params = {
-            "access_token": "access_token",
-        }
+        params = {}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/d3/season/", params=params
+            "https://us.api.blizzard.com/data/d3/season/", params=params, headers=headers
         )
 
     def test_get_season(self, success_response_mock):
         self.api.diablo3.game_data.get_season("us", 1)
-        params = {
-            "access_token": "access_token",
-        }
+        params = {}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/d3/season/1", params=params
+            "https://us.api.blizzard.com/data/d3/season/1", params=params, headers=headers
         )
 
     def test_get_season_leaderboard(self, success_response_mock):
         self.api.diablo3.game_data.get_season_leaderboard("us", 1, "achievement-points")
-        params = {
-            "access_token": "access_token",
-        }
+        params = {}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/d3/season/1/leaderboard/achievement-points",
-            params=params,
+            params=params, headers=headers
         )
 
     def test_get_era_index(self, success_response_mock):
         self.api.diablo3.game_data.get_era_index("us")
-        params = {
-            "access_token": "access_token",
-        }
+        params = {}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/d3/era/", params=params
+            "https://us.api.blizzard.com/data/d3/era/", params=params, headers=headers
         )
 
     def test_get_era(self, success_response_mock):
         self.api.diablo3.game_data.get_era("us", 1)
-        params = {
-            "access_token": "access_token",
-        }
+        params = {}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/d3/era/1", params=params
+            "https://us.api.blizzard.com/data/d3/era/1", params=params, headers=headers
         )
 
     def test_get_era_leaderboard(self, success_response_mock):
         self.api.diablo3.game_data.get_era_leaderboard("us", 1, "rift-barbarian")
-        params = {
-            "access_token": "access_token",
-        }
+        params = {}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/d3/era/1/leaderboard/rift-barbarian",
-            params=params,
+            params=params, headers=headers
         )
