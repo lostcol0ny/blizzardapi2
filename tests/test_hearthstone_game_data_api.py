@@ -15,7 +15,9 @@ class TestHearthstoneGameDataApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/cards", params=params, headers=headers
+            "https://us.api.blizzard.com/hearthstone/cards",
+            params=params,
+            headers=headers,
         )
 
     def test_get_card(self, success_response_mock):
@@ -29,7 +31,8 @@ class TestHearthstoneGameDataApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/hearthstone/cards/52119-arch-villain-rafaam",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Card Backs
@@ -41,7 +44,9 @@ class TestHearthstoneGameDataApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/cardbacks", params=params, headers=headers
+            "https://us.api.blizzard.com/hearthstone/cardbacks",
+            params=params,
+            headers=headers,
         )
 
     def test_get_card_back(self, success_response_mock):
@@ -52,7 +57,8 @@ class TestHearthstoneGameDataApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/hearthstone/cardbacks/155-pizza-stone",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Decks
@@ -64,7 +70,9 @@ class TestHearthstoneGameDataApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/deck", params=params, headers=headers
+            "https://us.api.blizzard.com/hearthstone/deck",
+            params=params,
+            headers=headers,
         )
 
     # Metadata
@@ -76,7 +84,9 @@ class TestHearthstoneGameDataApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/hearthstone/metadata", params=params, headers=headers
+            "https://us.api.blizzard.com/hearthstone/metadata",
+            params=params,
+            headers=headers,
         )
 
     def test_get_metadata_type(self, success_response_mock):
@@ -87,5 +97,6 @@ class TestHearthstoneGameDataApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/hearthstone/metadata/sets",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )

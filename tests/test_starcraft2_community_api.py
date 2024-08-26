@@ -15,7 +15,9 @@ class TestStarcraft2CommunityApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/static/profile/1", params=params, headers=headers
+            "https://us.api.blizzard.com/sc2/static/profile/1",
+            params=params,
+            headers=headers,
         )
 
     def test_get_metadata(self, success_response_mock):
@@ -26,7 +28,8 @@ class TestStarcraft2CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/sc2/metadata/profile/1/1/11073152",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_profile(self, success_response_mock):
@@ -36,7 +39,9 @@ class TestStarcraft2CommunityApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/profile/1/1/11073152", params=params, headers=headers
+            "https://us.api.blizzard.com/sc2/profile/1/1/11073152",
+            params=params,
+            headers=headers,
         )
 
     def test_get_ladder_summary(self, success_response_mock):
@@ -47,7 +52,8 @@ class TestStarcraft2CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/sc2/profile/1/1/11073152/ladder/summary",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_ladder(self, success_response_mock):
@@ -58,7 +64,8 @@ class TestStarcraft2CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/sc2/profile/1/1/11073152/ladder/5",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Ladder API
@@ -70,7 +77,9 @@ class TestStarcraft2CommunityApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/ladder/grandmaster1", params=params, headers=headers
+            "https://us.api.blizzard.com/sc2/ladder/grandmaster1",
+            params=params,
+            headers=headers,
         )
 
     def test_get_season(self, success_response_mock):
@@ -80,7 +89,9 @@ class TestStarcraft2CommunityApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/ladder/season/1", params=params, headers=headers
+            "https://us.api.blizzard.com/sc2/ladder/season/1",
+            params=params,
+            headers=headers,
         )
 
     # D3 Follower API
@@ -93,5 +104,7 @@ class TestStarcraft2CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/sc2/player/90210", params=params, headers=headers
+            "https://us.api.blizzard.com/sc2/player/90210",
+            params=params,
+            headers=headers,
         )

@@ -38,7 +38,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/data/artisan/blacksmith",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_recipe(self, success_response_mock):
@@ -51,7 +52,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/data/artisan/blacksmith/recipe/apprentice-flamberge",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # D3 Follower API
@@ -64,7 +66,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/data/follower/templar",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # D3 Character Class and Skill API
@@ -76,7 +79,9 @@ class TestDiablo3CommunityApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/d3/data/hero/barbarian", params=params, headers=headers
+            "https://us.api.blizzard.com/d3/data/hero/barbarian",
+            params=params,
+            headers=headers,
         )
 
     def test_get_api_skill(self, success_response_mock):
@@ -87,7 +92,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/data/hero/barbarian/skill/bash",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # D3 Item Type API
@@ -99,7 +105,9 @@ class TestDiablo3CommunityApi:
         }
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/d3/data/item-type", params=params, headers=headers
+            "https://us.api.blizzard.com/d3/data/item-type",
+            params=params,
+            headers=headers,
         )
 
     def test_get_item_type(self, success_response_mock):
@@ -110,7 +118,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/data/item-type/sword2h",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # D3 Item API
@@ -125,7 +134,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/data/item/corrupted-ashbringer-Unique_Sword_2H_104_x1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # D3 Profile API
@@ -138,7 +148,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/profile/Battletag#1234/",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_api_hero(self, success_response_mock):
@@ -149,7 +160,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/profile/Battletag#1234/hero/1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_api_detailed_hero_items(self, success_response_mock):
@@ -162,7 +174,8 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/profile/Battletag#1234/hero/1/items",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_api_detailed_follower_items(self, success_response_mock):
@@ -175,5 +188,6 @@ class TestDiablo3CommunityApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/d3/profile/Battletag#1234/hero/1/follower-items",
-            params=params, headers=headers
+            params=params,
+            headers=headers,
         )

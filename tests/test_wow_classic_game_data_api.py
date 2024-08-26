@@ -16,10 +16,11 @@ class TestWowClassicGameDataApi:
             "namespace": "dynamic-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/connected-realm/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_connected_realm(self, success_response_mock):
@@ -28,10 +29,11 @@ class TestWowClassicGameDataApi:
             "namespace": "dynamic-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/connected-realm/1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Creature API
@@ -44,10 +46,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/creature-family/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_creature_family(self, success_response_mock):
@@ -56,10 +59,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/creature-family/1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_creature_types_index(self, success_response_mock):
@@ -68,10 +72,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/creature-type/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_creature_type(self, success_response_mock):
@@ -80,10 +85,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/creature-type/1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_creature(self, success_response_mock):
@@ -92,9 +98,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/creature/1", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/creature/1",
+            params=params,
+            headers=headers,
         )
 
     def test_get_creature_display_media(self, success_response_mock):
@@ -105,10 +113,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/creature-display/1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_creature_family_media(self, success_response_mock):
@@ -119,10 +128,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/creature-family/1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Guild Crest API
@@ -135,10 +145,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/guild-crest/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_guild_crest_border_media(self, success_response_mock):
@@ -149,10 +160,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/guild-crest/border/0",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_guild_crest_emblem_media(self, success_response_mock):
@@ -163,10 +175,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/guild-crest/emblem/0",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Item API
@@ -177,10 +190,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/item-class/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_item_class(self, success_response_mock):
@@ -189,9 +203,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/item-class/2", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/item-class/2",
+            params=params,
+            headers=headers,
         )
 
     def test_get_item_sets_index(self, success_response_mock):
@@ -200,10 +216,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/item-set/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_item_set(self, success_response_mock):
@@ -212,9 +229,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/item-set/1", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/item-set/1",
+            params=params,
+            headers=headers,
         )
 
     def test_get_item_subclass(self, success_response_mock):
@@ -223,10 +242,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/item-class/2/item-subclass/1",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_item(self, success_response_mock):
@@ -235,9 +255,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/item/9999", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/item/9999",
+            params=params,
+            headers=headers,
         )
 
     def test_get_item_media(self, success_response_mock):
@@ -246,10 +268,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/item/9999",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Playable Class API
@@ -262,10 +285,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/playable-class/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_playable_class(self, success_response_mock):
@@ -274,10 +298,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/playable-class/7",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_playable_class_media(self, success_response_mock):
@@ -288,10 +313,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/media/playable-class/7",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Playable Race API
@@ -302,10 +328,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/playable-race/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_playable_race(self, success_response_mock):
@@ -314,10 +341,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/playable-race/2",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Power Type API
@@ -328,10 +356,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/power-type/index",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     def test_get_power_type(self, success_response_mock):
@@ -340,9 +369,11 @@ class TestWowClassicGameDataApi:
             "namespace": "static-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/power-type/0", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/power-type/0",
+            params=params,
+            headers=headers,
         )
 
     # Realm API
@@ -353,9 +384,11 @@ class TestWowClassicGameDataApi:
             "namespace": "dynamic-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/realm/index", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/realm/index",
+            params=params,
+            headers=headers,
         )
 
     def test_get_realm(self, success_response_mock):
@@ -364,10 +397,11 @@ class TestWowClassicGameDataApi:
             "namespace": "dynamic-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/wow/realm/tichondrius",
-            params=params, headers=headers,
+            params=params,
+            headers=headers,
         )
 
     # Region API
@@ -378,9 +412,11 @@ class TestWowClassicGameDataApi:
             "namespace": "dynamic-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/region/index", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/region/index",
+            params=params,
+            headers=headers,
         )
 
     def test_get_region(self, success_response_mock):
@@ -389,9 +425,11 @@ class TestWowClassicGameDataApi:
             "namespace": "dynamic-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/region/1", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/region/1",
+            params=params,
+            headers=headers,
         )
 
     # Wow Token API
@@ -402,7 +440,9 @@ class TestWowClassicGameDataApi:
             "namespace": "dynamic-classic-us",
             "locale": "en_US",
         }
-        headers={"Authorization": "Bearer access_token"}
+        headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/wow/token/index", params=params, headers=headers
+            "https://us.api.blizzard.com/data/wow/token/index",
+            params=params,
+            headers=headers,
         )

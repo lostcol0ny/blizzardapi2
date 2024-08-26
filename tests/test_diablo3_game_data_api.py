@@ -13,7 +13,9 @@ class TestDiablo3GameDataApi:
         params = {}
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/d3/season/", params=params, headers=headers
+            "https://us.api.blizzard.com/data/d3/season/",
+            params=params,
+            headers=headers,
         )
 
     def test_get_season(self, success_response_mock):
@@ -21,7 +23,9 @@ class TestDiablo3GameDataApi:
         params = {}
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/data/d3/season/1", params=params, headers=headers
+            "https://us.api.blizzard.com/data/d3/season/1",
+            params=params,
+            headers=headers,
         )
 
     def test_get_season_leaderboard(self, success_response_mock):
@@ -30,7 +34,8 @@ class TestDiablo3GameDataApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/d3/season/1/leaderboard/achievement-points",
-            params=params, headers=headers
+            params=params,
+            headers=headers,
         )
 
     def test_get_era_index(self, success_response_mock):
@@ -55,5 +60,6 @@ class TestDiablo3GameDataApi:
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
             "https://us.api.blizzard.com/data/d3/era/1/leaderboard/rift-barbarian",
-            params=params, headers=headers
+            params=params,
+            headers=headers,
         )
