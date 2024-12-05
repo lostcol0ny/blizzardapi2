@@ -23,7 +23,7 @@ class HearthstoneGameDataApi(Api):
         super().__init__(client_id, client_secret)
 
     def search_cards(
-        self, region: str, locale: str, **query_params: Any
+        self, region: str, locale: str, card_class: str = None, **query_params: Any
     ) -> Dict[str, Any]:
         """
         Return an up-to-date list of all cards matching the search criteria.
@@ -31,6 +31,7 @@ class HearthstoneGameDataApi(Api):
         Args:
             region (str): The region to query (e.g., "us", "eu").
             locale (str): The locale to use for the response.
+            card_class (str, optional): The card class (e.g., "mage", "warrior").
             **query_params (Any): Additional search parameters.
 
         Returns:
@@ -38,6 +39,11 @@ class HearthstoneGameDataApi(Api):
         """
         resource = "/hearthstone/cards"
         query_params.update({"locale": locale})
+        
+        # Map `card_class` to `class` if provided
+        if card_class is not None:
+            query_params["class"] = card_class
+        
         return super().get_resource(resource, region, query_params)
 
     def get_card(
