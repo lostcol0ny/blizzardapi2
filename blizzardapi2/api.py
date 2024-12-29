@@ -30,7 +30,7 @@ class Api:
         self._api_url = "https://{0}.api.blizzard.com{1}"
         self._api_url_cn = "https://gateway.battlenet.com.cn{0}"
 
-        self._oauth_url = "https://{0}.api.blizzard.com{1}"
+        self._oauth_url = "https://oauth.battle.net{1}"
         self._oauth_url_cn = "https://www.gateway.battlenet.com.cn{0}"
 
         self._session = requests.Session()
