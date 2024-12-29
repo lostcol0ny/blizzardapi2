@@ -13,5 +13,5 @@ class TestBattlenetOauthApi:
         params = {}
         headers = {"Authorization": "Bearer access_token"}
         success_response_mock.assert_called_with(
-            "https://us.api.blizzard.com/oauth/userinfo", params=params, headers=headers
+            "https://oauth.battle.net/oauth/userinfo", params=params, headers=headers
         )
