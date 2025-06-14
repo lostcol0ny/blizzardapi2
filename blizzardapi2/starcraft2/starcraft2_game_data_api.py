@@ -4,12 +4,21 @@ This module provides access to StarCraft II game data endpoints,
 including leagues, seasons, and other game-related information.
 """
 
-from typing import Any
+from typing import Any, Dict
 
-from ..api import Api, Region
+from ..api import BaseApi, Locale, Region
 
 
-class Starcraft2GameDataApi(Api):
+class ApiResponse:
+    """Wrapper for API responses with metadata."""
+
+    data: Dict[str, Any]
+    region: Region
+    locale: Locale
+    namespace: str
+
+
+class Starcraft2GameDataApi(BaseApi):
     """StarCraft II Game Data API client.
 
     This class provides access to StarCraft II game data through the Blizzard API,
@@ -27,22 +36,17 @@ class Starcraft2GameDataApi(Api):
         ```
 
     Attributes:
-        client_id: The Blizzard API client ID.
-        client_secret: The Blizzard API client secret.
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
     """
 
     def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the StarCraft II Game Data API client.
+        """Initialize the API client.
 
         Args:
             client_id: The Blizzard API client ID.
             client_secret: The Blizzard API client secret.
-
-        Raises:
-            ValueError: If client_id or client_secret is empty.
         """
-        if not client_id or not client_secret:
-            raise ValueError("client_id and client_secret must not be empty")
         super().__init__(client_id, client_secret)
 
     def get_league_data(
@@ -76,4 +80,4 @@ class Starcraft2GameDataApi(Api):
             ApiError: If the API request fails.
         """
         resource = f"/data/sc2/league/{season_id}/{queue_id}/{team_type}/{league_id}"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)

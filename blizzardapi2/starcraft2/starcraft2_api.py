@@ -4,58 +4,194 @@ This module provides access to the StarCraft II API endpoints,
 including game data and community information.
 """
 
-from dataclasses import dataclass
+from typing import Any, Dict
 
+
+from ..api import BaseApi
+from ..types import Locale, Region
 from .starcraft2_community_api import Starcraft2CommunityApi
 from .starcraft2_game_data_api import Starcraft2GameDataApi
 
 
-@dataclass(slots=True, frozen=True)
-class Starcraft2Api:
+class Starcraft2Api(BaseApi):
     """StarCraft II API client.
 
-    This class provides access to StarCraft II game data and community
-    information through the Blizzard API. It's organized into two main
-    components: game data and community data.
-
-    Example:
-        ```python
-        # Synchronous usage
-        sc2 = Starcraft2Api(client_id="your_id", client_secret="your_secret")
-        profile = sc2.community.get_profile(1, 2, 3)
-        league = sc2.game_data.get_league(1)
-
-        # Asynchronous usage
-        async with Starcraft2Api(client_id="your_id", client_secret="your_secret") as sc2:
-            profile = await sc2.community.get_profile(1, 2, 3)
-            league = await sc2.game_data.get_league(1)
-        ```
-
-    Attributes:
-        client_id: The Blizzard API client ID.
-        client_secret: The Blizzard API client secret.
-        community: Client for StarCraft II community endpoints (profiles, ladders, etc.).
-        game_data: Client for StarCraft II game data endpoints (leagues, seasons, etc.).
+    This class provides access to the StarCraft II API endpoints.
     """
 
-    client_id: str
-    client_secret: str
-    community: Starcraft2CommunityApi
-    game_data: Starcraft2GameDataApi
+    def __init__(self, client_id: str, client_secret: str) -> None:
+        """Initialize the StarCraft II API client.
 
-    def __post_init__(self) -> None:
-        """Validate and initialize the API client.
+        Args:
+            client_id: The Blizzard API client ID.
+            client_secret: The Blizzard API client secret.
+        """
+        super().__init__(client_id, client_secret)
+        self.community = Starcraft2CommunityApi(client_id, client_secret)
+        self.game_data = Starcraft2GameDataApi(client_id, client_secret)
+
+    def get_league_data(
+        self, region: Region, locale: Locale, season_id: int, queue_id: int, team_type: int
+    ) -> Dict[str, Any]:
+        """Get league data for a specific season, queue, and team type.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+            season_id: The ID of the season.
+            queue_id: The ID of the queue.
+            team_type: The type of team.
+
+        Returns:
+            A dictionary containing the league data.
 
         Raises:
-            ValueError: If client_id or client_secret is empty.
+            ApiError: If the API request fails.
         """
-        if not self.client_id or not self.client_secret:
-            raise ValueError("client_id and client_secret must not be empty")
+        resource = f"/data/sc2/league/{season_id}/{queue_id}/{team_type}"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)
 
-        # Initialize API clients
-        object.__setattr__(
-            self, "community", Starcraft2CommunityApi(self.client_id, self.client_secret)
-        )
-        object.__setattr__(
-            self, "game_data", Starcraft2GameDataApi(self.client_id, self.client_secret)
-        )
+    def get_season(self, region: Region, locale: Locale) -> Dict[str, Any]:
+        """Get the current season.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+
+        Returns:
+            A dictionary containing the current season information.
+
+        Raises:
+            ApiError: If the API request fails.
+        """
+        resource = "/data/sc2/season/current"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)
+
+    def get_player_ladder_summary(
+        self, region: Region, locale: Locale, profile_id: int, realm_id: int
+    ) -> Dict[str, Any]:
+        """Get a player's ladder summary.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+            profile_id: The ID of the player's profile.
+            realm_id: The ID of the player's realm.
+
+        Returns:
+            A dictionary containing the player's ladder summary.
+
+        Raises:
+            ApiError: If the API request fails.
+        """
+        resource = f"/data/sc2/player/{profile_id}/{realm_id}/ladder/summary"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)
+
+    def get_player_ladder(
+        self, region: Region, locale: Locale, profile_id: int, realm_id: int, ladder_id: int
+    ) -> Dict[str, Any]:
+        """Get a player's ladder information.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+            profile_id: The ID of the player's profile.
+            realm_id: The ID of the player's realm.
+            ladder_id: The ID of the ladder.
+
+        Returns:
+            A dictionary containing the player's ladder information.
+
+        Raises:
+            ApiError: If the API request fails.
+        """
+        resource = f"/data/sc2/player/{profile_id}/{realm_id}/ladder/{ladder_id}"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)
+
+    def get_player_profile(
+        self, region: Region, locale: Locale, profile_id: int, realm_id: int
+    ) -> Dict[str, Any]:
+        """Get a player's profile information.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+            profile_id: The ID of the player's profile.
+            realm_id: The ID of the player's realm.
+
+        Returns:
+            A dictionary containing the player's profile information.
+
+        Raises:
+            ApiError: If the API request fails.
+        """
+        resource = f"/data/sc2/player/{profile_id}/{realm_id}"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)
+
+    def get_player_ladder_history(
+        self, region: Region, locale: Locale, profile_id: int, realm_id: int
+    ) -> Dict[str, Any]:
+        """Get a player's ladder history.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+            profile_id: The ID of the player's profile.
+            realm_id: The ID of the player's realm.
+
+        Returns:
+            A dictionary containing the player's ladder history.
+
+        Raises:
+            ApiError: If the API request fails.
+        """
+        resource = f"/data/sc2/player/{profile_id}/{realm_id}/ladder/history"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)
+
+    def get_player_achievements(
+        self, region: Region, locale: Locale, profile_id: int, realm_id: int
+    ) -> Dict[str, Any]:
+        """Get a player's achievements.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+            profile_id: The ID of the player's profile.
+            realm_id: The ID of the player's realm.
+
+        Returns:
+            A dictionary containing the player's achievements.
+
+        Raises:
+            ApiError: If the API request fails.
+        """
+        resource = f"/data/sc2/player/{profile_id}/{realm_id}/achievements"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)
+
+    def get_player_rewards(
+        self, region: Region, locale: Locale, profile_id: int, realm_id: int
+    ) -> Dict[str, Any]:
+        """Get a player's rewards.
+
+        Args:
+            region: The region to query (e.g., "us", "eu").
+            locale: The locale to use for the response (e.g., "en_US").
+            profile_id: The ID of the player's profile.
+            realm_id: The ID of the player's realm.
+
+        Returns:
+            A dictionary containing the player's rewards.
+
+        Raises:
+            ApiError: If the API request fails.
+        """
+        resource = f"/data/sc2/player/{profile_id}/{realm_id}/rewards"
+        query_params = {"locale": locale}
+        return self.get_resource(resource, region, query_params)

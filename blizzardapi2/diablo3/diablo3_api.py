@@ -4,58 +4,33 @@ This module provides access to the Diablo III API endpoints,
 including game data and community information.
 """
 
-from dataclasses import dataclass
-
+from ..api import BaseApi
 from .diablo3_community_api import Diablo3CommunityApi
 from .diablo3_game_data_api import Diablo3GameDataApi
 
 
-@dataclass(slots=True, frozen=True)
-class Diablo3Api:
+class Diablo3Api(BaseApi):
     """Diablo III API client.
 
-    This class provides access to Diablo III game data and community
-    information through the Blizzard API. It's organized into two main
-    components: game data and community data.
-
-    Example:
-        ```python
-        # Synchronous usage
-        d3 = Diablo3Api(client_id="your_id", client_secret="your_secret")
-        profile = d3.community.get_profile("us", "en_US", "battletag")
-        item = d3.game_data.get_item("us", "en_US", "item-slug")
-
-        # Asynchronous usage
-        async with Diablo3Api(client_id="your_id", client_secret="your_secret") as d3:
-            profile = await d3.community.get_profile("us", "en_US", "battletag")
-            item = await d3.game_data.get_item("us", "en_US", "item-slug")
-        ```
+    This class provides access to all Diablo III API endpoints.
+    It organizes access to community and game data functionality through
+    the Diablo3CommunityApi and Diablo3GameDataApi components.
 
     Attributes:
-        client_id: The Blizzard API client ID.
-        client_secret: The Blizzard API client secret.
-        community: Client for Diablo III community endpoints (profiles, heroes, etc.).
-        game_data: Client for Diablo III game data endpoints (items, skills, etc.).
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
+        community: The community API client.
+        game_data: The game data API client.
     """
 
-    client_id: str
-    client_secret: str
-    community: Diablo3CommunityApi
-    game_data: Diablo3GameDataApi
+    def __init__(self, client_id: str, client_secret: str) -> None:
+        """Initialize the API client.
 
-    def __post_init__(self) -> None:
-        """Validate and initialize the API client.
-
-        Raises:
-            ValueError: If client_id or client_secret is empty.
+        Args:
+            client_id: The Blizzard API client ID.
+            client_secret: The Blizzard API client secret.
         """
-        if not self.client_id or not self.client_secret:
-            raise ValueError("client_id and client_secret must not be empty")
-
-        # Initialize API clients
-        object.__setattr__(
-            self, "community", Diablo3CommunityApi(self.client_id, self.client_secret)
-        )
-        object.__setattr__(
-            self, "game_data", Diablo3GameDataApi(self.client_id, self.client_secret)
-        )
+        self._client_id = client_id
+        self._client_secret = client_secret
+        self.community = Diablo3CommunityApi(client_id, client_secret)
+        self.game_data = Diablo3GameDataApi(client_id, client_secret)

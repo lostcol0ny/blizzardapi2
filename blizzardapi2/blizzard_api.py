@@ -5,8 +5,8 @@ a single client instance. Each game's API is accessible through its own
 property on the main client.
 """
 
-from typing import Final
 
+from .api import BaseApi
 from .battlenet.battlenet_api import BattlenetApi
 from .diablo3.diablo3_api import Diablo3Api
 from .hearthstone.hearthstone_api import HearthstoneApi
@@ -14,58 +14,38 @@ from .starcraft2.starcraft2_api import Starcraft2Api
 from .wow.wow_api import WowApi
 
 
-class BlizzardApi:
-    """Unified client for accessing all Blizzard game APIs.
-    
-    This class serves as the main entry point for the Blizzard API client.
-    It initializes and provides access to individual game API clients
-    (WoW, Diablo 3, Hearthstone, etc.) through properties.
-    
-    Example:
-        ```python
-        # Synchronous usage
-        client = BlizzardApi(client_id="your_client_id", client_secret="your_client_secret")
-        character = client.wow.get_character_profile("realm", "character")
-        
-        # Asynchronous usage
-        async with BlizzardApi(client_id="your_client_id", client_secret="your_client_secret") as client:
-            character = await client.wow.get_character_profile("realm", "character")
-            profile = await client.diablo3.get_profile("battletag")
-        ```
-    
+class BlizzardApi(BaseApi):
+    """Blizzard API client.
+
+    This class provides access to all Blizzard game APIs through a unified
+    interface. It organizes access to individual game APIs through their
+    respective components.
+
     Attributes:
-        client_id: The Blizzard API client ID.
-        client_secret: The Blizzard API client secret.
-        battlenet: Client for Battle.net API endpoints.
-        diablo3: Client for Diablo 3 API endpoints.
-        hearthstone: Client for Hearthstone API endpoints.
-        starcraft2: Client for StarCraft 2 API endpoints.
-        wow: Client for World of Warcraft API endpoints.
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
+        wow: The World of Warcraft API client.
+        diablo3: The Diablo III API client.
+        hearthstone: The Hearthstone API client.
+        starcraft2: The StarCraft II API client.
+        battlenet: The Battle.net API client.
     """
 
     def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the Blizzard API client.
-        
+        """Initialize the API client.
+
         Args:
             client_id: The Blizzard API client ID.
             client_secret: The Blizzard API client secret.
-            
-        Raises:
-            ValueError: If client_id or client_secret is empty.
         """
-        if not client_id or not client_secret:
-            raise ValueError("client_id and client_secret must not be empty")
-            
-        self._client_id: Final[str] = client_id
-        self._client_secret: Final[str] = client_secret
-        
-        # Initialize game API clients
-        self.battlenet: Final[BattlenetApi] = BattlenetApi(client_id, client_secret)
-        self.diablo3: Final[Diablo3Api] = Diablo3Api(client_id, client_secret)
-        self.hearthstone: Final[HearthstoneApi] = HearthstoneApi(client_id, client_secret)
-        self.wow: Final[WowApi] = WowApi(client_id, client_secret)
-        self.starcraft2: Final[Starcraft2Api] = Starcraft2Api(client_id, client_secret)
-    
+        self._client_id = client_id
+        self._client_secret = client_secret
+        self.wow = WowApi(client_id, client_secret)
+        self.diablo3 = Diablo3Api(client_id, client_secret)
+        self.hearthstone = HearthstoneApi(client_id, client_secret)
+        self.starcraft2 = Starcraft2Api(client_id, client_secret)
+        self.battlenet = BattlenetApi(client_id, client_secret)
+
     async def __aenter__(self) -> "BlizzardApi":
         """Async context manager entry.
         

@@ -4,58 +4,32 @@ This module provides access to the World of Warcraft API endpoints,
 including game data and profile information.
 """
 
-from dataclasses import dataclass
-
+from ..api import BaseApi
 from .wow_game_data_api import WowGameDataApi
 from .wow_profile_api import WowProfileApi
 
 
-@dataclass(slots=True, frozen=True)
-class WowApi:
+class WowApi(BaseApi):
     """World of Warcraft API client.
 
-    This class provides access to World of Warcraft game data and profile
-    information through the Blizzard API. It's organized into two main
-    components: game data and profile data.
-
-    Example:
-        ```python
-        # Synchronous usage
-        wow = WowApi(client_id="your_id", client_secret="your_secret")
-        character = wow.profile.get_character_profile("realm", "character")
-        items = wow.game_data.get_item(12345)
-
-        # Asynchronous usage
-        async with WowApi(client_id="your_id", client_secret="your_secret") as wow:
-            character = await wow.profile.get_character_profile("realm", "character")
-            items = await wow.game_data.get_item(12345)
-        ```
+    This class provides access to all World of Warcraft API endpoints.
+    It organizes access to game data and profile functionality through
+    the WowGameDataApi and WowProfileApi components.
 
     Attributes:
-        client_id: The Blizzard API client ID.
-        client_secret: The Blizzard API client secret.
-        game_data: Client for WoW game data endpoints (items, mounts, etc.).
-        profile: Client for WoW profile endpoints (characters, guilds, etc.).
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
+        game_data: The game data API client.
+        profile: The profile API client.
     """
 
-    client_id: str
-    client_secret: str
-    game_data: WowGameDataApi
-    profile: WowProfileApi
+    def __init__(self, client_id: str, client_secret: str) -> None:
+        """Initialize the API client.
 
-    def __post_init__(self) -> None:
-        """Validate and initialize the API client.
-
-        Raises:
-            ValueError: If client_id or client_secret is empty.
+        Args:
+            client_id: The Blizzard API client ID.
+            client_secret: The Blizzard API client secret.
         """
-        if not self.client_id or not self.client_secret:
-            raise ValueError("client_id and client_secret must not be empty")
-
-        # Initialize API clients
-        object.__setattr__(
-            self, "game_data", WowGameDataApi(self.client_id, self.client_secret)
-        )
-        object.__setattr__(
-            self, "profile", WowProfileApi(self.client_id, self.client_secret)
-        )
+        super().__init__(client_id, client_secret)
+        self.game_data = WowGameDataApi(client_id, client_secret)
+        self.profile = WowProfileApi(client_id, client_secret)

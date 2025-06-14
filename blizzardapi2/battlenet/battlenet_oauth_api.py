@@ -4,45 +4,39 @@ This module provides access to Battle.net OAuth endpoints,
 including user information and authentication.
 """
 
-from typing import Any
+from typing import Any, Dict
 
-from ..api import Api, Region
+from ..api import BaseApi, Locale, Region
 
 
-class BattlenetOauthApi(Api):
+class ApiResponse:
+    """Wrapper for API responses with metadata."""
+
+    data: Dict[str, Any]
+    region: Region
+    locale: Locale
+    namespace: str
+
+
+class BattlenetOAuthApi(BaseApi):
     """Battle.net OAuth API client.
 
-    This class provides access to Battle.net OAuth functionality through the Blizzard API,
-    including user information and authentication.
-
-    Example:
-        ```python
-        # Synchronous usage
-        api = BattlenetOauthApi(client_id="your_id", client_secret="your_secret")
-        user_info = api.get_user_info("us", "access_token")
-
-        # Asynchronous usage
-        async with BattlenetOauthApi(client_id="your_id", client_secret="your_secret") as api:
-            user_info = await api.get_user_info("us", "access_token")
-        ```
+    This class provides access to the Battle.net OAuth API endpoints.
+    It handles authentication and request formatting for all OAuth related
+    endpoints.
 
     Attributes:
-        client_id: The Blizzard API client ID.
-        client_secret: The Blizzard API client secret.
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
     """
 
     def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the Battle.net OAuth API client.
+        """Initialize the API client.
 
         Args:
             client_id: The Blizzard API client ID.
             client_secret: The Blizzard API client secret.
-
-        Raises:
-            ValueError: If client_id or client_secret is empty.
         """
-        if not client_id or not client_secret:
-            raise ValueError("client_id and client_secret must not be empty")
         super().__init__(client_id, client_secret)
 
     def get_user_info(self, region: Region, access_token: str) -> dict[str, Any]:

@@ -4,47 +4,39 @@ This module provides access to Diablo III game data endpoints,
 including seasons, eras, and leaderboards.
 """
 
-from typing import Any
+from typing import Any, Dict
 
-from ..api import Api, Region
+from ..api import BaseApi, Locale, Region
 
 
-class Diablo3GameDataApi(Api):
+class ApiResponse:
+    """Wrapper for API responses with metadata."""
+
+    data: Dict[str, Any]
+    region: Region
+    locale: Locale
+    namespace: str
+
+
+class Diablo3GameDataApi(BaseApi):
     """Diablo III Game Data API client.
 
-    This class provides access to Diablo III game data through the Blizzard API,
-    including season information, era data, and leaderboards.
-
-    Example:
-        ```python
-        # Synchronous usage
-        api = Diablo3GameDataApi(client_id="your_id", client_secret="your_secret")
-        seasons = api.get_season_index("us")
-        leaderboard = api.get_season_leaderboard("us", 1, 2)
-
-        # Asynchronous usage
-        async with Diablo3GameDataApi(client_id="your_id", client_secret="your_secret") as api:
-            seasons = await api.get_season_index("us")
-            leaderboard = await api.get_season_leaderboard("us", 1, 2)
-        ```
+    This class provides access to the Diablo III Game Data API endpoints.
+    It handles authentication and request formatting for all game data related
+    endpoints.
 
     Attributes:
-        client_id: The Blizzard API client ID.
-        client_secret: The Blizzard API client secret.
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
     """
 
     def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the Diablo III Game Data API client.
+        """Initialize the API client.
 
         Args:
             client_id: The Blizzard API client ID.
             client_secret: The Blizzard API client secret.
-
-        Raises:
-            ValueError: If client_id or client_secret is empty.
         """
-        if not client_id or not client_secret:
-            raise ValueError("client_id and client_secret must not be empty")
         super().__init__(client_id, client_secret)
 
     def get_season_index(self, region: Region) -> dict[str, Any]:
@@ -60,7 +52,7 @@ class Diablo3GameDataApi(Api):
             ApiError: If the API request fails.
         """
         resource = "/data/d3/season/"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)
 
     def get_season(self, region: Region, season_id: int) -> dict[str, Any]:
         """Get a leaderboard list for the specified season.
@@ -76,7 +68,7 @@ class Diablo3GameDataApi(Api):
             ApiError: If the API request fails.
         """
         resource = f"/data/d3/season/{season_id}"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)
 
     def get_season_leaderboard(
         self, region: Region, season_id: int, leaderboard_id: int
@@ -95,7 +87,7 @@ class Diablo3GameDataApi(Api):
             ApiError: If the API request fails.
         """
         resource = f"/data/d3/season/{season_id}/leaderboard/{leaderboard_id}"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)
 
     def get_era_index(self, region: Region) -> dict[str, Any]:
         """Get an index of available eras.
@@ -110,7 +102,7 @@ class Diablo3GameDataApi(Api):
             ApiError: If the API request fails.
         """
         resource = "/data/d3/era/"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)
 
     def get_era(self, region: Region, era_id: int) -> dict[str, Any]:
         """Get a leaderboard list for a particular era.
@@ -126,7 +118,7 @@ class Diablo3GameDataApi(Api):
             ApiError: If the API request fails.
         """
         resource = f"/data/d3/era/{era_id}"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)
 
     def get_era_leaderboard(
         self, region: Region, era_id: int, leaderboard_id: int
@@ -145,4 +137,4 @@ class Diablo3GameDataApi(Api):
             ApiError: If the API request fails.
         """
         resource = f"/data/d3/era/{era_id}/leaderboard/{leaderboard_id}"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)
