@@ -9,6 +9,12 @@ on:
       - "*-beta" # Trigger on any beta tag
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build"
+        required: true
+        type: string
 
 jobs:
   build:
@@ -32,6 +38,10 @@ jobs:
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Create virtual environment
+        run: |
+          uv venv
 
       - name: Install dependencies
         run: |
