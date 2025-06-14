@@ -5,9 +5,8 @@ name: Python package
 
 on:
   push:
-    branches: ["main"]
     tags:
-      - "beta" # Trigger on beta tag
+      - "*-beta" # Trigger on any beta tag
   pull_request:
     branches: ["main"]
 
