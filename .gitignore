@@ -133,3 +133,9 @@ dmypy.json
 
 # VSCode
 .vscode
+
+# Test project
+test_project/
+
+# Version file
+blizzardapi2/_version.py

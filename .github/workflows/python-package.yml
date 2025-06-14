@@ -1,4 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# This workflow will install Python dependencies, run tests, lint, and publish beta releases
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: Python package
@@ -6,6 +6,8 @@ name: Python package
 on:
   push:
     branches: ["main"]
+    tags:
+      - "beta" # Trigger on beta tag
   pull_request:
     branches: ["main"]
 
@@ -19,17 +21,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for setuptools_scm
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install uv
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
       - name: Install dependencies
         run: |
           uv pip install -e ".[dev]"
+
       - name: Test with pytest
         run: |
           pytest tests/
+
+      - name: Build and publish beta to PyPI
+        if: startsWith(github.ref, 'refs/tags/beta')
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine setuptools_scm
+          python -m build
+          twine upload dist/* --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
