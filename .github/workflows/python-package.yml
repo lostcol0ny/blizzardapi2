@@ -36,7 +36,13 @@ jobs:
 
       - name: Install uv
         run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
+          curl -LsSf https://astral.sh/uv/install.sh -o install.sh
+          echo "expected-checksum-value  install.sh" | sha256sum --check --status
+          if [ $? -ne 0 ]; then
+            echo "Checksum verification failed!" >&2
+            exit 1
+          fi
+          sh install.sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Create virtual environment
