@@ -122,10 +122,10 @@ jobs:
           uv pip install -e ".[dev]"
           npm install
 
-      - name: Configure Git for release-it
+      - name: Configure Git
         run: |
-          git config --global user.name "lostcol0ny"
-          git config --global user.email "c098os0k@4wrd.cc"
+          git config --global user.name "Github Actions"
+          git config --global user.email "github-actions@github.com"
 
       - name: Run release-it
         env:
