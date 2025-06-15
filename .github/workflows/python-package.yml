@@ -89,12 +89,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Needed for release-it to calculate version correctly
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x" # Specify your Python version
+          python-version: "3.11"
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -123,4 +123,4 @@ jobs:
       - name: Run release-it
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx release-it --verbose # The --verbose flag provides more detailed output
+        run: npx release-it --verbose
