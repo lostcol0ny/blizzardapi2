@@ -124,8 +124,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "Github Actions"
-          git config --global user.email "github-actions@github.com"
+          git config user.name "Github Actions"
+          git config user.email "github-actions@github.com"
 
       - name: Run release-it
         env:
