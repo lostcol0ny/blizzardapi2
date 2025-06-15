@@ -15,6 +15,14 @@ dependencies = [
     "aiohttp>=3.12.12",
 ]
 requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 
 [build-system]
 requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=6.2"]
