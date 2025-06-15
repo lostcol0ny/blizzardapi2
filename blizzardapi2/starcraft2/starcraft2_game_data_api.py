@@ -1,42 +1,83 @@
-"""starcraft2_game_data_api.py file."""
+"""StarCraft II Game Data API client.
 
-from typing import Dict, Any
-from ..api import Api
+This module provides access to StarCraft II game data endpoints,
+including leagues, seasons, and other game-related information.
+"""
+
+from typing import Any, Dict
+
+from ..api import BaseApi, Locale, Region
 
 
-class Starcraft2GameDataApi(Api):
-    """Starcraft2 Game Data API class.
+class ApiResponse:
+    """Wrapper for API responses with metadata."""
+
+    data: Dict[str, Any]
+    region: Region
+    locale: Locale
+    namespace: str
+
+
+class Starcraft2GameDataApi(BaseApi):
+    """StarCraft II Game Data API client.
+
+    This class provides access to StarCraft II game data through the Blizzard API,
+    including league information, season data, and other game-related endpoints.
+
+    Example:
+        ```python
+        # Synchronous usage
+        api = Starcraft2GameDataApi(client_id="your_id", client_secret="your_secret")
+        league = api.get_league_data("us", 1, 201, 0, 1)  # LotV 1v1 Silver League
+
+        # Asynchronous usage
+        async with Starcraft2GameDataApi(client_id="your_id", client_secret="your_secret") as api:
+            league = await api.get_league_data("us", 1, 201, 0, 1)
+        ```
 
     Attributes:
-        client_id (str): A string client ID supplied by Blizzard.
-        client_secret (str): A string client secret supplied by Blizzard.
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
     """
 
     def __init__(self, client_id: str, client_secret: str) -> None:
-        """
-        Initialize the Starcraft2GameDataApi class.
+        """Initialize the API client.
 
         Args:
-            client_id (str): The client ID supplied by Blizzard.
-            client_secret (str): The client secret supplied by Blizzard.
+            client_id: The Blizzard API client ID.
+            client_secret: The Blizzard API client secret.
         """
         super().__init__(client_id, client_secret)
 
     def get_league_data(
-        self, region: str, season_id: int, queue_id: int, team_type: int, league_id: int
-    ) -> Dict[str, Any]:
-        """
-        Return data for the specified season, queue, team, and league.
+        self, region: Region, season_id: int, queue_id: int, team_type: int, league_id: int
+    ) -> dict[str, Any]:
+        """Get data for the specified season, queue, team, and league.
 
         Args:
-            region (str): The region to query (e.g., "us", "eu").
-            season_id (int): The ID of the season.
-            queue_id (int): The queue ID (e.g., 1=WoL 1v1, 101=HotS 1v1, 201=LotV 1v1).
-            team_type (int): The team type (0=arranged, 1=random).
-            league_id (int): The league ID (e.g., 0=Bronze, 1=Silver, 2=Gold).
+            region: The region to query (e.g., "us", "eu").
+            season_id: The ID of the season.
+            queue_id: The queue ID:
+                - 1: Wings of Liberty 1v1
+                - 101: Heart of the Swarm 1v1
+                - 201: Legacy of the Void 1v1
+            team_type: The team type:
+                - 0: Arranged team
+                - 1: Random team
+            league_id: The league ID:
+                - 0: Bronze
+                - 1: Silver
+                - 2: Gold
+                - 3: Platinum
+                - 4: Diamond
+                - 5: Master
+                - 6: Grandmaster
 
         Returns:
-            Dict[str, Any]: A dictionary containing the league data.
+            A dictionary containing the league data.
+
+        Raises:
+            ApiError: If the API request fails.
         """
         resource = f"/data/sc2/league/{season_id}/{queue_id}/{team_type}/{league_id}"
-        return super().get_resource(resource, region)
+        return self.get_resource(resource, region)

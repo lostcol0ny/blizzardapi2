@@ -1,36 +1,56 @@
-"""battlenet_oauth_api.py file."""
+"""Battle.net OAuth API client.
 
-from ..api import Api
+This module provides access to Battle.net OAuth endpoints,
+including user information and authentication.
+"""
+
+from typing import Any, Dict
+
+from ..api import BaseApi, Locale, Region
 
 
-class BattlenetOauthApi(Api):
-    """All Battle.net OAuth API methods.
+class ApiResponse:
+    """Wrapper for API responses with metadata."""
+
+    data: Dict[str, Any]
+    region: Region
+    locale: Locale
+    namespace: str
+
+
+class BattlenetOAuthApi(BaseApi):
+    """Battle.net OAuth API client.
+
+    This class provides access to the Battle.net OAuth API endpoints.
+    It handles authentication and request formatting for all OAuth related
+    endpoints.
 
     Attributes:
-        client_id (str): A string client ID supplied by Blizzard.
-        client_secret (str): A string client secret supplied by Blizzard.
+        _client_id: The Blizzard API client ID.
+        _client_secret: The Blizzard API client secret.
     """
 
     def __init__(self, client_id: str, client_secret: str) -> None:
-        """
-        Initialize the BattlenetOauthApi class.
+        """Initialize the API client.
 
         Args:
-            client_id (str): The client ID supplied by Blizzard.
-            client_secret (str): The client secret supplied by Blizzard.
+            client_id: The Blizzard API client ID.
+            client_secret: The Blizzard API client secret.
         """
         super().__init__(client_id, client_secret)
 
-    def get_user_info(self, region: str, access_token: str) -> dict:
-        """
-        Return basic information about the user associated with the current bearer token.
+    def get_user_info(self, region: Region, access_token: str) -> dict[str, Any]:
+        """Get basic information about the user associated with the current bearer token.
 
         Args:
-            region (str): The region to query (e.g., "us", "eu").
-            access_token (str): The OAuth access token.
+            region: The region to query (e.g., "us", "eu").
+            access_token: The OAuth access token.
 
         Returns:
-            dict: A dictionary containing user information.
+            A dictionary containing user information.
+
+        Raises:
+            ApiError: If the API request fails.
         """
         resource = "/oauth/userinfo"
         query_params = {
