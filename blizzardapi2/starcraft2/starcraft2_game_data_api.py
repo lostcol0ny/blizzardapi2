@@ -50,7 +50,12 @@ class Starcraft2GameDataApi(BaseApi):
         super().__init__(client_id, client_secret)
 
     def get_league_data(
-        self, region: Region, season_id: int, queue_id: int, team_type: int, league_id: int
+        self,
+        region: Region,
+        season_id: int,
+        queue_id: int,
+        team_type: int,
+        league_id: int,
     ) -> dict[str, Any]:
         """Get data for the specified season, queue, team, and league.
 

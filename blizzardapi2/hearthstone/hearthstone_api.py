@@ -102,7 +102,9 @@ class HearthstoneApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_card_backs_async(self, region: Region, locale: Locale) -> Dict[str, Any]:
+    async def get_card_backs_async(
+        self, region: Region, locale: Locale
+    ) -> Dict[str, Any]:
         """Get all card backs asynchronously.
 
         Args:
@@ -136,7 +138,9 @@ class HearthstoneApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_metadata_async(self, region: Region, locale: Locale) -> Dict[str, Any]:
+    async def get_metadata_async(
+        self, region: Region, locale: Locale
+    ) -> Dict[str, Any]:
         """Get metadata asynchronously.
 
         Args:
@@ -171,7 +175,9 @@ class HearthstoneApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_card_async(self, region: Region, locale: Locale, card_id: str) -> Dict[str, Any]:
+    async def get_card_async(
+        self, region: Region, locale: Locale, card_id: str
+    ) -> Dict[str, Any]:
         """Get a single card asynchronously.
 
         Args:

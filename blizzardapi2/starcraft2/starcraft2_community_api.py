@@ -51,7 +51,9 @@ class Starcraft2CommunityApi(BaseApi):
         """
         super().__init__(client_id, client_secret)
 
-    def get_static(self, region: Region, locale: Locale, region_id: int) -> dict[str, Any]:
+    def get_static(
+        self, region: Region, locale: Locale, region_id: int
+    ) -> dict[str, Any]:
         """Get all static SC2 profile data.
 
         This includes achievements, categories, criteria, and rewards.
@@ -72,7 +74,12 @@ class Starcraft2CommunityApi(BaseApi):
         return self.get_resource(resource, region, query_params)
 
     def get_metadata(
-        self, region: Region, locale: Locale, region_id: int, realm_id: int, profile_id: int
+        self,
+        region: Region,
+        locale: Locale,
+        region_id: int,
+        realm_id: int,
+        profile_id: int,
     ) -> dict[str, Any]:
         """Get metadata for an individual's profile.
 
@@ -152,7 +159,12 @@ class Starcraft2CommunityApi(BaseApi):
         return await self.get_resource_async(resource, region, query_params)
 
     def get_ladder_summary(
-        self, region: Region, locale: Locale, region_id: int, realm_id: int, profile_id: int
+        self,
+        region: Region,
+        locale: Locale,
+        region_id: int,
+        realm_id: int,
+        profile_id: int,
     ) -> dict[str, Any]:
         """Get a ladder summary for an individual SC2 profile.
 
@@ -174,7 +186,12 @@ class Starcraft2CommunityApi(BaseApi):
         return self.get_resource(resource, region, query_params)
 
     async def get_ladder_summary_async(
-        self, region: Region, locale: Locale, region_id: int, realm_id: int, profile_id: int
+        self,
+        region: Region,
+        locale: Locale,
+        region_id: int,
+        realm_id: int,
+        profile_id: int,
     ) -> dict[str, Any]:
         """Get a ladder summary for an individual SC2 profile asynchronously.
 
@@ -222,7 +239,9 @@ class Starcraft2CommunityApi(BaseApi):
         Raises:
             ApiError: If the API request fails.
         """
-        resource = f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/{ladder_id}"
+        resource = (
+            f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/{ladder_id}"
+        )
         query_params["locale"] = locale
         return self.get_resource(resource, region, query_params)
 
@@ -253,7 +272,9 @@ class Starcraft2CommunityApi(BaseApi):
         Raises:
             ApiError: If the API request fails.
         """
-        resource = f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/{ladder_id}"
+        resource = (
+            f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/{ladder_id}"
+        )
         query_params["locale"] = locale
         return await self.get_resource_async(resource, region, query_params)
 
@@ -297,7 +318,9 @@ class Starcraft2CommunityApi(BaseApi):
         query_params = {"locale": locale}
         return await self.get_resource_async(resource, region, query_params)
 
-    def get_season(self, region: Region, locale: Locale, region_id: int) -> dict[str, Any]:
+    def get_season(
+        self, region: Region, locale: Locale, region_id: int
+    ) -> dict[str, Any]:
         """Get data about the current season.
 
         Args:
@@ -315,7 +338,9 @@ class Starcraft2CommunityApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_season_async(self, region: Region, locale: Locale, region_id: int) -> dict[str, Any]:
+    async def get_season_async(
+        self, region: Region, locale: Locale, region_id: int
+    ) -> dict[str, Any]:
         """Get data about the current season asynchronously.
 
         Args:
@@ -334,7 +359,12 @@ class Starcraft2CommunityApi(BaseApi):
         return await self.get_resource_async(resource, region, query_params)
 
     def get_league_data(
-        self, region: Region, locale: Locale, season_id: int, queue_id: int, team_type: int
+        self,
+        region: Region,
+        locale: Locale,
+        season_id: int,
+        queue_id: int,
+        team_type: int,
     ) -> dict[str, Any]:
         """Get league data for a specific season, queue, and team type.
 
@@ -356,7 +386,12 @@ class Starcraft2CommunityApi(BaseApi):
         return self.get_resource(resource, region, query_params)
 
     async def get_league_data_async(
-        self, region: Region, locale: Locale, season_id: int, queue_id: int, team_type: int
+        self,
+        region: Region,
+        locale: Locale,
+        season_id: int,
+        queue_id: int,
+        team_type: int,
     ) -> dict[str, Any]:
         """Get league data for a specific season, queue, and team type asynchronously.
 
@@ -378,7 +413,12 @@ class Starcraft2CommunityApi(BaseApi):
         return await self.get_resource_async(resource, region, query_params)
 
     def get_player_ladder_summary(
-        self, region: Region, locale: Locale, region_id: int, realm_id: int, profile_id: int
+        self,
+        region: Region,
+        locale: Locale,
+        region_id: int,
+        realm_id: int,
+        profile_id: int,
     ) -> dict[str, Any]:
         """Get a player's ladder summary.
 
@@ -400,7 +440,12 @@ class Starcraft2CommunityApi(BaseApi):
         return self.get_resource(resource, region, query_params)
 
     async def get_player_ladder_summary_async(
-        self, region: Region, locale: Locale, region_id: int, realm_id: int, profile_id: int
+        self,
+        region: Region,
+        locale: Locale,
+        region_id: int,
+        realm_id: int,
+        profile_id: int,
     ) -> dict[str, Any]:
         """Get a player's ladder summary asynchronously.
 
@@ -421,7 +466,9 @@ class Starcraft2CommunityApi(BaseApi):
         query_params = {"locale": locale}
         return await self.get_resource_async(resource, region, query_params)
 
-    def get_player(self, region: Region, locale: Locale, account_id: int) -> dict[str, Any]:
+    def get_player(
+        self, region: Region, locale: Locale, account_id: int
+    ) -> dict[str, Any]:
         """Get metadata for an individual's account.
 
         Args:

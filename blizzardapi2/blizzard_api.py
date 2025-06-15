@@ -5,7 +5,6 @@ a single client instance. Each game's API is accessible through its own
 property on the main client.
 """
 
-
 from .api import BaseApi
 from .battlenet.battlenet_api import BattlenetApi
 from .diablo3.diablo3_api import Diablo3Api
@@ -48,9 +47,9 @@ class BlizzardApi(BaseApi):
 
     async def __aenter__(self) -> "BlizzardApi":
         """Async context manager entry.
-        
+
         Initializes async sessions for all game API clients.
-        
+
         Returns:
             BlizzardApi: The initialized API client.
         """
@@ -61,12 +60,12 @@ class BlizzardApi(BaseApi):
         await self.wow.__aenter__()
         await self.starcraft2.__aenter__()
         return self
-    
+
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         """Async context manager exit.
-        
+
         Closes async sessions for all game API clients.
-        
+
         Args:
             exc_type: The type of exception that was raised, if any.
             exc_val: The exception instance that was raised, if any.
@@ -78,20 +77,20 @@ class BlizzardApi(BaseApi):
         await self.hearthstone.__aexit__(exc_type, exc_val, exc_tb)
         await self.wow.__aexit__(exc_type, exc_val, exc_tb)
         await self.starcraft2.__aexit__(exc_type, exc_val, exc_tb)
-    
+
     @property
     def client_id(self) -> str:
         """Get the client ID.
-        
+
         Returns:
             str: The Blizzard API client ID.
         """
         return self._client_id
-    
+
     @property
     def client_secret(self) -> str:
         """Get the client secret.
-        
+
         Returns:
             str: The Blizzard API client secret.
         """

@@ -51,7 +51,9 @@ class Diablo3CommunityApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_act_index_async(self, region: Region, locale: Locale) -> Dict[str, Any]:
+    async def get_act_index_async(
+        self, region: Region, locale: Locale
+    ) -> Dict[str, Any]:
         """Get an index of acts asynchronously.
 
         Args:
@@ -86,7 +88,9 @@ class Diablo3CommunityApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_act_async(self, region: Region, locale: Locale, act_id: int) -> Dict[str, Any]:
+    async def get_act_async(
+        self, region: Region, locale: Locale, act_id: int
+    ) -> Dict[str, Any]:
         """Get a single act by ID asynchronously.
 
         Args:
@@ -325,7 +329,9 @@ class Diablo3CommunityApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_item_type_index_async(self, region: Region, locale: Locale) -> Dict[str, Any]:
+    async def get_item_type_index_async(
+        self, region: Region, locale: Locale
+    ) -> Dict[str, Any]:
         """Get an index of item types asynchronously.
 
         Args:
@@ -679,7 +685,9 @@ class Diablo3CommunityApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_season_index_async(self, region: Region, locale: Locale) -> Dict[str, Any]:
+    async def get_season_index_async(
+        self, region: Region, locale: Locale
+    ) -> Dict[str, Any]:
         """Get the current season index asynchronously.
 
         Args:

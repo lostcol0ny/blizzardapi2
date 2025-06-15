@@ -875,25 +875,33 @@ class WowProfileApi(BaseApi):
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    def get_character_profile(self, region: Region, locale: Locale, realm: str, character: str) -> Dict[str, Any]:
+    def get_character_profile(
+        self, region: Region, locale: Locale, realm: str, character: str
+    ) -> Dict[str, Any]:
         """Get a character profile."""
         resource = f"/profile/wow/character/{realm}/{character}"
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_character_profile_async(self, region: Region, locale: Locale, realm: str, character: str) -> Dict[str, Any]:
+    async def get_character_profile_async(
+        self, region: Region, locale: Locale, realm: str, character: str
+    ) -> Dict[str, Any]:
         """Get a character profile asynchronously."""
         resource = f"/profile/wow/character/{realm}/{character}"
         query_params = {"locale": locale}
         return await self.get_resource_async(resource, region, query_params)
 
-    def get_character_achievements(self, region: Region, locale: Locale, realm: str, character: str) -> Dict[str, Any]:
+    def get_character_achievements(
+        self, region: Region, locale: Locale, realm: str, character: str
+    ) -> Dict[str, Any]:
         """Get a character's achievements."""
         resource = f"/profile/wow/character/{realm}/{character}/achievements"
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    async def get_character_achievements_async(self, region: Region, locale: Locale, realm: str, character: str) -> Dict[str, Any]:
+    async def get_character_achievements_async(
+        self, region: Region, locale: Locale, realm: str, character: str
+    ) -> Dict[str, Any]:
         """Get a character's achievements asynchronously."""
         resource = f"/profile/wow/character/{realm}/{character}/achievements"
         query_params = {"locale": locale}

@@ -10,7 +10,7 @@ on:
     branches: ["main"]
 
 jobs:
-  test:
+  checkout:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -40,8 +40,12 @@ jobs:
         run: |
           uv pip install -e ".[dev]"
 
+      - name: Run black formatter
+        run: |
+          black . --check
+
   publish:
-    needs: test
+    needs: checkout
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -76,7 +80,7 @@ jobs:
           # Split version into major.minor.patch
           IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
           # Increment minor version
-          NEW_VERSION="$MAJOR.$((MINOR + 1)).$PATCH"
+          NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
           # Update version in pyproject.toml
           sed -i "s/version = \".*\"/version = \"$NEW_VERSION\"/" pyproject.toml
           python -m build

@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import (Any, Dict, Literal, Optional, Protocol, TypedDict)
+from typing import Any, Dict, Literal, Optional, Protocol, TypedDict
 
 import aiohttp
 import requests
@@ -236,9 +236,9 @@ class BaseApi:
     def __del__(self):
         """Clean up resources."""
         try:
-            if hasattr(self, '_session'):
+            if hasattr(self, "_session"):
                 self._session.close()
-            if hasattr(self, '_async_session') and self._async_session is not None:
+            if hasattr(self, "_async_session") and self._async_session is not None:
                 if not self._async_session.closed:
                     self._async_session.close()
         except Exception:

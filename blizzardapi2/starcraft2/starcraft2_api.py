@@ -31,7 +31,12 @@ class Starcraft2Api(BaseApi):
         self.game_data = Starcraft2GameDataApi(client_id, client_secret)
 
     def get_league_data(
-        self, region: Region, locale: Locale, season_id: int, queue_id: int, team_type: int
+        self,
+        region: Region,
+        locale: Locale,
+        season_id: int,
+        queue_id: int,
+        team_type: int,
     ) -> Dict[str, Any]:
         """Get league data for a specific season, queue, and team type.
 
@@ -91,7 +96,12 @@ class Starcraft2Api(BaseApi):
         return self.get_resource(resource, region, query_params)
 
     def get_player_ladder(
-        self, region: Region, locale: Locale, profile_id: int, realm_id: int, ladder_id: int
+        self,
+        region: Region,
+        locale: Locale,
+        profile_id: int,
+        realm_id: int,
+        ladder_id: int,
     ) -> Dict[str, Any]:
         """Get a player's ladder information.
 

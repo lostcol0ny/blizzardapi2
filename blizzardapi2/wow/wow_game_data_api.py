@@ -2619,4 +2619,3 @@ class WowGameDataApi(BaseApi):
         namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
         query_params = {"namespace": namespace, "locale": locale}
         return self.get_resource(resource, region, query_params)
-    

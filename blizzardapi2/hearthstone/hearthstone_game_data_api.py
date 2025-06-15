@@ -86,7 +86,9 @@ class HearthstoneGameDataApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    def get_card_search(self, region: Region, locale: Locale, **kwargs) -> Dict[str, Any]:
+    def get_card_search(
+        self, region: Region, locale: Locale, **kwargs
+    ) -> Dict[str, Any]:
         """Search for cards with optional filters.
 
         Args:
@@ -121,7 +123,9 @@ class HearthstoneGameDataApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    def get_card_back(self, region: Region, locale: Locale, card_back_id: str) -> Dict[str, Any]:
+    def get_card_back(
+        self, region: Region, locale: Locale, card_back_id: str
+    ) -> Dict[str, Any]:
         """Get a single card back by ID.
 
         Args:
@@ -139,7 +143,9 @@ class HearthstoneGameDataApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    def get_deck(self, region: Region, locale: Locale, deck_code: str) -> Dict[str, Any]:
+    def get_deck(
+        self, region: Region, locale: Locale, deck_code: str
+    ) -> Dict[str, Any]:
         """Get a deck by deck code.
 
         Args:
@@ -157,7 +163,9 @@ class HearthstoneGameDataApi(BaseApi):
         query_params = {"locale": locale}
         return self.get_resource(resource, region, query_params)
 
-    def get_metadata_search(self, region: Region, locale: Locale, **kwargs) -> Dict[str, Any]:
+    def get_metadata_search(
+        self, region: Region, locale: Locale, **kwargs
+    ) -> Dict[str, Any]:
         """Search for metadata with optional filters.
 
         Args:

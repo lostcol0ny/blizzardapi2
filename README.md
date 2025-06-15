@@ -1,6 +1,11 @@
-# blizzardapi2
+# Blizzard API 2
 
-![GitHub](https://img.shields.io/github/license/lostcol0ny/python-blizzardapi2)[![Pytest](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/python-package.yml)[![Dependabot](https://github.com/lostcol0ny/blizzardapi2/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/lostcol0ny/blizzardapi2/actions/workflows/dependabot/dependabot-updates)[![CodeQL](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/github-code-scanning/codeql)[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PyPI version](https://badge.fury.io/py/blizzardapi2.svg)](https://badge.fury.io/py/blizzardapi2)
+[![Python Versions](https://img.shields.io/pypi/pyversions/blizzardapi2.svg)](https://pypi.org/project/blizzardapi2/)
+[![Downloads](https://img.shields.io/pypi/dm/blizzardapi2.svg)](https://pypi.org/project/blizzardapi2/)
+[![Build Status](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/python-package.yml/badge.svg)](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/python-package.yml)
+
+![GitHub](https://img.shields.io/github/license/lostcol0ny/python-blizzardapi2)[![Dependabot](https://github.com/lostcol0ny/blizzardapi2/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/lostcol0ny/blizzardapi2/actions/workflows/dependabot/dependabot-updates)[![CodeQL](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/lostcol0ny/python-blizzardapi2/actions/workflows/github-code-scanning/codeql)[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 blizzardapi2 is a client library for Blizzard's APIs. It's a fork of [the original library](https://github.com/trevorphillipscoding/python-blizzardapi/).
 
