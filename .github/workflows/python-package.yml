@@ -77,6 +77,8 @@ jobs:
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
           # Update version in pyproject.toml
           sed -i "s/version = \".*\"/version = \"$NEW_VERSION\"/" pyproject.toml
+          # Update version in package.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" package.json
           python -m build
           twine upload dist/* --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
 
