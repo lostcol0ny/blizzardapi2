@@ -119,8 +119,8 @@ jobs:
 
       - name: Configure Git for release-it
         run: |
-          git config user.name "lostcol0ny"
-          git config user.email "c098os0k@4wrd.cc"
+          git config --global user.name "lostcol0ny"
+          git config --global user.email "c098os0k@4wrd.cc"
 
       - name: Run release-it
         env:
