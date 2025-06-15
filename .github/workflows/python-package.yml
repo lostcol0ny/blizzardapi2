@@ -73,12 +73,16 @@ jobs:
           CURRENT_VERSION=$(grep 'version = ' pyproject.toml | cut -d'"' -f2)
           # Split version into major.minor.patch
           IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
-          # Increment minor version
+          # Increment patch version
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
           # Update version in pyproject.toml
           sed -i "s/version = \".*\"/version = \"$NEW_VERSION\"/" pyproject.toml
           # Update version in package.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" package.json
+          # Commit the version changes
+          git add pyproject.toml package.json
+          git commit -m "chore: bump version to $NEW_VERSION"
+          git push
           python -m build
           twine upload dist/* --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
 
@@ -124,8 +128,9 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.email "github-actions@github.com"
-          git config user.name "Github Actions"
+          git config --global user.name "lostcol0ny"
+          git commit --amend --reset-author
+          git config --global user.email "c098os0k@4wrd.cc"
 
       - name: Run release-it
         env:
