@@ -5,6 +5,9 @@
   "scripts": {
     "release": "release-it"
   },
+  "devDependencies": {
+    "release-it": "^17.0.0"
+  },
   "release-it": {
     "git": {
       "commitMessage": "chore: release v${version}",
