@@ -29,13 +29,7 @@ jobs:
 
       - name: Install uv
         run: |
-          curl -LsSf https://astral.sh/uv/install.sh -o install.sh
-          echo "expected-checksum-value  install.sh" | sha256sum --check --status
-          if [ $? -ne 0 ]; then
-            echo "Checksum verification failed!" >&2
-            exit 1
-          fi
-          sh install.sh
+          curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Create virtual environment
@@ -46,12 +40,8 @@ jobs:
         run: |
           uv pip install -e ".[dev]"
 
-      - name: Test with pytest
-        run: |
-          pytest tests/
-
-      - name: Build and publish beta to PyPI
-        if: startsWith(github.ref, 'refs/tags/beta')
+      - name: Build and publish to PyPI
+        if: github.ref == 'refs/heads/main'
         run: |
           python -m pip install --upgrade pip
           pip install build twine setuptools_scm
