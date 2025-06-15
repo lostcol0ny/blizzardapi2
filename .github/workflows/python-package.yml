@@ -47,10 +47,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "lostcol0ny"
-          git config --global user.email "c098os0k@4wrd.cc"
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -68,7 +64,10 @@ jobs:
       - name: Install dependencies
         run: |
           uv pip install -e ".[dev]"
-
+      - name: Configure Git
+        run: |
+          git config --global user.name "lostcol0ny"
+          git config --global user.email "c098os0k@4wrd.cc"
       - name: Build and publish to PyPI
         run: |
           python -m pip install --upgrade pip
