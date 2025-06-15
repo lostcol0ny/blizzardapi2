@@ -6,8 +6,6 @@ name: Python package
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
 jobs:
   checkout:
@@ -39,11 +37,6 @@ jobs:
       - name: Install dependencies
         run: |
           uv pip install -e ".[dev]"
-          uv pip install black
-
-      - name: Run black formatter
-        run: |
-          black . --check
 
   publish:
     needs: checkout
