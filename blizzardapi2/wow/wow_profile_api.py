@@ -316,7 +316,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the character's mounts collection summary.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/collections/mounts"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/collections/mounts"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -335,7 +337,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the character's pets collection summary.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/collections/pets"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/collections/pets"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -354,7 +358,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the character's toys collection summary.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/collections/toys"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/collections/toys"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -411,7 +417,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the character's dungeons summary.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/encounters/dungeons"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/encounters/dungeons"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -430,7 +438,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the character's raids summary.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/encounters/raids"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/encounters/raids"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -487,7 +497,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the media assets summary.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/character-media"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/character-media"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -670,7 +682,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the character's completed quests.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/quests/completed"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/quests/completed"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -727,7 +741,9 @@ class WowProfileApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the character's specializations summary.
         """
-        resource = f"/profile/wow/character/{realm_slug}/{character_name}/specializations"
+        resource = (
+            f"/profile/wow/character/{realm_slug}/{character_name}/specializations"
+        )
         query_params = {"namespace": f"profile-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 

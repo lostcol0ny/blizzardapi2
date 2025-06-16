@@ -37,7 +37,9 @@ class Api:
 
     def _is_token_expired(self) -> bool:
         """Check if the token is expiring within next 5 minutes."""
-        current_time = datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+        current_time = (
+            datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+        )
         datetime_format = "%Y-%m-%dT%H:%M:%S.%fZ"
         blizz_expire_obj = datetime.strptime(
             self._access_token_expiration_datetime, datetime_format
@@ -99,7 +101,9 @@ class Api:
 
         response = self._session.get(url, params=query_params, headers=headers)
 
-        self._access_token_expiration_datetime = response.headers.get("blizzard-token-expires")
+        self._access_token_expiration_datetime = response.headers.get(
+            "blizzard-token-expires"
+        )
 
         if response.status_code == 401 or self._is_token_expired():
             self._get_client_token(region)
@@ -117,7 +121,9 @@ class Api:
 
         return url
 
-    def get_resource(self, resource: str, region: str, query_params={}) -> dict[str, Any]:
+    def get_resource(
+        self, resource: str, region: str, query_params={}
+    ) -> dict[str, Any]:
         """Direction handler for when fetching resources."""
         url = self._format_api_url(resource, region)
         return self._request_handler(url, region, query_params)
@@ -131,7 +137,9 @@ class Api:
 
         return url
 
-    def get_oauth_resource(self, resource: str, region: str, query_params={}) -> dict[str, Any]:
+    def get_oauth_resource(
+        self, resource: str, region: str, query_params={}
+    ) -> dict[str, Any]:
         """Direction handler for when fetching oauth resources."""
         url = self._format_oauth_url(resource, region)
         return self._request_handler(url, region, query_params)

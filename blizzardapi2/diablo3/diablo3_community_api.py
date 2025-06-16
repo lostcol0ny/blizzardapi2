@@ -54,7 +54,9 @@ class Diablo3CommunityApi(Api):
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_artisan(self, region: str, locale: str, artisan_slug: str) -> dict[str, Any]:
+    def get_artisan(
+        self, region: str, locale: str, artisan_slug: str
+    ) -> dict[str, Any]:
         """
         Return a single artisan by slug.
 
@@ -89,7 +91,9 @@ class Diablo3CommunityApi(Api):
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_follower(self, region: str, locale: str, follower_slug: str) -> dict[str, Any]:
+    def get_follower(
+        self, region: str, locale: str, follower_slug: str
+    ) -> dict[str, Any]:
         """
         Return a single follower by slug.
 
@@ -105,7 +109,9 @@ class Diablo3CommunityApi(Api):
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_character_class(self, region: str, locale: str, class_slug: str) -> dict[str, Any]:
+    def get_character_class(
+        self, region: str, locale: str, class_slug: str
+    ) -> dict[str, Any]:
         """
         Return a single character class by slug.
 
@@ -155,7 +161,9 @@ class Diablo3CommunityApi(Api):
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_item_type(self, region: str, locale: str, item_type_slug: str) -> dict[str, Any]:
+    def get_item_type(
+        self, region: str, locale: str, item_type_slug: str
+    ) -> dict[str, Any]:
         """
         Return a single item type by slug.
 
@@ -187,7 +195,9 @@ class Diablo3CommunityApi(Api):
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_api_account(self, region: str, locale: str, account_id: str) -> dict[str, Any]:
+    def get_api_account(
+        self, region: str, locale: str, account_id: str
+    ) -> dict[str, Any]:
         """
         Return the specified account profile.
 

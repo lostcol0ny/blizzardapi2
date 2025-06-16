@@ -78,13 +78,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install build twine setuptools_scm
           # Get the current version from pyproject.toml
-          CURRENT_VERSION=$(grep 'version = ' pyproject.toml | cut -d'"' -f2)
+          CURRENT_VERSION=$(grep 'version = ' pyproject.toml | head -n 1 | cut -d'"' -f2)
           # Split version into major.minor.patch
           IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
           # Increment patch version
           NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
-          # Update version in pyproject.toml
-          sed -i "s/version = \".*\"/version = \"$NEW_VERSION\"/" pyproject.toml
+          # Update version in pyproject.toml (only the first occurrence, which is the package version)
+          sed -i "0,/version = \".*\"/s/version = \".*\"/version = \"$NEW_VERSION\"/" pyproject.toml
           # Update version in package.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" package.json
           # Commit the version changes

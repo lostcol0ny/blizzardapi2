@@ -66,7 +66,9 @@ class HearthstoneGameDataApi(Api):
         query_params = {"locale": locale, "game_mode": game_mode}
         return super().get_resource(resource, region, query_params)
 
-    def search_card_backs(self, region: str, locale: str, **query_params: Any) -> dict[str, Any]:
+    def search_card_backs(
+        self, region: str, locale: str, **query_params: Any
+    ) -> dict[str, Any]:
         """
         Return an up-to-date list of all card backs matching the search criteria.
 
@@ -82,7 +84,9 @@ class HearthstoneGameDataApi(Api):
         query_params.update({"locale": locale})
         return super().get_resource(resource, region, query_params)
 
-    def get_card_back(self, region: str, locale: str, id_or_slug: str) -> dict[str, Any]:
+    def get_card_back(
+        self, region: str, locale: str, id_or_slug: str
+    ) -> dict[str, Any]:
         """
         Return a specific card back by using card back ID or slug.
 
@@ -129,7 +133,9 @@ class HearthstoneGameDataApi(Api):
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_metadata_type(self, region: str, locale: str, type_id: str) -> dict[str, Any]:
+    def get_metadata_type(
+        self, region: str, locale: str, type_id: str
+    ) -> dict[str, Any]:
         """
         Return information about just one type of metadata.
 

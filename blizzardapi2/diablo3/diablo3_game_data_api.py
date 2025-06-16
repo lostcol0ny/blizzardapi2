@@ -48,7 +48,9 @@ class Diablo3GameDataApi(Api):
         resource = f"/data/d3/season/{season_id}"
         return super().get_resource(resource, region)
 
-    def get_season_leaderboard(self, region: str, season_id: int, leaderboard_id: int) -> dict:
+    def get_season_leaderboard(
+        self, region: str, season_id: int, leaderboard_id: int
+    ) -> dict:
         """
         Return the specified leaderboard for the specified season.
 
@@ -90,7 +92,9 @@ class Diablo3GameDataApi(Api):
         resource = f"/data/d3/era/{era_id}"
         return super().get_resource(resource, region)
 
-    def get_era_leaderboard(self, region: str, era_id: int, leaderboard_id: int) -> dict:
+    def get_era_leaderboard(
+        self, region: str, era_id: int, leaderboard_id: int
+    ) -> dict:
         """
         Return the specified leaderboard for the specified era.
 

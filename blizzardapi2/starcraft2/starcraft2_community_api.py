@@ -131,7 +131,9 @@ class Starcraft2CommunityApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the ladder data.
         """
-        resource = f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/{ladder_id}"
+        resource = (
+            f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/{ladder_id}"
+        )
         query_params["locale"] = locale
         return super().get_resource(resource, region, query_params)
 

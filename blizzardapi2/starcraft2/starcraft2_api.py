@@ -14,5 +14,9 @@ class Starcraft2Api:
 
     def __init__(self, client_id: str, client_secret: str) -> None:
         """Init Starcraft2."""
-        self.community: Starcraft2CommunityApi = Starcraft2CommunityApi(client_id, client_secret)
-        self.game_data: Starcraft2GameDataApi = Starcraft2GameDataApi(client_id, client_secret)
+        self.community: Starcraft2CommunityApi = Starcraft2CommunityApi(
+            client_id, client_secret
+        )
+        self.game_data: Starcraft2GameDataApi = Starcraft2GameDataApi(
+            client_id, client_secret
+        )

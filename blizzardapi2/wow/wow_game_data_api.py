@@ -40,7 +40,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_achievement(self, region: str, locale: str, achievement_id: int) -> dict[str, Any]:
+    def get_achievement(
+        self, region: str, locale: str, achievement_id: int
+    ) -> dict[str, Any]:
         """
         Return an achievement by ID.
 
@@ -56,7 +58,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_achievement_categories_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_achievement_categories_index(
+        self, region: str, locale: str
+    ) -> dict[str, Any]:
         """
         Return an index of achievement categories.
 
@@ -150,7 +154,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"dynamic-classic-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_auctions(self, region: str, locale: str, connected_realm_id: int) -> dict[str, Any]:
+    def get_auctions(
+        self, region: str, locale: str, connected_realm_id: int
+    ) -> dict[str, Any]:
         """
         Return all active auctions for a connected realm.
 
@@ -301,7 +307,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_covenant(self, region: str, locale: str, covenant_id: int) -> dict[str, Any]:
+    def get_covenant(
+        self, region: str, locale: str, covenant_id: int
+    ) -> dict[str, Any]:
         """
         Return a covenant by ID.
 
@@ -317,7 +325,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_covenant_media(self, region: str, locale: str, covenant_id: int) -> dict[str, Any]:
+    def get_covenant_media(
+        self, region: str, locale: str, covenant_id: int
+    ) -> dict[str, Any]:
         """
         Return media for a covenant by ID.
 
@@ -348,7 +358,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_soulbind(self, region: str, locale: str, soulbind_id: int) -> dict[str, Any]:
+    def get_soulbind(
+        self, region: str, locale: str, soulbind_id: int
+    ) -> dict[str, Any]:
         """
         Return a soulbind by ID.
 
@@ -625,7 +637,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_heirloom(self, region: str, locale: str, heirloom_id: int) -> dict[str, Any]:
+    def get_heirloom(
+        self, region: str, locale: str, heirloom_id: int
+    ) -> dict[str, Any]:
         """
         Return an heirloom by ID.
 
@@ -742,7 +756,9 @@ class WowGameDataApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the item subclass details.
         """
-        resource = f"/data/wow/item-class/{item_class_id}/item-subclass/{item_subclass_id}"
+        resource = (
+            f"/data/wow/item-class/{item_class_id}/item-subclass/{item_subclass_id}"
+        )
         namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
         query_params = {"namespace": namespace, "locale": locale}
         return super().get_resource(resource, region, query_params)
@@ -1023,7 +1039,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_modified_crafting_category_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_modified_crafting_category_index(
+        self, region: str, locale: str
+    ) -> dict[str, Any]:
         """
         Return the index of Modified Crafting categories.
 
@@ -1126,7 +1144,9 @@ class WowGameDataApi(Api):
 
         # Mythic Keystone Affix API
 
-    def get_mythic_keystone_affixes_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_mythic_keystone_affixes_index(
+        self, region: str, locale: str
+    ) -> dict[str, Any]:
         """
         Return an index of mythic keystone affixes.
 
@@ -1179,7 +1199,9 @@ class WowGameDataApi(Api):
 
         # Mythic Keystone Dungeon API
 
-    def get_mythic_keystone_dungeons_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_mythic_keystone_dungeons_index(
+        self, region: str, locale: str
+    ) -> dict[str, Any]:
         """
         Return an index of Mythic Keystone dungeons.
 
@@ -1227,7 +1249,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"dynamic-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_mythic_keystone_periods_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_mythic_keystone_periods_index(
+        self, region: str, locale: str
+    ) -> dict[str, Any]:
         """
         Return an index of Mythic Keystone periods.
 
@@ -1260,7 +1284,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"dynamic-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_mythic_keystone_seasons_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_mythic_keystone_seasons_index(
+        self, region: str, locale: str
+    ) -> dict[str, Any]:
         """
         Return an index of Mythic Keystone seasons.
 
@@ -1309,7 +1335,9 @@ class WowGameDataApi(Api):
         Returns:
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone Leaderboard dungeon instances.
         """
-        resource = f"/data/wow/connected-realm/{connected_realm_id}/mythic-leaderboard/index"
+        resource = (
+            f"/data/wow/connected-realm/{connected_realm_id}/mythic-leaderboard/index"
+        )
         query_params = {"namespace": f"dynamic-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
@@ -1423,7 +1451,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_pet_ability(self, region: str, locale: str, pet_ability_id: int) -> dict[str, Any]:
+    def get_pet_ability(
+        self, region: str, locale: str, pet_ability_id: int
+    ) -> dict[str, Any]:
         """
         Return a pet ability by ID.
 
@@ -1522,7 +1552,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": namespace, "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_pvp_talent_slots(self, region: str, locale: str, class_id: int) -> dict[str, Any]:
+    def get_pvp_talent_slots(
+        self, region: str, locale: str, class_id: int
+    ) -> dict[str, Any]:
         """
         Return the Pvp talent slots for a playable class by ID.
 
@@ -1581,7 +1613,9 @@ class WowGameDataApi(Api):
 
         # Playable Specialization API
 
-    def get_playable_specializations_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_playable_specializations_index(
+        self, region: str, locale: str
+    ) -> dict[str, Any]:
         """
         Return an index of playable specializations.
 
@@ -1596,7 +1630,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_playable_specialization(self, region: str, locale: str, spec_id: int) -> dict[str, Any]:
+    def get_playable_specialization(
+        self, region: str, locale: str, spec_id: int
+    ) -> dict[str, Any]:
         """
         Return a playable specialization by ID.
 
@@ -1688,7 +1724,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_profession(self, region: str, locale: str, profession_id: int) -> dict[str, Any]:
+    def get_profession(
+        self, region: str, locale: str, profession_id: int
+    ) -> dict[str, Any]:
         """
         Return a profession by ID.
 
@@ -1704,7 +1742,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_profession_media(self, region: str, locale: str, profession_id: int) -> dict[str, Any]:
+    def get_profession_media(
+        self, region: str, locale: str, profession_id: int
+    ) -> dict[str, Any]:
         """
         Return media for a profession by ID.
 
@@ -1755,7 +1795,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_recipe_media(self, region: str, locale: str, recipe_id: int) -> dict[str, Any]:
+    def get_recipe_media(
+        self, region: str, locale: str, recipe_id: int
+    ) -> dict[str, Any]:
         """
         Return media for a recipe by ID.
 
@@ -1788,7 +1830,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"dynamic-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_pvp_season(self, region: str, locale: str, pvp_season_id: int) -> dict[str, Any]:
+    def get_pvp_season(
+        self, region: str, locale: str, pvp_season_id: int
+    ) -> dict[str, Any]:
         """
         Return a PvP season by ID.
 
@@ -1841,7 +1885,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"dynamic-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_pvp_rewards_index(self, region: str, locale: str, pvp_season_id: int) -> dict[str, Any]:
+    def get_pvp_rewards_index(
+        self, region: str, locale: str, pvp_season_id: int
+    ) -> dict[str, Any]:
         """
         Return an index of PvP rewards for a PvP season.
 
@@ -1859,7 +1905,9 @@ class WowGameDataApi(Api):
 
         # PvP Tier API
 
-    def get_pvp_tier_media(self, region: str, locale: str, pvp_tier_id: int) -> dict[str, Any]:
+    def get_pvp_tier_media(
+        self, region: str, locale: str, pvp_tier_id: int
+    ) -> dict[str, Any]:
         """
         Return media for a PvP tier by ID.
 
@@ -1890,7 +1938,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_pvp_tier(self, region: str, locale: str, pvp_tier_id: int) -> dict[str, Any]:
+    def get_pvp_tier(
+        self, region: str, locale: str, pvp_tier_id: int
+    ) -> dict[str, Any]:
         """
         Return a PvP tier by ID.
 
@@ -1987,7 +2037,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_quest_area(self, region: str, locale: str, quest_area_id: int) -> dict[str, Any]:
+    def get_quest_area(
+        self, region: str, locale: str, quest_area_id: int
+    ) -> dict[str, Any]:
         """
         Return a quest area by ID.
 
@@ -2018,7 +2070,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_quest_type(self, region: str, locale: str, quest_type_id: int) -> dict[str, Any]:
+    def get_quest_type(
+        self, region: str, locale: str, quest_type_id: int
+    ) -> dict[str, Any]:
         """
         Return a quest type by ID.
 
@@ -2202,7 +2256,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_spell_media(self, region: str, locale: str, spell_id: int) -> dict[str, Any]:
+    def get_spell_media(
+        self, region: str, locale: str, spell_id: int
+    ) -> dict[str, Any]:
         """
         Return media for a spell by ID.
 
@@ -2266,7 +2322,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_pvp_talent(self, region: str, locale: str, pvp_talent_id: int) -> dict[str, Any]:
+    def get_pvp_talent(
+        self, region: str, locale: str, pvp_talent_id: int
+    ) -> dict[str, Any]:
         """
         Return a PvP talent by ID.
 
@@ -2332,7 +2390,9 @@ class WowGameDataApi(Api):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_tech_talent(self, region: str, locale: str, tech_talent_id: int) -> dict[str, Any]:
+    def get_tech_talent(
+        self, region: str, locale: str, tech_talent_id: int
+    ) -> dict[str, Any]:
         """
         Return a tech talent by ID.
 
@@ -2434,7 +2494,9 @@ class WowGameDataApi(Api):
 
         # Wow Token API
 
-    def get_token_index(self, region: str, locale: str, is_classic: bool = False) -> dict[str, Any]:
+    def get_token_index(
+        self, region: str, locale: str, is_classic: bool = False
+    ) -> dict[str, Any]:
         """
         Return the Wow Token index.
 
