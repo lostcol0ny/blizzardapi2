@@ -7,6 +7,10 @@ on:
   push:
     branches: ["main"]
 
+# Add permissions block
+permissions:
+  contents: write
+
 jobs:
   checkout:
     runs-on: ubuntu-latest
@@ -86,7 +90,7 @@ jobs:
           # Commit the version changes
           git add pyproject.toml package.json
           git commit -m "chore: bump version to $NEW_VERSION"
-          git push
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           python -m build
           twine upload dist/* --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
   release:
