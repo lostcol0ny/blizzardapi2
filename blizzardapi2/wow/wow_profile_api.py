@@ -587,16 +587,19 @@ class WowProfileApi(BaseApi):
         Return a profile summary for a character.
 
         Args:
-            region (str): The region to query.
-            locale (str): The locale to use for the response.
+            region (Region): The region to query.
+            locale (Locale): The locale to use for the response.
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
 
         Returns:
-            Dict[str, Any]: A dictionary containing the character's profile summary.
+            dict[str, Any]: A dictionary containing the character profile summary.
         """
         resource = f"/profile/wow/character/{realm_slug}/{character_name}"
-        query_params = {"namespace": f"profile-{region}", "locale": locale}
+        query_params = {
+            "namespace": f"profile-{region}",
+            "locale": locale,
+        }
         return self.get_resource(resource, region, query_params)
 
     def get_character_profile_status(

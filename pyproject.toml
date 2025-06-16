@@ -3,7 +3,7 @@ name = "blizzardapi2"
 version = "2.1.0"
 description = "A Python wrapper for Blizzard API"
 authors = [{ name = "lostcol0ny", email = "c098os0k@4wrd.cc" }]
-license = { text = "MIT" }
+license = "MIT"
 readme = "README.md"
 dependencies = [
     "requests>=2.32.3,<3.0.0",
@@ -20,7 +20,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 
@@ -28,9 +27,12 @@ classifiers = [
 requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+packages = ["blizzardapi2"]
+
 [tool.setuptools_scm]
-write_to = "blizzardapi2/_version.py" # Optional: write version to a file
-local_scheme = "node-and-timestamp"   # Optional: include local version info
+write_to = "blizzardapi2/_version.py"
+local_scheme = "node-and-timestamp"
 
 [project.optional-dependencies]
 dev = [

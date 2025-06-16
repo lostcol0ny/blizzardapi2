@@ -266,21 +266,30 @@ class BaseApi:
             TokenError: If the token request fails.
         """
         if self._token is None or self._is_token_expired():
-            response = self._session.post(
-                f"https://{self._region}.battle.net/oauth/token",
-                auth=(self._client_id, self._client_secret),
-                data={"grant_type": "client_credentials"},
-            )
-            if response.status_code != 200:
-                raise TokenError(
-                    f"Failed to get token: {response.status_code} {response.reason}",
-                    response=response,
+            try:
+                url = "https://oauth.battle.net/oauth/token"
+                response = self._session.post(
+                    url,
+                    auth=(self._client_id, self._client_secret),
+                    data={"grant_type": "client_credentials"},
                 )
-            data = response.json()
-            self._token = data["access_token"]
-            self._token_type = data["token_type"]
-            self._token_expires_in = data["expires_in"]
-            self._token_created_at = response.elapsed.total_seconds()
+                if response.status_code != 200:
+                    error_msg = f"Failed to get token: {response.status_code} {response.reason}"
+                    try:
+                        error_data = response.json()
+                        error_msg += f"\nError details: {error_data}"
+                    except:
+                        error_msg += f"\nResponse body: {response.text}"
+                    raise TokenError(error_msg, response=response)
+                data = response.json()
+                self._token = data["access_token"]
+                self._token_type = data["token_type"]
+                self._token_expires_in = data["expires_in"]
+                self._token_created_at = response.elapsed.total_seconds()
+            except Exception as e:
+                if not isinstance(e, TokenError):
+                    raise TokenError(f"Unexpected error getting token: {str(e)}")
+                raise
         return self._token
 
     async def _get_token_async(self) -> str:
@@ -293,24 +302,33 @@ class BaseApi:
             TokenError: If the token request fails.
         """
         if self._token is None or self._is_token_expired():
-            if self._async_session is None:
-                self._async_session = aiohttp.ClientSession()
-            response = await self._async_session.post(
-                f"https://{self._region}.battle.net/oauth/token",
-                auth=aiohttp.BasicAuth(self._client_id, self._client_secret),
-                data={"grant_type": "client_credentials"},
-            )
-            if response.status != 200:
-                raise TokenError(
-                    f"Failed to get token: {response.status} {response.reason}",
-                    response=response,
+            try:
+                if self._async_session is None:
+                    self._async_session = aiohttp.ClientSession()
+                url = "https://oauth.battle.net/oauth/token"
+                response = await self._async_session.post(
+                    url,
+                    auth=aiohttp.BasicAuth(self._client_id, self._client_secret),
+                    data={"grant_type": "client_credentials"},
                 )
-            data = await response.json()
-            self._token = data["access_token"]
-            self._token_type = data["token_type"]
-            self._token_expires_in = data["expires_in"]
-            self._token_created_at = response.elapsed.total_seconds()
-            await response.release()
+                if response.status != 200:
+                    error_msg = f"Failed to get token: {response.status} {response.reason}"
+                    try:
+                        error_data = await response.json()
+                        error_msg += f"\nError details: {error_data}"
+                    except:
+                        error_msg += f"\nResponse body: {await response.text()}"
+                    raise TokenError(error_msg, response=response)
+                data = await response.json()
+                self._token = data["access_token"]
+                self._token_type = data["token_type"]
+                self._token_expires_in = data["expires_in"]
+                self._token_created_at = response.elapsed.total_seconds()
+                await response.release()
+            except Exception as e:
+                if not isinstance(e, TokenError):
+                    raise TokenError(f"Unexpected error getting token: {str(e)}")
+                raise
         return self._token
 
     def _is_token_expired(self) -> bool:
@@ -346,9 +364,12 @@ class BaseApi:
             TokenError: If the token request fails.
         """
         token = self._get_token()
+        headers = {"Authorization": f"Bearer {token}"}
+        endpoint = endpoint.lstrip('/')
         response = self._session.get(
             f"https://{region}.api.blizzard.com/{endpoint}",
-            params={"locale": self._locale, "access_token": token, **query_params},
+            headers=headers,
+            params={"locale": self._locale, **query_params},
         )
         if response.status_code != 200:
             raise TokenError(
@@ -379,9 +400,12 @@ class BaseApi:
         token = await self._get_token_async()
         if self._async_session is None:
             self._async_session = aiohttp.ClientSession()
+        headers = {"Authorization": f"Bearer {token}"}
+        endpoint = endpoint.lstrip('/')
         response = await self._async_session.get(
             f"https://{region}.api.blizzard.com/{endpoint}",
-            params={"locale": self._locale, "access_token": token, **query_params},
+            headers=headers,
+            params={"locale": self._locale, **query_params},
         )
         if response.status != 200:
             raise TokenError(
