@@ -1,489 +1,137 @@
 """api.py file."""
 
-from dataclasses import dataclass
-from enum import Enum
-from typing import Any, Dict, Literal, Optional, Protocol, TypedDict
+from datetime import UTC, datetime, timedelta
+from typing import Any
 
-import aiohttp
 import requests
 
-# Type aliases for better type safety
-HTTPMethod = Literal["GET", "POST", "PUT", "DELETE", "PATCH"]
-RegionType = Literal["us", "eu", "kr", "tw", "cn"]
 
+class Api:
+    """Base API class.
 
-class Region(str, Enum):
-    """Valid regions for the WoW API."""
-
-    US = "us"
-    EU = "eu"
-    KR = "kr"
-    TW = "tw"
-    CN = "cn"
-
-
-class Locale(str, Enum):
-    """Valid locales for the WoW API."""
-
-    EN_US = "en_US"
-    EN_GB = "en_GB"
-    ES_MX = "es_MX"
-    PT_BR = "pt_BR"
-    DE_DE = "de_DE"
-    ES_ES = "es_ES"
-    FR_FR = "fr_FR"
-    IT_IT = "it_IT"
-    PT_PT = "pt_PT"
-    RU_RU = "ru_RU"
-    KO_KR = "ko_KR"
-    ZH_TW = "zh_TW"
-    ZH_CN = "zh_CN"
-
-
-class TokenResponse(TypedDict):
-    """Type definition for OAuth token response."""
-
-    access_token: str
-    token_type: str
-    expires_in: int
-
-
-class ErrorResponse(Protocol):
-    """Protocol defining the structure of error response objects.
-
-    This protocol defines the minimum interface that any error response object
-    must implement to be compatible with our error handling system. It's used
-    to ensure type safety when working with different HTTP client libraries
-    (requests, aiohttp, etc.).
-
-    The `...` in the method bodies indicates that the actual implementation
-    will be provided by the concrete classes that implement this protocol.
+    Attributes:
+        _client_id: A string client id supplied by Blizzard.
+        _client_secret: A string client secret supplied by Blizzard.
+        _access_token: A string access token that is used to access Blizzard's API.
+        _api_url: A string url used to call the API endpoints.
+        _api_url_cn: A string url used to call the china API endpoints.
+        _oauth_url: A string url used to call the OAuth API endpoints.
+        _oauth_url_cn: A string url used to call the china OAuth API endpoints.
+        _session: An open requests.Session instance.
     """
 
-    @property
-    def status_code(self) -> Optional[int]:
-        """Get the HTTP status code from the response.
+    def __init__(self, client_id: str, client_secret: str) -> None:
+        """Init Api."""
+        self._client_id: str = client_id
+        self._client_secret: str = client_secret
+        self._access_token: str = None
+        self._access_token_expiration_datetime: str = "2024-08-06T12:38:15.125Z"
 
-        Returns:
-            Optional[int]: The HTTP status code, or None if not available.
-        """
-        ...
+        self._api_url = "https://{0}.api.blizzard.com{1}"
+        self._api_url_cn = "https://gateway.battlenet.com.cn{0}"
 
-    @property
-    def headers(self) -> Dict[str, str]:
-        """Get the response headers.
+        self._oauth_url = "https://oauth.battle.net{1}"
+        self._oauth_url_cn = "https://www.gateway.battlenet.com.cn{0}"
 
-        Returns:
-            Dict[str, str]: A dictionary of response headers.
-        """
-        ...
-
-    def json(self) -> Dict[str, Any]:
-        """Parse the response body as JSON.
-
-        Returns:
-            Dict[str, Any]: The parsed JSON response.
-
-        Raises:
-            ValueError: If the response body is not valid JSON.
-        """
-        ...
-
-
-@dataclass(slots=True)
-class BlizzardAPIError(Exception):
-    """Base exception for Blizzard API errors.
-
-    This is the base exception class for all Blizzard API related errors.
-    It includes additional context about the error and the request that caused it.
-    """
-
-    message: str
-    status_code: Optional[int] = None
-    response: Optional[ErrorResponse] = None
-    request_url: Optional[str] = None
-    request_method: Optional[HTTPMethod] = None
-    request_params: Optional[Dict[str, Any]] = None
-
-    def __init__(self, message: str, **kwargs: Any) -> None:
-        """Initialize the error with the message and additional context.
-
-        Args:
-            message: The error message.
-            **kwargs: Additional error context.
-        """
-        super().__init__(message)
-        self.message = message
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-
-    def __str__(self) -> str:
-        """Return a string representation of the error."""
-        error_parts = [self.message]
-
-        if self.status_code:
-            error_parts.append(f"Status code: {self.status_code}")
-
-        if self.request_url:
-            error_parts.append(f"URL: {self.request_url}")
-
-        if self.request_method:
-            error_parts.append(f"Method: {self.request_method}")
-
-        if self.request_params:
-            error_parts.append(f"Parameters: {self.request_params}")
-
-        return " | ".join(error_parts)
-
-
-@dataclass(slots=True)
-class TokenError(BlizzardAPIError):
-    """Exception raised for token-related errors.
-
-    This exception is raised when there are issues with OAuth token management,
-    such as token retrieval, validation, or expiration.
-    """
-
-    token_type: Optional[str] = None
-    region: Optional[RegionType] = None
-
-    def __str__(self) -> str:
-        """Return a string representation of the token error."""
-        error_parts = [f"Token Error: {self.message}"]
-
-        if self.token_type:
-            error_parts.append(f"Token Type: {self.token_type}")
-
-        if self.region:
-            error_parts.append(f"Region: {self.region}")
-
-        if self.status_code:
-            error_parts.append(f"Status Code: {self.status_code}")
-
-        return " | ".join(error_parts)
-
-
-@dataclass(slots=True)
-class RequestError(BlizzardAPIError):
-    """Exception raised for request-related errors.
-
-    This exception is raised when there are issues with API requests,
-    such as network errors, invalid responses, or rate limiting.
-    """
-
-    retry_after: Optional[int] = None
-    error_code: Optional[str] = None
-    error_details: Optional[Dict[str, Any]] = None
-
-    def __str__(self) -> str:
-        """Return a string representation of the request error."""
-        error_parts = [f"Request Error: {self.message}"]
-
-        if self.error_code:
-            error_parts.append(f"Error Code: {self.error_code}")
-
-        if self.retry_after:
-            error_parts.append(f"Retry After: {self.retry_after} seconds")
-
-        if self.status_code:
-            error_parts.append(f"Status Code: {self.status_code}")
-
-        if self.request_url:
-            error_parts.append(f"URL: {self.request_url}")
-
-        return " | ".join(error_parts)
-
-    @property
-    def is_rate_limited(self) -> bool:
-        """Check if the error is due to rate limiting."""
-        return self.status_code == 429 or self.retry_after is not None
-
-    @property
-    def should_retry(self) -> bool:
-        """Check if the request should be retried."""
-        return self.is_rate_limited or self.status_code in (500, 502, 503, 504)
-
-
-class BaseApi:
-    """Base API class."""
-
-    def __init__(
-        self,
-        client_id: str,
-        client_secret: str,
-        region: str = "us",
-        locale: str = "en_US",
-    ):
-        """Initialize the API client.
-
-        Args:
-            client_id: The client ID.
-            client_secret: The client secret.
-            region: The region to use.
-            locale: The locale to use.
-        """
-        self._client_id = client_id
-        self._client_secret = client_secret
-        self._region = region
-        self._locale = locale
         self._session = requests.Session()
-        self._async_session: Optional[aiohttp.ClientSession] = None
-        self._token: Optional[str] = None
-        self._token_type: Optional[str] = None
-        self._token_expires_in: Optional[int] = None
-        self._token_created_at: Optional[float] = None
-
-    def __del__(self):
-        """Clean up resources."""
-        try:
-            if hasattr(self, "_session"):
-                self._session.close()
-            if hasattr(self, "_async_session") and self._async_session is not None:
-                if not self._async_session.closed:
-                    self._async_session.close()
-        except Exception:
-            pass  # Ignore cleanup errors during garbage collection
-
-    async def __aenter__(self) -> "BaseApi":
-        """Async context manager entry."""
-        if self._async_session is None:
-            self._async_session = aiohttp.ClientSession()
-        return self
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
-        """Async context manager exit."""
-        if self._async_session is not None and not self._async_session.closed:
-            await self._async_session.close()
-            self._async_session = None
-
-    def _get_token(self) -> str:
-        """Get the OAuth token.
-
-        Returns:
-            The OAuth token.
-
-        Raises:
-            TokenError: If the token request fails.
-        """
-        if self._token is None or self._is_token_expired():
-            try:
-                url = "https://oauth.battle.net/oauth/token"
-                response = self._session.post(
-                    url,
-                    auth=(self._client_id, self._client_secret),
-                    data={"grant_type": "client_credentials"},
-                )
-                if response.status_code != 200:
-                    error_msg = f"Failed to get token: {response.status_code} {response.reason}"
-                    try:
-                        error_data = response.json()
-                        error_msg += f"\nError details: {error_data}"
-                    except:
-                        error_msg += f"\nResponse body: {response.text}"
-                    raise TokenError(error_msg, response=response)
-                data = response.json()
-                self._token = data["access_token"]
-                self._token_type = data["token_type"]
-                self._token_expires_in = data["expires_in"]
-                self._token_created_at = response.elapsed.total_seconds()
-            except Exception as e:
-                if not isinstance(e, TokenError):
-                    raise TokenError(f"Unexpected error getting token: {str(e)}")
-                raise
-        return self._token
-
-    async def _get_token_async(self) -> str:
-        """Get the OAuth token asynchronously.
-
-        Returns:
-            The OAuth token.
-
-        Raises:
-            TokenError: If the token request fails.
-        """
-        if self._token is None or self._is_token_expired():
-            try:
-                if self._async_session is None:
-                    self._async_session = aiohttp.ClientSession()
-                url = "https://oauth.battle.net/oauth/token"
-                response = await self._async_session.post(
-                    url,
-                    auth=aiohttp.BasicAuth(self._client_id, self._client_secret),
-                    data={"grant_type": "client_credentials"},
-                )
-                if response.status != 200:
-                    error_msg = f"Failed to get token: {response.status} {response.reason}"
-                    try:
-                        error_data = await response.json()
-                        error_msg += f"\nError details: {error_data}"
-                    except:
-                        error_msg += f"\nResponse body: {await response.text()}"
-                    raise TokenError(error_msg, response=response)
-                data = await response.json()
-                self._token = data["access_token"]
-                self._token_type = data["token_type"]
-                self._token_expires_in = data["expires_in"]
-                self._token_created_at = response.elapsed.total_seconds()
-                await response.release()
-            except Exception as e:
-                if not isinstance(e, TokenError):
-                    raise TokenError(f"Unexpected error getting token: {str(e)}")
-                raise
-        return self._token
 
     def _is_token_expired(self) -> bool:
-        """Check if the token is expired.
-
-        Returns:
-            True if the token is expired, False otherwise.
-        """
-        if self._token_expires_in is None or self._token_created_at is None:
-            return True
-        return (
-            self._token_created_at + self._token_expires_in
-            < requests.get("https://www.google.com").elapsed.total_seconds()
+        """Check if the token is expiring within next 5 minutes."""
+        current_time = datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+        datetime_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+        blizz_expire_obj = datetime.strptime(
+            self._access_token_expiration_datetime, datetime_format
         )
+        current_datetime_obj = datetime.strptime(current_time, datetime_format)
 
-    def _make_request(
-        self,
-        region: str,
-        endpoint: str,
-        **query_params: Any,
-    ) -> dict[str, Any]:
-        """Make a request to the API.
+        time_difference = abs(blizz_expire_obj - current_datetime_obj)
+
+        return time_difference <= timedelta(minutes=5)
+
+    def _get_client_token(self, region: str) -> dict[str, Any]:
+        """Fetch an access token based on client id and client secret credentials.
 
         Args:
-            region: The region to get data from.
-            endpoint: The API endpoint.
-            **query_params: Additional query parameters.
-
-        Returns:
-            The API response.
-
-        Raises:
-            TokenError: If the token request fails.
+            region:
+                A string containing a region.
         """
-        token = self._get_token()
-        headers = {"Authorization": f"Bearer {token}"}
-        endpoint = endpoint.lstrip('/')
-        response = self._session.get(
-            f"https://{region}.api.blizzard.com/{endpoint}",
-            headers=headers,
-            params={"locale": self._locale, **query_params},
+        url = self._format_oauth_url("/oauth/token", region)
+        query_params = {"grant_type": "client_credentials"}
+
+        response = self._session.post(
+            url,
+            params=query_params,
+            auth=(self._client_id, self._client_secret),
         )
-        if response.status_code != 200:
-            raise TokenError(
-                f"Failed to get data: {response.status_code} {response.reason}",
-                response=response,
-            )
+
+        json_response = self._response_handler(response)
+        self._access_token = json_response["access_token"]
+
+        return json_response
+
+    def _ensure_valid_token(self, region: str) -> None:
+        """Ensure that the token is valid."""
+        if self._access_token is None or self._is_token_expired():
+            self._get_client_token(region)
+
+    def _response_handler(self, response: requests.Response) -> dict[str, Any]:
+        """Handle the response."""
+        response.raise_for_status()
         return response.json()
 
-    async def _make_request_async(
-        self,
-        region: str,
-        endpoint: str,
-        **query_params: Any,
+    def _request_handler(
+        self, url: str, region: str, query_params: dict[str, Any] = None
     ) -> dict[str, Any]:
-        """Make a request to the API asynchronously.
+        """Handle the request."""
+        self._ensure_valid_token(region)
 
-        Args:
-            region: The region to get data from.
-            endpoint: The API endpoint.
-            **query_params: Additional query parameters.
+        headers = {"Authorization": f"Bearer {self._access_token}"}
 
-        Returns:
-            The API response.
+        # Initialize query_params if it's None
+        if query_params is None:
+            query_params = {}
+        else:
+            # Create a copy of query_params to avoid modifying the original
+            query_params = query_params.copy()
 
-        Raises:
-            TokenError: If the token request fails.
-        """
-        token = await self._get_token_async()
-        if self._async_session is None:
-            self._async_session = aiohttp.ClientSession()
-        headers = {"Authorization": f"Bearer {token}"}
-        endpoint = endpoint.lstrip('/')
-        response = await self._async_session.get(
-            f"https://{region}.api.blizzard.com/{endpoint}",
-            headers=headers,
-            params={"locale": self._locale, **query_params},
-        )
-        if response.status != 200:
-            raise TokenError(
-                f"Failed to get data: {response.status} {response.reason}",
-                response=response,
-            )
-        data = await response.json()
-        await response.release()
-        return data
+        # Remove access_token from query_params if it exists
+        query_params.pop("access_token", None)
 
-    def get_resource(
-        self,
-        resource: str,
-        region: str,
-        query_params: Optional[dict[str, Any]] = None,
-    ) -> dict[str, Any]:
-        """Get a resource from the API.
+        response = self._session.get(url, params=query_params, headers=headers)
 
-        Args:
-            resource: The resource to get.
-            region: The region to get the resource from.
-            query_params: Additional query parameters.
+        self._access_token_expiration_datetime = response.headers.get("blizzard-token-expires")
 
-        Returns:
-            The API response.
-        """
-        return self._make_request(region, resource, **(query_params or {}))
+        if response.status_code == 401 or self._is_token_expired():
+            self._get_client_token(region)
+            headers["Authorization"] = f"Bearer {self._access_token}"
+            response = self._session.get(url, params=query_params, headers=headers)
 
-    async def get_resource_async(
-        self,
-        resource: str,
-        region: str,
-        query_params: Optional[dict[str, Any]] = None,
-    ) -> dict[str, Any]:
-        """Get a resource from the API asynchronously.
+        return self._response_handler(response)
 
-        Args:
-            resource: The resource to get.
-            region: The region to get the resource from.
-            query_params: Additional query parameters.
+    def _format_api_url(self, resource: str, region: str) -> str:
+        """Format the API url into a usable url."""
+        if region == "cn":
+            url = self._api_url_cn.format(resource)
+        else:
+            url = self._api_url.format(region, resource)
 
-        Returns:
-            The API response.
-        """
-        return await self._make_request_async(region, resource, **(query_params or {}))
+        return url
 
-    def get_oauth_resource(
-        self,
-        resource: str,
-        region: str,
-        query_params: Optional[dict[str, Any]] = None,
-    ) -> dict[str, Any]:
-        """Get an OAuth resource from the API.
+    def get_resource(self, resource: str, region: str, query_params={}) -> dict[str, Any]:
+        """Direction handler for when fetching resources."""
+        url = self._format_api_url(resource, region)
+        return self._request_handler(url, region, query_params)
 
-        Args:
-            resource: The resource to get.
-            region: The region to get the resource from.
-            query_params: Additional query parameters.
+    def _format_oauth_url(self, resource: str, region: str) -> str:
+        """Format the oauth url into a usable url."""
+        if region == "cn":
+            url = self._oauth_url_cn.format(resource)
+        else:
+            url = self._oauth_url.format(region, resource)
 
-        Returns:
-            The API response.
-        """
-        return self._make_request(region, resource, **(query_params or {}))
+        return url
 
-    async def get_oauth_resource_async(
-        self,
-        resource: str,
-        region: str,
-        query_params: Optional[dict[str, Any]] = None,
-    ) -> dict[str, Any]:
-        """Get an OAuth resource from the API asynchronously.
-
-        Args:
-            resource: The resource to get.
-            region: The region to get the resource from.
-            query_params: Additional query parameters.
-
-        Returns:
-            The API response.
-        """
-        return await self._make_request_async(region, resource, **(query_params or {}))
+    def get_oauth_resource(self, resource: str, region: str, query_params={}) -> dict[str, Any]:
+        """Direction handler for when fetching oauth resources."""
+        url = self._format_oauth_url(resource, region)
+        return self._request_handler(url, region, query_params)

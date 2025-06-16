@@ -5,6 +5,27 @@ description = "A Python wrapper for Blizzard API"
 authors = [{ name = "lostcol0ny", email = "c098os0k@4wrd.cc" }]
 license = "MIT"
 readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.3"
+black = "^24.4.2"
+pytest = "^8.2.2"
+pytest-mock = "^3.14.0"
+ruff = "^0.3.0"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["F401"]
 dependencies = [
     "requests>=2.32.3,<3.0.0",
     "black>=24.4.2,<25.0.0",

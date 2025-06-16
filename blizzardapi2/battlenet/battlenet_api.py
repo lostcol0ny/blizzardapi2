@@ -1,32 +1,18 @@
-"""Battle.net API client.
+"""battlenet_api.py file."""
 
-This module provides access to Battle.net API endpoints,
-including OAuth authentication and user information.
-"""
+from typing import Any
 
-from ..api import BaseApi
-from .battlenet_oauth_api import BattlenetOAuthApi
+from .battlenet_oauth_api import BattlenetOauthApi
 
 
-class BattlenetApi(BaseApi):
-    """Battle.net API client.
-
-    This class provides access to all Battle.net API endpoints.
-    It organizes access to OAuth functionality through the BattlenetOAuthApi
-    component.
+class BattlenetApi:
+    """Battle.net API class.
 
     Attributes:
-        _client_id: The Blizzard API client ID.
-        _client_secret: The Blizzard API client secret.
-        oauth: Client for OAuth endpoints.
+        client_id (str): A string client id supplied by Blizzard.
+        client_secret (str): A string client secret supplied by Blizzard.
     """
 
-    def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the API client.
-
-        Args:
-            client_id: The Blizzard API client ID.
-            client_secret: The Blizzard API client secret.
-        """
-        super().__init__(client_id, client_secret)
-        self.oauth = BattlenetOAuthApi(client_id, client_secret)
+    def __init__(self, client_id: str, client_secret: str) -> dict[str, Any]:
+        """Init BattlenetApi."""
+        self.oauth = BattlenetOauthApi(client_id, client_secret)
