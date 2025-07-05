@@ -1,0 +1,40 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Create virtual environment
+        run: |
+          uv venv
+
+      - name: Install dependencies
+        run: |
+          uv pip install -e ".[dev]"
+          uv pip install mkdocs mkdocs-material linkchecker
+
+      - name: Check documentation links
+        run: |
+          find docs/ -name "*.md" -exec grep -l "http" {} \; | xargs -I {} linkchecker {} || true
+
+      - name: Check markdown formatting
+        run: |
+          find docs/ -name "*.md" -exec markdownlint {} \; || true
