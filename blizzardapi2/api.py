@@ -1,8 +1,9 @@
 """api.py file."""
 
 from datetime import UTC, datetime, timedelta
-from typing import Any
+from typing import Any, Optional
 
+import aiohttp
 import requests
 
 
@@ -18,14 +19,16 @@ class Api:
         _oauth_url: A string url used to call the OAuth API endpoints.
         _oauth_url_cn: A string url used to call the china OAuth API endpoints.
         _session: An open requests.Session instance.
+        _async_session: An optional aiohttp.ClientSession instance for async requests.
+        _access_token_expiration_datetime: An optional string for token expiration.
     """
 
     def __init__(self, client_id: str, client_secret: str) -> None:
         """Init Api."""
         self._client_id: str = client_id
         self._client_secret: str = client_secret
-        self._access_token: str = None
-        self._access_token_expiration_datetime: str = "2024-08-06T12:38:15.125Z"
+        self._access_token: Optional[str] = None
+        self._access_token_expiration_datetime: Optional[str] = "2024-08-06T12:38:15.125Z"
 
         self._api_url = "https://{0}.api.blizzard.com{1}"
         self._api_url_cn = "https://gateway.battlenet.com.cn{0}"
@@ -34,9 +37,22 @@ class Api:
         self._oauth_url_cn = "https://www.gateway.battlenet.com.cn{0}"
 
         self._session = requests.Session()
+        self._async_session: Optional[aiohttp.ClientSession] = None
+
+    async def __aenter__(self) -> "Api":
+        """Async context manager entry."""
+        self._async_session = aiohttp.ClientSession()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
+        """Async context manager exit."""
+        if self._async_session:
+            await self._async_session.close()
 
     def _is_token_expired(self) -> bool:
         """Check if the token is expiring within next 5 minutes."""
+        if not self._access_token_expiration_datetime:
+            return True
         current_time = (
             datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
         )
@@ -82,7 +98,7 @@ class Api:
         return response.json()
 
     def _request_handler(
-        self, url: str, region: str, query_params: dict[str, Any] = None
+        self, url: str, region: str, query_params: Optional[dict[str, Any]] = None
     ) -> dict[str, Any]:
         """Handle the request."""
         self._ensure_valid_token(region)
@@ -112,6 +128,38 @@ class Api:
 
         return self._response_handler(response)
 
+    async def _request_handler_async(
+        self, url: str, region: str, query_params: Optional[dict[str, Any]] = None
+    ) -> dict[str, Any]:
+        """Handle the async request."""
+        if self._async_session is None:
+            raise RuntimeError("Async session not initialized. Use async context manager.")
+
+        self._ensure_valid_token(region)
+
+        headers = {"Authorization": f"Bearer {self._access_token}"}
+
+        # Initialize query_params if it's None
+        if query_params is None:
+            query_params = {}
+        else:
+            # Create a copy of query_params to avoid modifying the original
+            query_params = query_params.copy()
+
+        # Remove access_token from query_params if it exists
+        query_params.pop("access_token", None)
+
+        async with self._async_session.get(url, params=query_params, headers=headers) as response:
+            if response.status == 401 or self._is_token_expired():
+                self._get_client_token(region)
+                headers["Authorization"] = f"Bearer {self._access_token}"
+                async with self._async_session.get(url, params=query_params, headers=headers) as response:
+                    response.raise_for_status()
+                    return await response.json()
+            else:
+                response.raise_for_status()
+                return await response.json()
+
     def _format_api_url(self, resource: str, region: str) -> str:
         """Format the API url into a usable url."""
         if region == "cn":
@@ -122,11 +170,18 @@ class Api:
         return url
 
     def get_resource(
-        self, resource: str, region: str, query_params={}
+        self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
     ) -> dict[str, Any]:
         """Direction handler for when fetching resources."""
         url = self._format_api_url(resource, region)
         return self._request_handler(url, region, query_params)
+
+    async def get_resource_async(
+        self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
+    ) -> dict[str, Any]:
+        """Async direction handler for when fetching resources."""
+        url = self._format_api_url(resource, region)
+        return await self._request_handler_async(url, region, query_params)
 
     def _format_oauth_url(self, resource: str, region: str) -> str:
         """Format the oauth url into a usable url."""
@@ -138,8 +193,15 @@ class Api:
         return url
 
     def get_oauth_resource(
-        self, resource: str, region: str, query_params={}
+        self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
     ) -> dict[str, Any]:
         """Direction handler for when fetching oauth resources."""
         url = self._format_oauth_url(resource, region)
         return self._request_handler(url, region, query_params)
+
+    async def get_oauth_resource_async(
+        self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
+    ) -> dict[str, Any]:
+        """Async direction handler for when fetching oauth resources."""
+        url = self._format_oauth_url(resource, region)
+        return await self._request_handler_async(url, region, query_params)

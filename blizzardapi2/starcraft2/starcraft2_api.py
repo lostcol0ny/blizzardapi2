@@ -20,3 +20,9 @@ class Starcraft2Api:
         self.game_data: Starcraft2GameDataApi = Starcraft2GameDataApi(
             client_id, client_secret
         )
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        pass
