@@ -28,7 +28,9 @@ class Api:
         self._client_id: str = client_id
         self._client_secret: str = client_secret
         self._access_token: Optional[str] = None
-        self._access_token_expiration_datetime: Optional[str] = "2024-08-06T12:38:15.125Z"
+        self._access_token_expiration_datetime: Optional[str] = (
+            "2024-08-06T12:38:15.125Z"
+        )
 
         self._api_url = "https://{0}.api.blizzard.com{1}"
         self._api_url_cn = "https://gateway.battlenet.com.cn{0}"
@@ -133,7 +135,9 @@ class Api:
     ) -> dict[str, Any]:
         """Handle the async request."""
         if self._async_session is None:
-            raise RuntimeError("Async session not initialized. Use async context manager.")
+            raise RuntimeError(
+                "Async session not initialized. Use async context manager."
+            )
 
         self._ensure_valid_token(region)
 
@@ -149,11 +153,15 @@ class Api:
         # Remove access_token from query_params if it exists
         query_params.pop("access_token", None)
 
-        async with self._async_session.get(url, params=query_params, headers=headers) as response:
+        async with self._async_session.get(
+            url, params=query_params, headers=headers
+        ) as response:
             if response.status == 401 or self._is_token_expired():
                 self._get_client_token(region)
                 headers["Authorization"] = f"Bearer {self._access_token}"
-                async with self._async_session.get(url, params=query_params, headers=headers) as response:
+                async with self._async_session.get(
+                    url, params=query_params, headers=headers
+                ) as response:
                     response.raise_for_status()
                     return await response.json()
             else:
