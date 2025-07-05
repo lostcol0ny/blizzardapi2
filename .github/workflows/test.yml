@@ -38,7 +38,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest --cov=blizzardapi2 --cov-report=xml --cov-report=term-missing
+          uv run pytest --cov=blizzardapi2 --cov-report=xml --cov-report=term-missing
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

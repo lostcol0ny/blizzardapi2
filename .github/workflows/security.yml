@@ -35,11 +35,11 @@ jobs:
 
       - name: Run Safety (dependency vulnerability scanner)
         run: |
-          safety check
+          uv run safety check
 
       - name: Run Bandit (security linter)
         run: |
-          bandit -r blizzardapi2/ -f json -o bandit-report.json || true
+          uv run bandit -r blizzardapi2/ -f json -o bandit-report.json || true
 
       - name: Upload Bandit results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3

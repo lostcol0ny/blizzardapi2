@@ -38,13 +38,13 @@ jobs:
 
       - name: Run Black
         run: |
-          black --check --verbose .
+          uv run black --check --verbose .
 
       - name: Run Ruff
         run: |
-          ruff check .
-          ruff format --check .
+          uv run ruff check .
+          uv run ruff format --check .
 
       - name: Run mypy
         run: |
-          mypy blizzardapi2/
+          uv run mypy blizzardapi2/
