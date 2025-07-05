@@ -50,13 +50,26 @@ jobs:
           uv pip install mypy
 
       - name: Run Black (autofix)
+        if: github.event_name == 'push'
         run: |
           uv run black .
 
+      - name: Run Black (check only)
+        if: github.event_name == 'pull_request'
+        run: |
+          uv run black --check --verbose .
+
       - name: Run Ruff (autofix)
+        if: github.event_name == 'push'
         run: |
           uv run ruff check . --fix
           uv run ruff format .
+
+      - name: Run Ruff (check only)
+        if: github.event_name == 'pull_request'
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
 
       - name: Run mypy
         run: |
@@ -64,6 +77,7 @@ jobs:
 
       # Commit and push any formatting changes automatically
       - name: Commit and push changes if any
+        if: github.event_name == 'push'
         run: |
           # Get the current branch name
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
@@ -83,3 +97,11 @@ jobs:
           else
             echo "No formatting changes to commit"
           fi
+
+      # For pull requests, just check formatting without pushing
+      - name: Check formatting for pull requests
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Pull request detected - checking formatting only"
+          echo "Formatting changes would be applied but not pushed"
+          echo "Please run formatting locally and commit changes"
