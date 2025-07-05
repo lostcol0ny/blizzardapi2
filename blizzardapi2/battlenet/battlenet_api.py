@@ -1,7 +1,5 @@
 """battlenet_api.py file."""
 
-from typing import Any
-
 from .battlenet_oauth_api import BattlenetOAuthApi
 
 
