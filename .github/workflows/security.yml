@@ -43,10 +43,10 @@ jobs:
 
       - name: Run Bandit (security linter)
         run: |
-          uv run bandit -r blizzardapi2/ -f json -o bandit-report.json || true
+          uv run bandit -r blizzardapi2/ -f sarif -o bandit-report.sarif || true
 
       - name: Upload Bandit results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
-          sarif_file: bandit-report.json
+          sarif_file: bandit-report.sarif

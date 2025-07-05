@@ -4,7 +4,7 @@ This module provides access to the World of Warcraft API endpoints,
 including game data and profile information.
 """
 
-from ..api import BaseApi
+from ..api import Api as BaseApi
 from .wow_game_data_api import WowGameDataApi
 from .wow_profile_api import WowProfileApi
 

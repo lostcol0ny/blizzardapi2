@@ -6,7 +6,8 @@ including user information and authentication.
 
 from typing import Any, Dict
 
-from ..api import BaseApi, Locale, Region
+from ..api import Api as BaseApi
+from ..types import Locale, Region
 
 
 class ApiResponse:

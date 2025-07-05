@@ -4,7 +4,7 @@ This module provides access to the Diablo III API endpoints,
 including game data and community information.
 """
 
-from ..api import BaseApi
+from ..api import Api as BaseApi
 from .diablo3_community_api import Diablo3CommunityApi
 from .diablo3_game_data_api import Diablo3GameDataApi
 

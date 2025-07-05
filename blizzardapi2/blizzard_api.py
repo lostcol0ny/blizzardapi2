@@ -5,7 +5,7 @@ a single client instance. Each game's API is accessible through its own
 property on the main client.
 """
 
-from .api import BaseApi
+from .api import Api as BaseApi
 from .battlenet.battlenet_api import BattlenetApi
 from .diablo3.diablo3_api import Diablo3Api
 from .hearthstone.hearthstone_api import HearthstoneApi

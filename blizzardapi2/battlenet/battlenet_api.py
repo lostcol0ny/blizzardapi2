@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from .battlenet_oauth_api import BattlenetOauthApi
+from .battlenet_oauth_api import BattlenetOAuthApi
 
 
 class BattlenetApi:
@@ -15,4 +15,4 @@ class BattlenetApi:
 
     def __init__(self, client_id: str, client_secret: str) -> dict[str, Any]:
         """Init BattlenetApi."""
-        self.oauth = BattlenetOauthApi(client_id, client_secret)
+        self.oauth = BattlenetOAuthApi(client_id, client_secret)
