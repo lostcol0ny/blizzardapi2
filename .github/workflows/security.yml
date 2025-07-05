@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: "0 0 * * 0" # Weekly on Sundays
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   security:
     runs-on: ubuntu-latest
