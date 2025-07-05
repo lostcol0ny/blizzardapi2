@@ -1,11 +1,13 @@
 name: Lint
-permissions:
-  contents: read
+
 on:
   push:
     branches: [main, develop]
   pull_request:
     branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   lint:
@@ -17,16 +19,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install uv
+      - name: Install uv (Unix)
+        if: runner.os != 'Windows'
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install uv (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+          echo "$env:USERPROFILE\.cargo\bin" >> $env:GITHUB_PATH
 
       - name: Create virtual environment
         run: |
@@ -41,11 +52,19 @@ jobs:
         run: |
           uv run black --check --verbose .
 
-      - name: Run Ruff
+      - name: Run Ruff (autofix)
         run: |
-          uv run ruff check .
-          uv run ruff format --check .
+          uv run ruff check . --fix
+          uv run ruff format .
 
       - name: Run mypy
         run: |
           uv run mypy blizzardapi2/
+
+      - name: Commit and push changes if any
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "style: auto-format with Ruff"
+          git push
