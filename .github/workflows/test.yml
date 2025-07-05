@@ -48,7 +48,13 @@ jobs:
 
       - name: Run tests
         run: |
+          # Debug: Check current directory and list contents
+          pwd
+          ls -la
+          echo "Looking for test_project directory..."
+
           # Run pytest in the test_project directory so tests are discovered
+          # The test_project is at the root level of the repository
           uv run pytest test_project --cov=blizzardapi2 --cov-report=xml --cov-report=term-missing
 
       - name: Upload coverage to Codecov
