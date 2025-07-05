@@ -48,9 +48,9 @@ jobs:
           uv pip install -e ".[dev]"
           uv pip install mypy
 
-      - name: Run Black
+      - name: Run Black (autofix)
         run: |
-          uv run black --check --verbose .
+          uv run black .
 
       - name: Run Ruff (autofix)
         run: |
@@ -61,10 +61,11 @@ jobs:
         run: |
           uv run mypy blizzardapi2/
 
+      # Commit and push any formatting changes automatically
       - name: Commit and push changes if any
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git diff --cached --quiet || git commit -m "style: auto-format with Ruff"
+          git diff --cached --quiet || git commit -m "style: auto-format with Black and Ruff"
           git push
