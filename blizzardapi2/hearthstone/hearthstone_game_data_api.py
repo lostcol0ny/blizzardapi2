@@ -1,11 +1,11 @@
 from typing import Any
 
-from ..api import Api
+from ..api import BaseApi
 
 """hearthstone_game_data_api.py file."""
 
 
-class HearthstoneGameDataApi(Api):
+class HearthstoneGameDataApi(BaseApi):
     """All Hearthstone Game Data API methods.
 
     Attributes:

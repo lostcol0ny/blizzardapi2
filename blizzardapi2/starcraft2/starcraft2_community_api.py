@@ -2,10 +2,10 @@
 
 from typing import Any
 
-from ..api import Api
+from ..api import BaseApi
 
 
-class Starcraft2CommunityApi(Api):
+class Starcraft2CommunityApi(BaseApi):
     """All Starcraft 2 Community API methods.
 
     Attributes:

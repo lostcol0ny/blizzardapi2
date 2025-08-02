@@ -1,11 +1,11 @@
 from typing import Any
 
-from ..api import Api
+from ..api import BaseApi
 
 """diablo3_community_api.py file."""
 
 
-class Diablo3CommunityApi(Api):
+class Diablo3CommunityApi(BaseApi):
     """All Diablo 3 Community API methods.
 
     Attributes:

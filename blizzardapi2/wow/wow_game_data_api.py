@@ -2,10 +2,10 @@
 
 from typing import Any
 
-from ..api import Api
+from ..api import BaseApi
 
 
-class WowGameDataApi(Api):
+class WowGameDataApi(BaseApi):
     """All Wow Game Data API methods.
 
     Attributes:

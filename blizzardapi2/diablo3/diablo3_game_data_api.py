@@ -1,9 +1,9 @@
-from ..api import Api
+from ..api import BaseApi
 
 """diablo3_game_data_api.py file."""
 
 
-class Diablo3GameDataApi(Api):
+class Diablo3GameDataApi(BaseApi):
     """All Diablo 3 Game Data API methods.
 
     Attributes:

@@ -2,10 +2,10 @@
 
 from typing import Any
 
-from ..api import Api
+from ..api import BaseApi
 
 
-class WowProfileApi(Api):
+class WowProfileApi(BaseApi):
     """All Wow Profile API methods.
 
     Attributes:

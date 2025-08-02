@@ -6,7 +6,7 @@ from typing import Any
 import requests
 
 
-class Api:
+class BaseApi:
     """Base API class.
 
     Attributes:
