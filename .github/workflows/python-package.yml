@@ -10,6 +10,7 @@ on:
 # Add permissions block
 permissions:
   contents: write
+  packages: write
 
 jobs:
   checkout:
@@ -93,18 +94,31 @@ jobs:
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           python -m build
           twine upload dist/* --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
+        env:
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
   release:
     needs: publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18.x"
+
       - name: Install npm dependencies
         run: npm install
+
       - name: Run release script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
