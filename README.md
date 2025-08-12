@@ -50,7 +50,7 @@ Python (3.11+)
 
 ```python
 from blizzardapi2 import BlizzardApi
-from blizzardapi2.wow.wow_profile_api import Region, Locale
+from blizzardapi2.types import Locale, Region
 
 api_client = BlizzardApi("client_id", "client_secret")
 
@@ -80,7 +80,7 @@ connected_realms_index = api_client.wow.game_data.get_connected_realms_index(
 ```python
 import asyncio
 from blizzardapi2 import BlizzardApi
-from blizzardapi2.wow.wow_profile_api import Region, Locale
+from blizzardapi2.types import Locale, Region
 
 async def main():
     api_client = BlizzardApi("client_id", "client_secret")

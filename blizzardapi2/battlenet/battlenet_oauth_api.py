@@ -6,8 +6,8 @@ including user information and authentication.
 
 from typing import Any, Dict
 
-from ..api import BaseApi, Locale, Region
-
+from ..api import BaseApi
+from ..types import Locale, Region
 
 class ApiResponse:
     """Wrapper for API responses with metadata."""

@@ -2,10 +2,10 @@
 
 from typing import Any
 
-from ..api import Api
+from ..api import BaseApi
 
 
-class Starcraft2GameDataApi(Api):
+class Starcraft2GameDataApi(BaseApi):
     """Starcraft2 Game Data API class.
 
     Attributes:
