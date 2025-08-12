@@ -79,7 +79,7 @@ exclude = [
 line-length = 120
 
 # Assume Python 3.11
-target-version = "py311"
+target-version = "2.1.10"
 
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`) codes by default.
 select = ["E4", "E7", "E9", "F"]
