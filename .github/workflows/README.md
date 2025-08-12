@@ -12,7 +12,7 @@ This directory contains GitHub Actions workflows for the blizzardapi2 project.
 
 - **checkout**: Runs tests on multiple Python versions (3.11, 3.12, 3.13)
 - **publish**: Builds and publishes to PyPI (only on main branch)
-- **release**: Creates GitHub releases (only after successful publish)
+- **release**: Bumps version, creates Git tag, and creates GitHub release (only after successful publish)
 
 **Recent Fixes Applied:**
 
@@ -21,11 +21,23 @@ This directory contains GitHub Actions workflows for the blizzardapi2 project.
 - ✅ **Enhanced permissions** for package publishing
 - ✅ **Improved error handling** and environment variables
 
-### 2. `black.yml` - Code Formatting
+### 2. `black.yml` - Auto-format with Black
 
 **Triggers:** Push and pull requests
 
-**Purpose:** Ensures code follows Black formatting standards
+**Purpose:** Automatically formats code with Black and commits changes
+
+**Features:**
+
+- ✅ Auto-formats code that needs formatting
+- ✅ Commits and pushes formatting changes
+- ✅ Only runs when changes are detected
+
+### 3. `black-check.yml` - Check Black Formatting
+
+**Triggers:** Pull requests only
+
+**Purpose:** Checks formatting without making changes (for PR validation)
 
 ## Issues Fixed
 
@@ -47,6 +59,21 @@ ERROR Error: Author identity unknown
     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 ```
 
+### Release Push Conflict Error
+
+**Problem:** Release workflow failed with "non-fast-forward" error when pushing to main
+
+```
+! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/lostcol0ny/blizzardapi2'
+```
+
+**Solution:** Simplified workflow to avoid conflicts:
+
+- Removed version bumping from publish job
+- Let release job handle all version management and Git operations
+- Eliminated race conditions between jobs
+
 ### Additional Improvements
 
 1. **Enhanced Checkout Configuration:**
@@ -67,6 +94,31 @@ The workflows require these secrets to be configured in the repository:
 
 - `GITHUB_TOKEN` (automatically provided)
 - `PYPI_API_TOKEN` (for PyPI publishing)
+
+## Pre-commit Hooks
+
+The project includes pre-commit hooks to help maintain code quality:
+
+### Setup for Contributors
+
+```bash
+# Install pre-commit
+pip install pre-commit
+
+# Install the git hooks
+pre-commit install
+
+# Run manually (optional)
+pre-commit run --all-files
+```
+
+### What the Hooks Do
+
+- **Black**: Formats Python code
+- **isort**: Sorts imports
+- **flake8**: Lints Python code
+
+This ensures consistent formatting across all contributions.
 
 ## Troubleshooting
 
