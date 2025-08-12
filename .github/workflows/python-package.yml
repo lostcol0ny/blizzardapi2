@@ -109,4 +109,10 @@ jobs:
       - name: Run release script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run release
+        run: |
+          # Debug: Check current version
+          echo "Current package.json version: $(node -p "require('./package.json').version")"
+          echo "Current pyproject.toml version: $(grep 'version = ' pyproject.toml | head -n 1 | cut -d'"' -f2)"
+
+          # Run the release script
+          npm run release

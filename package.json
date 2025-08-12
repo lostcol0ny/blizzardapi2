@@ -1,7 +1,6 @@
 {
   "name": "blizzardapi2",
   "version": "2.1.9",
-  "private": true,
   "scripts": {
     "release": "release-it"
   },
