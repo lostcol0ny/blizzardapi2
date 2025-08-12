@@ -1,6 +1,6 @@
 [project]
 name = "blizzardapi2"
-version = "2.1.8"
+version = "2.1.9"
 description = "A Python wrapper for Blizzard API"
 authors = [{ name = "lostcol0ny", email = "c098os0k@4wrd.cc" }]
 license = "MIT"
