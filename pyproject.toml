@@ -27,8 +27,9 @@ classifiers = [
 requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["blizzardapi2"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["blizzardapi2*"]
 
 [tool.setuptools_scm]
 write_to = "blizzardapi2/_version.py"
