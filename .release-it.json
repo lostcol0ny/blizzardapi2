@@ -1,0 +1,19 @@
+{
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v${version}",
+    "releaseNotes": "git log --pretty=format:\"* %s (%h)\" ${latestTag}...HEAD"
+  },
+  "npm": {
+    "publish": false
+  },
+  "hooks": {
+    "after:bump": [
+      "sed -i 's/version = \".*\"/version = \"${version}\"/' pyproject.toml"
+    ]
+  }
+}
