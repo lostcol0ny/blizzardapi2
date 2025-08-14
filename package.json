@@ -6,6 +6,5 @@
   },
   "devDependencies": {
     "release-it": "^18.0.0"
-  },
-
+  }
 }
