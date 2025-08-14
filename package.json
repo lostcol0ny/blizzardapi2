@@ -1,6 +1,6 @@
 {
   "name": "blizzardapi2",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "scripts": {
     "release": "release-it"
   },
@@ -16,6 +16,9 @@
       "release": true,
       "releaseName": "Release v${version}",
       "releaseNotes": "git log --pretty=format:\"* %s (%h)\" ${latestTag}...HEAD"
+    },
+    "npm": {
+      "publish": false
     },
     "hooks": {
       "after:bump": [
