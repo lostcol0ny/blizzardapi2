@@ -22,7 +22,7 @@ class BaseApi:
 
     def __init__(self, client_id: str, client_secret: str) -> None:
         """Initialize the API client.
-        
+
         Args:
             client_id: Blizzard API client ID.
             client_secret: Blizzard API client secret.
@@ -38,7 +38,7 @@ class BaseApi:
         # If we don't have an expiration datetime, consider the token expired
         if self._access_token_expiration_datetime is None:
             return True
-            
+
         current_time = (
             datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
         )
@@ -87,45 +87,45 @@ class BaseApi:
         self, url: str, region: str, query_params: Optional[dict[str, Any]] = None
     ) -> dict[str, Any]:
         """Make an authenticated request to the API.
-        
+
         Args:
             url: The complete URL to request.
             region: The region for token management.
             query_params: Optional query parameters.
-            
+
         Returns:
             The API response as a dictionary.
         """
         self._ensure_valid_token(region)
-        
+
         # Prepare query parameters
         if query_params is None:
             query_params = {}
         else:
             query_params = query_params.copy()
-        
+
         # Remove access_token from query_params if it exists (for OAuth endpoints)
         query_params.pop("access_token", None)
-        
+
         headers = {"Authorization": f"Bearer {self._access_token}"}
-        
+
         # Make the request
         response = self._session.get(url, params=query_params, headers=headers)
-        
+
         # Update token expiration if provided in response headers
         self._update_token_expiration(response)
-        
+
         # Handle token refresh if needed
         if response.status_code == 401 or self._is_token_expired():
             self._get_client_token(region)
             headers["Authorization"] = f"Bearer {self._access_token}"
             response = self._session.get(url, params=query_params, headers=headers)
-        
+
         return self._response_handler(response)
-    
+
     def _update_token_expiration(self, response: requests.Response) -> None:
         """Update token expiration from response headers.
-        
+
         Args:
             response: The HTTP response object.
         """
@@ -135,12 +135,12 @@ class BaseApi:
 
     def _build_url(self, resource: str, region: str, is_oauth: bool = False) -> str:
         """Build the appropriate URL for the given resource and region.
-        
+
         Args:
             resource: The API resource path.
             region: The region (us, eu, kr, tw, cn).
             is_oauth: Whether this is an OAuth endpoint.
-            
+
         Returns:
             The complete URL for the request.
         """
@@ -159,12 +159,12 @@ class BaseApi:
         self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
     ) -> dict[str, Any]:
         """Make a request to a regular API resource.
-        
+
         Args:
             resource: The API resource path.
             region: The region to query.
             query_params: Optional query parameters.
-            
+
         Returns:
             The API response as a dictionary.
         """
@@ -175,12 +175,12 @@ class BaseApi:
         self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
     ) -> dict[str, Any]:
         """Make a request to an OAuth API resource.
-        
+
         Args:
             resource: The API resource path.
             region: The region to query.
             query_params: Optional query parameters.
-            
+
         Returns:
             The API response as a dictionary.
         """
