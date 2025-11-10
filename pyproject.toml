@@ -8,7 +8,7 @@ readme = "README.md"
 dependencies = [
     "requests>=2.32.3,<3.0.0",
     "black>=24.4.2,<26.0.0",
-    "pytest>=8.2.2,<9.0.0",
+    "pytest>=8.2.2,<10.0.0",
     "pytest-mock>=3.14.0,<4.0.0",
     "ruff>=0.3.0,<1.0.0",
     "pydantic>=2.11.6",
@@ -37,7 +37,7 @@ local_scheme = "node-and-timestamp"
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.2.2,<9.0.0",
+    "pytest>=8.2.2,<10.0.0",
     "pytest-mock>=3.14.0,<4.0.0",
     "pytest-asyncio>=0.23.5,<2.0.0",
     "black>=24.4.2,<26.0.0",
