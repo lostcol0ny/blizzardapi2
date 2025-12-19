@@ -24,10 +24,10 @@ Current supported features include:
 Modern features:
 
 - Full type hints support
-- Async/await support for better performance
+- Automatic token management with intelligent refresh
 - Enum-based region and locale validation
-- Structured response types using dataclasses
-- Improved error handling and logging
+- Clean, maintainable codebase
+- Comprehensive error handling
 
 To gain access to Blizzard's API please register [here](https://develop.battle.net/access/) to obtain a client id and client secret.
 
@@ -50,71 +50,57 @@ Python (3.11+)
 
 ```python
 from blizzardapi2 import BlizzardApi
-from blizzardapi2.types import Locale, Region
 
 api_client = BlizzardApi("client_id", "client_secret")
 
-# Unprotected API endpoint
+# Public API endpoint (uses automatic client credentials token)
 categories_index = api_client.wow.game_data.get_achievement_categories_index(
-    Region.US,
-    Locale.EN_US
+    "us",  # region
+    "en_US"  # locale
 )
 
-# Protected API endpoint
+# Protected API endpoint (requires user OAuth token)
 summary = api_client.wow.profile.get_account_profile_summary(
-    Region.US,
-    Locale.EN_US,
-    "access_token"
+    "us",
+    "en_US",
+    "user_access_token"  # OAuth token from authorization code flow
 )
 
-# Wow Classic endpoint
+# WoW Classic endpoint
 connected_realms_index = api_client.wow.game_data.get_connected_realms_index(
-    Region.US,
-    Locale.EN_US,
+    "us",
+    "en_US",
     is_classic=True
 )
 ```
 
-**Async Usage**
+**Token Management**
+
+The library automatically manages client credentials tokens for public endpoints:
 
 ```python
-import asyncio
 from blizzardapi2 import BlizzardApi
-from blizzardapi2.types import Locale, Region
 
-async def main():
-    api_client = BlizzardApi("client_id", "client_secret")
+api_client = BlizzardApi("client_id", "client_secret")
 
-    # Async API calls
-    profile = await api_client.wow.profile.get_account_profile_summary(
-        Region.US,
-        Locale.EN_US,
-        "access_token"
-    )
+# First call: library automatically fetches and caches a client credentials token
+realms = api_client.wow.game_data.get_realms_index("us", "en_US")
 
-    # Multiple concurrent requests
-    tasks = [
-        api_client.wow.profile.get_character_profile_summary(
-            Region.US,
-            Locale.EN_US,
-            "realm-slug",
-            "character-name"
-        ),
-        api_client.wow.profile.get_character_achievements_summary(
-            Region.US,
-            Locale.EN_US,
-            "realm-slug",
-            "character-name"
-        )
-    ]
-    results = await asyncio.gather(*tasks)
+# Subsequent calls: library reuses the cached token
+achievements = api_client.wow.game_data.get_achievements_index("us", "en_US")
 
-asyncio.run(main())
+# When token expires: library automatically refreshes it
+# You don't need to manage tokens manually!
 ```
 
 # Access token vs Client ID/Client Secret
 
 You can pass in a `client_id` and `client_secret` and use almost any endpoint except for a few that require an `access_token` obtained via OAuth authorization code flow. You can find more information at https://develop.battle.net/documentation/guides/using-oauth/authorization-code-flow.
+
+**Important:** The library handles all tokens securely by passing them in Authorization headers, never in URLs. When you provide a user OAuth token to methods like `get_account_profile_summary()`, the library automatically:
+1. Extracts the token from parameters
+2. Sends it via `Authorization: Bearer <token>` header
+3. Keeps tokens out of URL query strings
 
 Here is the list of endpoints, specified by Blizzard, that require an OAuth token:
 
@@ -126,6 +112,8 @@ GET /profile/user/wow/collections
 GET /profile/user/wow/collections/pets
 GET /profile/user/wow/collections/mounts
 ```
+
+**Note:** For these protected endpoints, you must implement the OAuth authorization code flow in your application to obtain a user access token. The library does not handle the OAuth flow itself - it only accepts and uses the token you provide.
 
 # Documentation
 
