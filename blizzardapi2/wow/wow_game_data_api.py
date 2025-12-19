@@ -688,9 +688,7 @@ class WowGameDataApi(BaseApi):
         query_params = {"namespace": f"static-{region}", "locale": locale}
         return super().get_resource(resource, region, query_params)
 
-    def get_fixture(
-        self, region: str, locale: str, fixture_id: int
-    ) -> dict[str, Any]:
+    def get_fixture(self, region: str, locale: str, fixture_id: int) -> dict[str, Any]:
         """
         Return a fixture by ID.
 
