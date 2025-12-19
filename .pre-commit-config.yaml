@@ -11,9 +11,3 @@ repos:
     hooks:
       - id: isort
         args: [--profile=black]
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
-    hooks:
-      - id: flake8
-        args: [--max-line-length=88, --extend-ignore=E203, W503]
