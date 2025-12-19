@@ -620,6 +620,212 @@ class WowGameDataApi(BaseApi):
         query_params = {"namespace": namespace, "locale": locale}
         return super().get_resource(resource, region, query_params)
 
+        # Housing API - Decor
+
+    def get_decor_index(self, region: str, locale: str) -> dict[str, Any]:
+        """
+        Return an index of decor.
+
+        Args:
+            region (str): The region to query (e.g., "us", "eu").
+            locale (str): The locale to use for the response.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the index of decor.
+        """
+        resource = "/data/wow/decor/index"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_decor(self, region: str, locale: str, decor_id: int) -> dict[str, Any]:
+        """
+        Return a decor by ID.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            decor_id (int): The ID of the decor to retrieve.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the decor details.
+        """
+        resource = f"/data/wow/decor/{decor_id}"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def search_decor(
+        self, region: str, locale: str, **query_params: Any
+    ) -> dict[str, Any]:
+        """
+        Search for decor matching the search criteria.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+
+        Returns:
+            Dict[str, Any]: A dictionary containing paginated search results.
+        """
+        resource = "/data/wow/search/decor"
+        query_params.update({"namespace": f"static-{region}", "locale": locale})
+        return super().get_resource(resource, region, query_params)
+
+        # Housing API - Fixture
+
+    def get_fixture_index(self, region: str, locale: str) -> dict[str, Any]:
+        """
+        Return an index of fixtures.
+
+        Args:
+            region (str): The region to query (e.g., "us", "eu").
+            locale (str): The locale to use for the response.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the index of fixtures.
+        """
+        resource = "/data/wow/fixture/index"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_fixture(self, region: str, locale: str, fixture_id: int) -> dict[str, Any]:
+        """
+        Return a fixture by ID.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            fixture_id (int): The ID of the fixture to retrieve.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the fixture details.
+        """
+        resource = f"/data/wow/fixture/{fixture_id}"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def search_fixture(
+        self, region: str, locale: str, **query_params: Any
+    ) -> dict[str, Any]:
+        """
+        Search for fixtures matching the search criteria.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+
+        Returns:
+            Dict[str, Any]: A dictionary containing paginated search results.
+        """
+        resource = "/data/wow/search/fixture"
+        query_params.update({"namespace": f"static-{region}", "locale": locale})
+        return super().get_resource(resource, region, query_params)
+
+        # Housing API - Fixture Hook
+
+    def get_fixture_hook_index(self, region: str, locale: str) -> dict[str, Any]:
+        """
+        Return an index of fixture hooks.
+
+        Args:
+            region (str): The region to query (e.g., "us", "eu").
+            locale (str): The locale to use for the response.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the index of fixture hooks.
+        """
+        resource = "/data/wow/fixture-hook/index"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_fixture_hook(
+        self, region: str, locale: str, fixture_hook_id: int
+    ) -> dict[str, Any]:
+        """
+        Return a fixture hook by ID.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            fixture_hook_id (int): The ID of the fixture hook to retrieve.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the fixture hook details.
+        """
+        resource = f"/data/wow/fixture-hook/{fixture_hook_id}"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def search_fixture_hook(
+        self, region: str, locale: str, **query_params: Any
+    ) -> dict[str, Any]:
+        """
+        Search for fixture hooks matching the search criteria.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+
+        Returns:
+            Dict[str, Any]: A dictionary containing paginated search results.
+        """
+        resource = "/data/wow/search/fixture-hook"
+        query_params.update({"namespace": f"static-{region}", "locale": locale})
+        return super().get_resource(resource, region, query_params)
+
+        # Housing API - Room
+
+    def get_room_index(self, region: str, locale: str) -> dict[str, Any]:
+        """
+        Return an index of rooms.
+
+        Args:
+            region (str): The region to query (e.g., "us", "eu").
+            locale (str): The locale to use for the response.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the index of rooms.
+        """
+        resource = "/data/wow/room/index"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def get_room(self, region: str, locale: str, room_id: int) -> dict[str, Any]:
+        """
+        Return a room by ID.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            room_id (int): The ID of the room to retrieve.
+
+        Returns:
+            Dict[str, Any]: A dictionary containing the room details.
+        """
+        resource = f"/data/wow/room/{room_id}"
+        query_params = {"namespace": f"static-{region}", "locale": locale}
+        return super().get_resource(resource, region, query_params)
+
+    def search_room(
+        self, region: str, locale: str, **query_params: Any
+    ) -> dict[str, Any]:
+        """
+        Search for rooms matching the search criteria.
+
+        Args:
+            region (str): The region to query.
+            locale (str): The locale to use for the response.
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+
+        Returns:
+            Dict[str, Any]: A dictionary containing paginated search results.
+        """
+        resource = "/data/wow/search/room"
+        query_params.update({"namespace": f"static-{region}", "locale": locale})
+        return super().get_resource(resource, region, query_params)
+
         # Heirloom API
 
     def get_heirloom_index(self, region: str, locale: str) -> dict[str, Any]:

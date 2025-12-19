@@ -16,9 +16,22 @@ class BaseApi:
         _client_id: Blizzard API client ID.
         _client_secret: Blizzard API client secret.
         _access_token: Current access token for API requests.
-        _access_token_expiration_datetime: Token expiration timestamp.
+        _token_expires_at: Token expiration timestamp as datetime object.
         _session: HTTP session for making requests.
     """
+
+    # Region-specific URL mappings
+    OAUTH_URLS = {
+        "cn": "https://www.gateway.battlenet.com.cn",
+        "default": "https://oauth.battle.net",
+    }
+
+    API_URLS = {
+        "cn": "https://gateway.battlenet.com.cn",
+        "default": "https://{region}.api.blizzard.com",
+    }
+
+    TOKEN_REFRESH_BUFFER = timedelta(minutes=5)
 
     def __init__(self, client_id: str, client_secret: str) -> None:
         """Initialize the API client.
@@ -30,61 +43,79 @@ class BaseApi:
         self._client_id = client_id
         self._client_secret = client_secret
         self._access_token: Optional[str] = None
-        self._access_token_expiration_datetime: Optional[str] = None
+        self._token_expires_at: Optional[datetime] = None
         self._session = requests.Session()
 
     def _is_token_expired(self) -> bool:
-        """Check if the token is expiring within next 5 minutes."""
-        # If we don't have an expiration datetime, consider the token expired
-        if self._access_token_expiration_datetime is None:
+        """Check if the token is expiring within the refresh buffer window."""
+        if self._token_expires_at is None:
             return True
-
-        current_time = (
-            datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
-        )
-        datetime_format = "%Y-%m-%dT%H:%M:%S.%fZ"
-        blizz_expire_obj = datetime.strptime(
-            self._access_token_expiration_datetime, datetime_format
-        )
-        current_datetime_obj = datetime.strptime(current_time, datetime_format)
-
-        time_difference = abs(blizz_expire_obj - current_datetime_obj)
-
-        return time_difference <= timedelta(minutes=5)
+        return datetime.now(UTC) >= self._token_expires_at - self.TOKEN_REFRESH_BUFFER
 
     def _get_client_token(self, region: str) -> dict[str, Any]:
-        """Fetch an access token based on client id and client secret credentials.
+        """Fetch an access token using client credentials flow.
 
         Args:
-            region:
-                A string containing a region.
-        """
-        url = self._format_oauth_url("/oauth/token", region)
-        query_params = {"grant_type": "client_credentials"}
+            region: The region for URL construction.
 
+        Returns:
+            The token response from the API.
+        """
+        url = self._build_oauth_url("/oauth/token", region)
         response = self._session.post(
             url,
-            params=query_params,
+            params={"grant_type": "client_credentials"},
             auth=(self._client_id, self._client_secret),
         )
+        response.raise_for_status()
+        token_data = response.json()
 
-        json_response = self._response_handler(response)
-        self._access_token = json_response["access_token"]
+        # Store token and calculate expiration
+        self._access_token = token_data["access_token"]
+        expires_in = token_data.get("expires_in", 86400)  # Default 24 hours
+        self._token_expires_at = datetime.now(UTC) + timedelta(seconds=expires_in)
 
-        return json_response
+        return token_data
 
     def _ensure_valid_token(self, region: str) -> None:
-        """Ensure that the token is valid."""
+        """Ensure we have a valid client credentials token."""
         if self._access_token is None or self._is_token_expired():
             self._get_client_token(region)
 
-    def _response_handler(self, response: requests.Response) -> dict[str, Any]:
-        """Handle the response."""
-        response.raise_for_status()
-        return response.json()
+    def _build_oauth_url(self, resource: str, region: str) -> str:
+        """Build URL for OAuth endpoints.
+
+        Args:
+            resource: The API resource path.
+            region: The region (us, eu, kr, tw, cn).
+
+        Returns:
+            The complete OAuth URL.
+        """
+        base_url = self.OAUTH_URLS.get(region, self.OAUTH_URLS["default"])
+        return f"{base_url}{resource}"
+
+    def _build_api_url(self, resource: str, region: str) -> str:
+        """Build URL for regular API endpoints.
+
+        Args:
+            resource: The API resource path.
+            region: The region (us, eu, kr, tw, cn).
+
+        Returns:
+            The complete API URL.
+        """
+        if region == "cn":
+            base_url = self.API_URLS["cn"]
+        else:
+            base_url = self.API_URLS["default"].format(region=region)
+        return f"{base_url}{resource}"
 
     def _make_request(
-        self, url: str, region: str, query_params: Optional[dict[str, Any]] = None
+        self,
+        url: str,
+        region: str,
+        query_params: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Make an authenticated request to the API.
 
@@ -96,64 +127,40 @@ class BaseApi:
         Returns:
             The API response as a dictionary.
         """
-        self._ensure_valid_token(region)
-
         # Prepare query parameters
-        if query_params is None:
-            query_params = {}
+        params = (query_params or {}).copy()
+
+        # Check if user provided their own access token
+        user_token = params.pop("access_token", None)
+
+        # Determine which token to use
+        if user_token:
+            # Use user-provided token (for OAuth user endpoints)
+            token = user_token
         else:
-            query_params = query_params.copy()
-
-        # Remove access_token from query_params if it exists (for OAuth endpoints)
-        query_params.pop("access_token", None)
-
-        headers = {"Authorization": f"Bearer {self._access_token}"}
+            # Ensure client credentials token is valid
+            self._ensure_valid_token(region)
+            token = self._access_token
 
         # Make the request
-        response = self._session.get(url, params=query_params, headers=headers)
+        response = self._session.get(
+            url,
+            params=params,
+            headers={"Authorization": f"Bearer {token}"},
+        )
 
-        # Update token expiration if provided in response headers
-        self._update_token_expiration(response)
-
-        # Handle token refresh if needed
-        if response.status_code == 401 or self._is_token_expired():
+        # Handle 401 errors for client credentials (not user tokens)
+        if response.status_code == 401 and not user_token:
+            # Token might have expired, refresh and retry
             self._get_client_token(region)
-            headers["Authorization"] = f"Bearer {self._access_token}"
-            response = self._session.get(url, params=query_params, headers=headers)
+            response = self._session.get(
+                url,
+                params=params,
+                headers={"Authorization": f"Bearer {self._access_token}"},
+            )
 
-        return self._response_handler(response)
-
-    def _update_token_expiration(self, response: requests.Response) -> None:
-        """Update token expiration from response headers.
-
-        Args:
-            response: The HTTP response object.
-        """
-        blizzard_token_expires = response.headers.get("blizzard-token-expires")
-        if blizzard_token_expires is not None:
-            self._access_token_expiration_datetime = blizzard_token_expires
-
-    def _build_url(self, resource: str, region: str, is_oauth: bool = False) -> str:
-        """Build the appropriate URL for the given resource and region.
-
-        Args:
-            resource: The API resource path.
-            region: The region (us, eu, kr, tw, cn).
-            is_oauth: Whether this is an OAuth endpoint.
-
-        Returns:
-            The complete URL for the request.
-        """
-        if region == "cn":
-            if is_oauth:
-                return f"https://www.gateway.battlenet.com.cn{resource}"
-            else:
-                return f"https://gateway.battlenet.com.cn{resource}"
-        else:
-            if is_oauth:
-                return f"https://oauth.battle.net{resource}"
-            else:
-                return f"https://{region}.api.blizzard.com{resource}"
+        response.raise_for_status()
+        return response.json()
 
     def get_resource(
         self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
@@ -168,7 +175,7 @@ class BaseApi:
         Returns:
             The API response as a dictionary.
         """
-        url = self._build_url(resource, region, is_oauth=False)
+        url = self._build_api_url(resource, region)
         return self._make_request(url, region, query_params)
 
     def get_oauth_resource(
@@ -184,5 +191,5 @@ class BaseApi:
         Returns:
             The API response as a dictionary.
         """
-        url = self._build_url(resource, region, is_oauth=True)
+        url = self._build_oauth_url(resource, region)
         return self._make_request(url, region, query_params)

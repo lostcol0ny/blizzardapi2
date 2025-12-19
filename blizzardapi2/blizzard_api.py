@@ -45,39 +45,6 @@ class BlizzardApi(BaseApi):
         self.starcraft2 = Starcraft2Api(client_id, client_secret)
         self.battlenet = BattlenetApi(client_id, client_secret)
 
-    async def __aenter__(self) -> "BlizzardApi":
-        """Async context manager entry.
-
-        Initializes async sessions for all game API clients.
-
-        Returns:
-            BlizzardApi: The initialized API client.
-        """
-        # Initialize async sessions for all game clients
-        await self.battlenet.__aenter__()
-        await self.diablo3.__aenter__()
-        await self.hearthstone.__aenter__()
-        await self.wow.__aenter__()
-        await self.starcraft2.__aenter__()
-        return self
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
-        """Async context manager exit.
-
-        Closes async sessions for all game API clients.
-
-        Args:
-            exc_type: The type of exception that was raised, if any.
-            exc_val: The exception instance that was raised, if any.
-            exc_tb: The traceback for the exception, if any.
-        """
-        # Close async sessions for all game clients
-        await self.battlenet.__aexit__(exc_type, exc_val, exc_tb)
-        await self.diablo3.__aexit__(exc_type, exc_val, exc_tb)
-        await self.hearthstone.__aexit__(exc_type, exc_val, exc_tb)
-        await self.wow.__aexit__(exc_type, exc_val, exc_tb)
-        await self.starcraft2.__aexit__(exc_type, exc_val, exc_tb)
-
     @property
     def client_id(self) -> str:
         """Get the client ID.
