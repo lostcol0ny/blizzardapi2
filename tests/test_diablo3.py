@@ -15,7 +15,6 @@ from blizzardapi2.diablo3.diablo3_game_data_api import Diablo3GameDataApi
 
 from tests.conftest import FAKE_TOKEN, prime_token
 
-
 # ---------------------------------------------------------------------------
 # Facade wiring
 # ---------------------------------------------------------------------------
@@ -149,9 +148,7 @@ def test_game_data_get_era_leaderboard_path(fake_credentials, mock_get):
     api.get_era_leaderboard(region="eu", era_id=10, leaderboard_id=42)
 
     args, kwargs = mock_get.call_args
-    assert args[0] == (
-        "https://eu.api.blizzard.com/data/d3/era/10/leaderboard/42"
-    )
+    assert args[0] == ("https://eu.api.blizzard.com/data/d3/era/10/leaderboard/42")
     assert kwargs["params"] == {}
 
 
@@ -182,9 +179,7 @@ def test_cn_community_endpoint_uses_gateway_host(fake_credentials, mock_get):
     api.get_character_class(region="cn", locale="zh_CN", class_slug="barbarian")
 
     args, kwargs = mock_get.call_args
-    assert args[0] == (
-        "https://gateway.battlenet.com.cn/d3/data/hero/barbarian"
-    )
+    assert args[0] == ("https://gateway.battlenet.com.cn/d3/data/hero/barbarian")
     assert kwargs["params"] == {"locale": "zh_CN"}
 
 

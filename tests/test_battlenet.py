@@ -20,7 +20,6 @@ from blizzardapi2.battlenet.battlenet_api import BattlenetApi
 from blizzardapi2.battlenet.battlenet_oauth_api import BattlenetOAuthApi
 from tests.conftest import FAKE_TOKEN
 
-
 USER_TOKEN = "user_supplied_oauth_token"
 
 

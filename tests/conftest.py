@@ -13,7 +13,6 @@ from unittest.mock import MagicMock
 
 import pytest
 
-
 CLIENT_ID = "test_client_id"
 CLIENT_SECRET = "test_client_secret"
 FAKE_TOKEN = "fake_access_token"
@@ -54,7 +53,9 @@ def mock_post(mocker) -> MagicMock:
     return mock
 
 
-def prime_token(api_instance: Any, token: str = FAKE_TOKEN, expires_in: int = 86400) -> None:
+def prime_token(
+    api_instance: Any, token: str = FAKE_TOKEN, expires_in: int = 86400
+) -> None:
     """Pre-populate an API instance with a non-expired client-credentials token.
 
     Lets tests skip the token POST when they only care about the GET request.
