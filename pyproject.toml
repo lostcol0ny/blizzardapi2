@@ -29,6 +29,10 @@ include = ["blizzardapi2*"]
 write_to = "blizzardapi2/_version.py"
 local_scheme = "node-and-timestamp"
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
 [project.optional-dependencies]
 dev = [
     "pytest>=8.2.2,<10.0.0",
