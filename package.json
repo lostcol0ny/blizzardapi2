@@ -1,6 +1,6 @@
 {
   "name": "blizzardapi2",
-  "version": "2.1.18",
+  "version": "2.1.19",
   "scripts": {
     "release": "release-it"
   },
