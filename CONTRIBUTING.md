@@ -131,7 +131,7 @@ Use conventional commit messages:
 pytest
 
 # Run specific test file
-pytest test_project/test_wow.py
+pytest tests/test_wow.py
 
 # Run with verbose output
 pytest -v
@@ -139,7 +139,7 @@ pytest -v
 
 ### Writing Tests
 
-- Place tests in the `test_project/` directory
+- Place tests in the `tests/` directory
 - Use descriptive test names
 - Include both positive and negative test cases
 - Mock external API calls

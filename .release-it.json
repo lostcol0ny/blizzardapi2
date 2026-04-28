@@ -13,7 +13,7 @@
   },
   "hooks": {
     "after:bump": [
-      "sed -i 's/version = \".*\"/version = \"${version}\"/' pyproject.toml"
+      "sed -i 's/^version = \".*\"/version = \"${version}\"/' pyproject.toml"
     ]
   }
 }
