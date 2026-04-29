@@ -24,7 +24,11 @@ class HearthstoneGameDataApi(BaseApi):
         super().__init__(client_id, client_secret)
 
     def search_cards(
-        self, region: str, locale: str, card_class: str = None, **query_params: Any
+        self,
+        region: str,
+        locale: str,
+        card_class: str | None = None,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """
         Return an up-to-date list of all cards matching the search criteria.
@@ -115,7 +119,7 @@ class HearthstoneGameDataApi(BaseApi):
             Dict[str, Any]: A dictionary containing the deck details.
         """
         resource = "/hearthstone/deck"
-        query_params = {"locale": locale}
+        query_params = {**query_params, "locale": locale}
         return super().get_resource(resource, region, query_params)
 
     def get_metadata(self, region: str, locale: str) -> dict[str, Any]:

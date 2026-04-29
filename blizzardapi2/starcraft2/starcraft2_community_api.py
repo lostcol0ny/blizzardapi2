@@ -151,7 +151,7 @@ class Starcraft2CommunityApi(BaseApi):
         Returns:
             Dict[str, Any]: A dictionary containing the grandmaster leaderboard data.
         """
-        resource = f"/sc2/ladder/grandmaster{region_id}"
+        resource = f"/sc2/ladder/grandmaster/{region_id}"
         query_params = {"locale": locale}
         return super().get_resource(resource, region, query_params)
 
