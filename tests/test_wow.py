@@ -181,9 +181,9 @@ def test_oauth_token_goes_to_header_not_query(wow_api: WowApi, mock_get) -> None
     )
 
     args, kwargs = mock_get.call_args
-    # `get_account_profile_summary` calls `get_oauth_resource`, so the URL is
-    # built from OAUTH_URLS (oauth.battle.net), not the standard API host.
-    assert args[0] == "https://oauth.battle.net/profile/user/wow"
+    # /profile/user/wow lives on the regional API host, not oauth.battle.net
+    # — the OAuth host only serves /oauth/* endpoints.
+    assert args[0] == "https://us.api.blizzard.com/profile/user/wow"
     # Token in header, with Bearer prefix, using the *user* token (not the
     # primed client-credentials token).
     assert kwargs["headers"] == {"Authorization": f"Bearer {user_token}"}
