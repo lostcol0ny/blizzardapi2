@@ -344,9 +344,7 @@ def test_get_client_token_passes_post_timeout(api: BaseApi, mock_post) -> None:
     assert mock_post.call_args.kwargs.get("timeout") == BaseApi.DEFAULT_POST_TIMEOUT
 
 
-def test_401_retry_get_also_passes_timeout(
-    api: BaseApi, mock_get, mock_post
-) -> None:
+def test_401_retry_get_also_passes_timeout(api: BaseApi, mock_get, mock_post) -> None:
     """The retry GET in the 401-refresh path must also carry a timeout."""
     prime_token(api, token="stale")
 
@@ -367,12 +365,10 @@ def test_401_retry_get_also_passes_timeout(
 
     assert mock_get.call_count == 2
     assert (
-        mock_get.call_args_list[0].kwargs.get("timeout")
-        == BaseApi.DEFAULT_GET_TIMEOUT
+        mock_get.call_args_list[0].kwargs.get("timeout") == BaseApi.DEFAULT_GET_TIMEOUT
     )
     assert (
-        mock_get.call_args_list[1].kwargs.get("timeout")
-        == BaseApi.DEFAULT_GET_TIMEOUT
+        mock_get.call_args_list[1].kwargs.get("timeout") == BaseApi.DEFAULT_GET_TIMEOUT
     )
 
 

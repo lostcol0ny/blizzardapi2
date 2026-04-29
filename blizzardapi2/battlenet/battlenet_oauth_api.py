@@ -40,11 +40,13 @@ class BattlenetOAuthApi(BaseApi):
         """
         super().__init__(client_id, client_secret)
 
-    def get_user_info(self, region: Region, access_token: str) -> dict[str, Any]:
+    def get_user_info(self, region: Region | str, access_token: str) -> dict[str, Any]:
         """Get basic information about the user associated with the current bearer token.
 
         Args:
-            region: The region to query (e.g., "us", "eu").
+            region: The region to query — either a ``Region`` enum member or
+                a bare string (e.g. ``"us"`` or ``Region.US``). Bare strings
+                are accepted for ergonomics and parity with the other game APIs.
             access_token: The OAuth access token.
 
         Returns:

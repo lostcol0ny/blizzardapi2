@@ -24,7 +24,11 @@ class HearthstoneGameDataApi(BaseApi):
         super().__init__(client_id, client_secret)
 
     def search_cards(
-        self, region: str, locale: str, card_class: str = None, **query_params: Any
+        self,
+        region: str,
+        locale: str,
+        card_class: str | None = None,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """
         Return an up-to-date list of all cards matching the search criteria.
