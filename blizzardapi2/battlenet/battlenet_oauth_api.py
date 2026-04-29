@@ -51,7 +51,8 @@ class BattlenetOAuthApi(BaseApi):
             A dictionary containing user information.
 
         Raises:
-            ApiError: If the API request fails.
+            requests.HTTPError: If the API request fails (raised via
+                ``response.raise_for_status()`` in ``BaseApi._make_request``).
         """
         resource = "/oauth/userinfo"
         query_params = {

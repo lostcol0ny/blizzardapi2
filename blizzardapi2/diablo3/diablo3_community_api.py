@@ -255,7 +255,7 @@ class Diablo3CommunityApi(BaseApi):
         self, region: str, locale: str, account_id: str, hero_id: int
     ) -> dict[str, Any]:
         """
-        Return a single item by item slug and ID.
+        Return the equipped follower items for a given hero.
 
         Args:
             region (str): The region to query.
@@ -264,7 +264,8 @@ class Diablo3CommunityApi(BaseApi):
             hero_id (int): The ID of the hero.
 
         Returns:
-            Dict[str, Any]: A dictionary containing the item details.
+            Dict[str, Any]: A dictionary containing the follower items
+                equipped on the specified hero.
         """
         resource = f"/d3/profile/{account_id}/hero/{hero_id}/follower-items"
         query_params = {"locale": locale}
