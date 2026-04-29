@@ -149,3 +149,31 @@ def test_get_metadata_type_path_includes_type_id(fake_credentials, mock_get):
     args, kwargs = mock_get.call_args
     assert args[0] == "https://kr.api.blizzard.com/hearthstone/metadata/sets"
     assert kwargs["params"] == {"locale": "ko_KR"}
+
+
+def test_get_deck_preserves_caller_filters(fake_credentials, mock_get):
+    """``get_deck`` must forward caller-supplied filters (issue #41).
+
+    The previous implementation silently dropped every kwarg by overwriting
+    `query_params = {"locale": locale}` after the **kwargs collection.
+    """
+    client_id, client_secret = fake_credentials
+    api = HearthstoneGameDataApi(client_id, client_secret)
+    prime_token(api)
+
+    api.get_deck(
+        "us",
+        "en_US",
+        ids="EX1_046,EX1_054",
+        hero="HERO_01",
+    )
+
+    args, kwargs = mock_get.call_args
+    assert args[0] == "https://us.api.blizzard.com/hearthstone/deck"
+    assert kwargs["params"] == {
+        "locale": "en_US",
+        "ids": "EX1_046,EX1_054",
+        "hero": "HERO_01",
+    }
+
+
