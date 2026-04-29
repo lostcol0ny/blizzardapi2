@@ -324,3 +324,66 @@ def test_get_oauth_resource_end_to_end(api: BaseApi, mock_get, mock_post) -> Non
     # Token in header, NOT in params.
     assert "access_token" not in mock_get.call_args.kwargs["params"]
     assert mock_get.call_args.kwargs["headers"]["Authorization"] == "Bearer user_token"
+
+
+# ---------------------------------------------------------------------------
+# HTTP timeout (issue #39)
+# ---------------------------------------------------------------------------
+
+
+def test_make_request_passes_get_timeout(api: BaseApi, mock_get) -> None:
+    """Every API GET must include `timeout=` to prevent indefinite hangs."""
+    prime_token(api)
+    api._make_request("https://us.api.blizzard.com/data/wow/realm/index", "us")
+    assert mock_get.call_args.kwargs.get("timeout") == BaseApi.DEFAULT_GET_TIMEOUT
+
+
+def test_get_client_token_passes_post_timeout(api: BaseApi, mock_post) -> None:
+    """Token POST must include `timeout=`."""
+    api._get_client_token("us")
+    assert mock_post.call_args.kwargs.get("timeout") == BaseApi.DEFAULT_POST_TIMEOUT
+
+
+def test_401_retry_get_also_passes_timeout(
+    api: BaseApi, mock_get, mock_post
+) -> None:
+    """The retry GET in the 401-refresh path must also carry a timeout."""
+    prime_token(api, token="stale")
+
+    stale = mock_get.return_value
+    stale.status_code = 401
+
+    fresh = type(stale)()
+    fresh.status_code = 200
+    fresh.json = lambda: {"ok": True}
+
+    mock_get.side_effect = [stale, fresh]
+    mock_post.return_value.json.return_value = {
+        "access_token": "fresh",
+        "expires_in": 86400,
+    }
+
+    api._make_request("https://us.api.blizzard.com/x", "us")
+
+    assert mock_get.call_count == 2
+    assert (
+        mock_get.call_args_list[0].kwargs.get("timeout")
+        == BaseApi.DEFAULT_GET_TIMEOUT
+    )
+    assert (
+        mock_get.call_args_list[1].kwargs.get("timeout")
+        == BaseApi.DEFAULT_GET_TIMEOUT
+    )
+
+
+def test_subclass_can_override_default_timeout(mock_get, fake_credentials) -> None:
+    """Subclasses override DEFAULT_*_TIMEOUT to customize per-instance."""
+
+    class FastApi(BaseApi):
+        DEFAULT_GET_TIMEOUT = 5.0
+
+    client_id, client_secret = fake_credentials
+    api = FastApi(client_id, client_secret)
+    prime_token(api)
+    api._make_request("https://us.api.blizzard.com/x", "us")
+    assert mock_get.call_args.kwargs["timeout"] == 5.0

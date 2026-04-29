@@ -33,6 +33,12 @@ class BaseApi:
 
     TOKEN_REFRESH_BUFFER = timedelta(minutes=5)
 
+    # Per-request timeouts (seconds). Subclass and override either constant
+    # to customize. `requests` defaults to no timeout, which lets a hung
+    # Blizzard endpoint wedge the caller indefinitely.
+    DEFAULT_GET_TIMEOUT = 30.0
+    DEFAULT_POST_TIMEOUT = 10.0
+
     def __init__(self, client_id: str, client_secret: str) -> None:
         """Initialize the API client.
 
@@ -66,6 +72,7 @@ class BaseApi:
             url,
             params={"grant_type": "client_credentials"},
             auth=(self._client_id, self._client_secret),
+            timeout=self.DEFAULT_POST_TIMEOUT,
         )
         response.raise_for_status()
         token_data = response.json()
@@ -147,6 +154,7 @@ class BaseApi:
             url,
             params=params,
             headers={"Authorization": f"Bearer {token}"},
+            timeout=self.DEFAULT_GET_TIMEOUT,
         )
 
         # Handle 401 errors for client credentials (not user tokens)
@@ -157,6 +165,7 @@ class BaseApi:
                 url,
                 params=params,
                 headers={"Authorization": f"Bearer {self._access_token}"},
+                timeout=self.DEFAULT_GET_TIMEOUT,
             )
 
         response.raise_for_status()
