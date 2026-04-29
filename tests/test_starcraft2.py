@@ -107,7 +107,7 @@ def test_community_get_ladder_summary_returns_mocked_payload(
 
 
 def test_community_get_grandmaster_leaderboard_url_shape(fake_credentials, mock_get):
-    """Note: source concatenates region_id directly to 'grandmaster' (no slash)."""
+    """Region id sits at /sc2/ladder/grandmaster/{region_id}, not concatenated."""
     client_id, client_secret = fake_credentials
     api = Starcraft2Api(client_id, client_secret)
     prime_token(api.community)
@@ -115,8 +115,7 @@ def test_community_get_grandmaster_leaderboard_url_shape(fake_credentials, mock_
     api.community.get_grandmaster_leaderboard(region="us", locale="en_US", region_id=1)
 
     args, kwargs = mock_get.call_args
-    # This mirrors the source as written: f"/sc2/ladder/grandmaster{region_id}"
-    assert args[0] == "https://us.api.blizzard.com/sc2/ladder/grandmaster1"
+    assert args[0] == "https://us.api.blizzard.com/sc2/ladder/grandmaster/1"
     assert kwargs["params"] == {"locale": "en_US"}
 
 
