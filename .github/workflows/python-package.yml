@@ -43,56 +43,15 @@ jobs:
       - name: Run tests
         run: uv run pytest tests/ -v
 
-  publish:
+  release:
     needs: test
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install uv
-        run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
-      - name: Create virtual environment
-        run: |
-          uv venv
-
-      - name: Install dependencies
-        run: |
-          uv pip install -e ".[dev]"
-      - name: Configure Git
-        run: |
-          git config --global user.name "lostcol0ny"
-          git config --global user.email "c098os0k@4wrd.cc"
-
-      - name: Build and publish to PyPI
-        run: |
-          python -m pip install --upgrade pip
-          pip install build twine setuptools_scm
-          python -m build
-          twine upload dist/* --skip-existing --username __token__ --password ${{ secrets.PYPI_API_TOKEN }} || {
-            echo "Upload failed - version may already exist or filename was previously used"
-            echo "This is expected behavior and won't block the release"
-            exit 0
-          }
-        env:
-          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
-
-  release:
-    needs: publish
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
+    outputs:
+      tag: ${{ steps.bump.outputs.tag }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -122,16 +81,36 @@ jobs:
           && sudo apt install gh -y
 
       - name: Run release script
+        id: bump
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Debug: Check current version
-          echo "Current package.json version: $(node -p "require('./package.json').version")"
-          echo "Current pyproject.toml version: $(grep 'version = ' pyproject.toml | head -n 1 | cut -d'"' -f2)"
-
-          # Run release-it with CI mode
           npx release-it --ci || {
             echo "release-it failed, creating GitHub release manually..."
             VERSION=$(node -p "require('./package.json').version")
             gh release create "v$VERSION" --title "Release v$VERSION" --notes "Release v$VERSION"
           }
+          tag=$(git describe --tags --abbrev=0)
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build and publish to PyPI
+        env:
+          PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          python -m pip install --upgrade pip build twine
+          python -m build
+          twine upload dist/* --skip-existing --username __token__ --password "$PYPI_API_TOKEN"
