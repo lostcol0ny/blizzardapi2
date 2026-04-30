@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class Region(str, Enum):
+class Region(StrEnum):
     """Region enum for Blizzard API endpoints."""
 
     US = "us"
@@ -11,7 +11,7 @@ class Region(str, Enum):
     CN = "cn"
 
 
-class Locale(str, Enum):
+class Locale(StrEnum):
     """Locale enum for Blizzard API responses."""
 
     EN_US = "en_US"
