@@ -10,13 +10,8 @@ OAuth POST so each test only verifies a single GET.
 from __future__ import annotations
 
 from blizzardapi2.starcraft2.starcraft2_api import Starcraft2Api
-from blizzardapi2.starcraft2.starcraft2_community_api import (
-    Starcraft2CommunityApi,
-)
-from blizzardapi2.starcraft2.starcraft2_game_data_api import (
-    Starcraft2GameDataApi,
-)
-
+from blizzardapi2.starcraft2.starcraft2_community_api import Starcraft2CommunityApi
+from blizzardapi2.starcraft2.starcraft2_game_data_api import Starcraft2GameDataApi
 from tests.conftest import FAKE_TOKEN, prime_token
 
 

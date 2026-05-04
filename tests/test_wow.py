@@ -196,11 +196,11 @@ def test_oauth_protected_character_uses_user_token(wow_api: WowApi, mock_get) ->
     """A second OAuth-protected endpoint to guard against per-method drift."""
     user_token = "another_user_token"
     wow_api.profile.get_protected_character_profile_summary(
-        region="eu",
-        locale="en_GB",
         access_token=user_token,
         realm_id=1234,
         character_id=5678,
+        region="eu",
+        locale="en_GB",
     )
 
     args, kwargs = mock_get.call_args
@@ -222,10 +222,10 @@ def test_character_profile_summary_uses_client_token(wow_api: WowApi, mock_get) 
     """Profile endpoints without an access_token param fall back to the
     client-credentials token (primed on the fixture)."""
     wow_api.profile.get_character_profile_summary(
-        region="us",
-        locale="en_US",
         realm_slug="stormrage",
         character_name="dwarfprist",
+        region="us",
+        locale="en_US",
     )
 
     args, kwargs = mock_get.call_args
@@ -243,10 +243,10 @@ def test_guild_endpoint_uses_data_path_with_profile_namespace(
     """Guild endpoints sit under /data/wow/guild but use a profile-{region}
     namespace -- worth pinning since it's a routing oddity."""
     wow_api.profile.get_guild_roster(
-        region="us",
-        locale="en_US",
         realm_slug="stormrage",
         name_slug="example-guild",
+        region="us",
+        locale="en_US",
     )
 
     args, kwargs = mock_get.call_args
@@ -268,7 +268,9 @@ def test_method_returns_decoded_json_body(wow_api: WowApi, mock_get) -> None:
     mock_get.return_value.json.return_value = payload
 
     result = wow_api.game_data.get_achievement(
-        region="us", locale="en_US", achievement_id=99
+        achievement_id=99,
+        region="us",
+        locale="en_US",
     )
 
     assert result == payload

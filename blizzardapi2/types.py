@@ -1,4 +1,5 @@
 from enum import StrEnum
+from typing import Optional
 
 
 class Region(StrEnum):
@@ -9,6 +10,9 @@ class Region(StrEnum):
     KR = "kr"
     TW = "tw"
     CN = "cn"
+
+
+OptionalRegion = Optional[Region | str]
 
 
 class Locale(StrEnum):
@@ -27,3 +31,6 @@ class Locale(StrEnum):
     KO_KR = "ko_KR"
     ZH_TW = "zh_TW"
     ZH_CN = "zh_CN"
+
+
+OptionalLocale = Optional[Locale | str]

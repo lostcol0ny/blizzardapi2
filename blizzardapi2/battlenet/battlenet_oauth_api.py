@@ -7,16 +7,7 @@ including user information and authentication.
 from typing import Any, Dict
 
 from ..api import BaseApi
-from ..types import Locale, Region
-
-
-class ApiResponse:
-    """Wrapper for API responses with metadata."""
-
-    data: Dict[str, Any]
-    region: Region
-    locale: Locale
-    namespace: str
+from ..types import OptionalRegion
 
 
 class BattlenetOAuthApi(BaseApi):
@@ -31,16 +22,9 @@ class BattlenetOAuthApi(BaseApi):
         _client_secret: The Blizzard API client secret.
     """
 
-    def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the API client.
-
-        Args:
-            client_id: The Blizzard API client ID.
-            client_secret: The Blizzard API client secret.
-        """
-        super().__init__(client_id, client_secret)
-
-    def get_user_info(self, region: Region | str, access_token: str) -> dict[str, Any]:
+    def get_user_info(
+        self, access_token: str, region: OptionalRegion = None
+    ) -> dict[str, Any]:
         """Get basic information about the user associated with the current bearer token.
 
         Args:

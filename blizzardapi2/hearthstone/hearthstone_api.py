@@ -6,24 +6,12 @@ game packages (`wow.game_data`, `diablo3.game_data`, etc.) so the public
 API surface stays consistent.
 """
 
-from typing import Any, Dict
-
-from ..api import BaseApi
-from ..types import Locale, Region
+from ..endpoint import ApiEndpoint
 from .hearthstone_game_data_api import HearthstoneGameDataApi
 
 
-class ApiResponse:
-    """Wrapper for API responses with metadata."""
-
-    data: Dict[str, Any]
-    region: Region
-    locale: Locale
-    namespace: str
-
-
-class HearthstoneApi(BaseApi):
-    """Hearthstone API client facade.
+class HearthstoneApi(ApiEndpoint):
+    """Hearthstone API client.
 
     Exposes Hearthstone endpoints under ``.game_data`` for consistency with
     the other game facades (``wow.game_data``, ``diablo3.game_data``, ...).
@@ -36,17 +24,15 @@ class HearthstoneApi(BaseApi):
         ```
 
     Attributes:
-        _client_id: The Blizzard API client ID.
-        _client_secret: The Blizzard API client secret.
+        client_id: The Blizzard API client ID.
+        client_secret: The Blizzard API client secret.
+        region: Default region to use for requests.
+        locale: Default locale to use for requests.
         game_data: The Hearthstone game-data API client.
     """
 
-    def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the API client.
-
-        Args:
-            client_id: The Blizzard API client ID.
-            client_secret: The Blizzard API client secret.
-        """
-        super().__init__(client_id, client_secret)
-        self.game_data = HearthstoneGameDataApi(client_id, client_secret)
+    def extend_endpoint(self) -> None:
+        """Add the Hearthstone game-data endpoint."""
+        self.game_data = HearthstoneGameDataApi(
+            self.client_id, self.client_secret, self.region, self.locale
+        )
