@@ -1,5 +1,5 @@
 from enum import StrEnum
-from typing import Optional
+from typing import Optional, TypeAliasType
 
 
 class Region(StrEnum):
@@ -12,7 +12,7 @@ class Region(StrEnum):
     CN = "cn"
 
 
-OptionalRegion = Optional[Region | str]
+OptionalRegion = Optional[Region]
 
 
 class Locale(StrEnum):
@@ -33,4 +33,4 @@ class Locale(StrEnum):
     ZH_CN = "zh_CN"
 
 
-OptionalLocale = Optional[Locale | str]
+OptionalLocale = Optional[Locale]
