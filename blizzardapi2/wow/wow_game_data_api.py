@@ -45,7 +45,7 @@ class WowGameDataApi(LocaleApi):
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
         is_classic: bool = False,
-        **search_params: Any,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """Internal function to get resources from the World of Warcraft Game Data API that use a static namespace
 
@@ -54,13 +54,13 @@ class WowGameDataApi(LocaleApi):
             region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
             locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): a boolean flag indicating whether to use a Classic WOW namespace. Defaults to False.
-            **search_params (optional): additional arguments to to the resource request to support search requests.
+            **query_params (optional): additional arguments to to the resource request to support search requests.
 
         Returns:
             dict[str, Any]: the JSON response transformed to a dict structure.
         """
         namespace = "static-classic" if is_classic else "static"
-        return self._get_resource(resource, namespace, region, locale, **search_params)
+        return self._get_resource(resource, namespace, region, locale, **query_params)
 
     def _get_dynamic_resource(
         self,
@@ -68,7 +68,7 @@ class WowGameDataApi(LocaleApi):
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
         is_classic: bool = False,
-        **search_params: Any,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """Internal function to get resources from the World of Warcraft Game Data API that use a dynamic namespace
 
@@ -77,13 +77,13 @@ class WowGameDataApi(LocaleApi):
             region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
             locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): a boolean flag indicating whether to use a Classic WOW namespace. Defaults to False.
-            **search_params (optional): additional arguments to to the resource request to support search requests.
+            **query_params (optional): additional arguments to to the resource request to support search requests.
 
         Returns:
             dict[str, Any]: the JSON response transformed to a dict structure.
         """
         namespace = "dynamic-classic" if is_classic else "dynamic"
-        return self._get_resource(resource, namespace, region, locale, **search_params)
+        return self._get_resource(resource, namespace, region, locale, **query_params)
 
     # Achievement API
 
@@ -101,7 +101,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of achievements.
         """
         resource = "/data/wow/achievement/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_achievement(
         self,
@@ -122,7 +125,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the achievement details.
         """
         resource = f"/data/wow/achievement/{achievement_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_achievement_categories_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -138,7 +144,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of achievement categories.
         """
         resource = "/data/wow/achievement-category/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_achievement_category(
         self,
@@ -159,7 +168,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the achievement category details.
         """
         resource = f"/data/wow/achievement-category/{achievement_category_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_achievement_media(
         self,
@@ -180,7 +192,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the achievement media.
         """
         resource = f"/data/wow/media/achievement/{achievement_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Auction House API
 
@@ -205,7 +220,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the auction house index for the connected realm.
         """
         resource = f"/data/wow/connected-realm/{connected_realm_id}/auctions/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=True)
+        query_params = {
+            "namespace": f"dynamic-classic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_auctions_for_auction_house(
         self,
@@ -230,7 +248,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the active auctions for the specified auction house.
         """
         resource = f"/data/wow/connected-realm/{connected_realm_id}/auctions/{auction_house_id}"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=True)
+        query_params = {
+            "namespace": f"dynamic-classic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_auctions(
         self,
@@ -251,7 +272,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the active auctions for the connected realm.
         """
         resource = f"/data/wow/connected-realm/{connected_realm_id}/auctions"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_commodities(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -272,7 +296,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing all active auctions for commodity items.
         """
         resource = "/data/wow/auctions/commodities"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Azerite Essence API
 
@@ -290,7 +317,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of Azerite essences.
         """
         resource = "/data/wow/azerite-essence/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_azerite_essence(
         self,
@@ -311,7 +341,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Azerite essence details.
         """
         resource = f"/data/wow/azerite-essence/{azerite_essence_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_azerite_essence_media(
         self,
@@ -332,7 +365,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Azerite essence media.
         """
         resource = f"/data/wow/media/azerite-essence/{azerite_essence_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Connected Realm API
 
@@ -355,7 +391,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of connected realms.
         """
         resource = "/data/wow/connected-realm/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic)
+        namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_connected_realm(
         self,
@@ -378,7 +418,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the connected realm details.
         """
         resource = f"/data/wow/connected-realm/{connected_realm_id}"
-        return self._get_dynamic_resource(resource, region, locale, is_classic)
+        namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Covenant API
 
@@ -396,7 +440,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of covenants.
         """
         resource = "/data/wow/covenant/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_covenant(
         self,
@@ -417,7 +464,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the covenant details.
         """
         resource = f"/data/wow/covenant/{covenant_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_covenant_media(
         self,
@@ -438,7 +488,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the covenant media.
         """
         resource = f"/data/wow/media/covenant/{covenant_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_soulbind_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -454,7 +507,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of soulbinds.
         """
         resource = "/data/wow/covenant/soulbind/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_soulbind(
         self,
@@ -475,7 +531,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the soulbind details.
         """
         resource = f"/data/wow/covenant/soulbind/{soulbind_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_conduit_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -491,7 +550,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of conduits.
         """
         resource = "/data/wow/covenant/conduit/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_conduit(
         self,
@@ -512,7 +574,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the conduit details.
         """
         resource = f"/data/wow/covenant/conduit/{conduit_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Creature API
 
@@ -535,7 +600,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of creature families.
         """
         resource = "/data/wow/creature-family/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_creature_family(
         self,
@@ -558,7 +627,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature family details.
         """
         resource = f"/data/wow/creature-family/{creature_family_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_creature_types_index(
         self,
@@ -579,7 +652,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of creature types.
         """
         resource = "/data/wow/creature-type/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_creature_type(
         self,
@@ -602,7 +679,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature type details.
         """
         resource = f"/data/wow/creature-type/{creature_type_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_creature(
         self,
@@ -625,7 +706,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature details.
         """
         resource = f"/data/wow/creature/{creature_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_creature_display_media(
         self,
@@ -648,7 +733,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature display media.
         """
         resource = f"/data/wow/media/creature-display/{creature_display_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_creature_family_media(
         self,
@@ -671,7 +760,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature family media.
         """
         resource = f"/data/wow/media/creature-family/{creature_family_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Guild Crest API
 
@@ -694,7 +787,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of guild crest media.
         """
         resource = "/data/wow/guild-crest/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_guild_crest_border_media(
         self,
@@ -717,7 +814,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the guild crest border media.
         """
         resource = f"/data/wow/media/guild-crest/border/{border_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_guild_crest_emblem_media(
         self,
@@ -740,7 +841,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the guild crest emblem media.
         """
         resource = f"/data/wow/media/guild-crest/emblem/{emblem_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Housing API - Decor
 
@@ -758,7 +863,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of decor.
         """
         resource = "/data/wow/decor/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_decor(
         self,
@@ -778,14 +886,17 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the decor details.
         """
         resource = f"/data/wow/decor/{decor_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def search_decor(
         self,
         *,
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
-        **search_params: Any,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """
         Search for decor matching the search criteria.
@@ -793,13 +904,18 @@ class WowGameDataApi(LocaleApi):
         Args:
             region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
             locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
-            **search_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
             Dict[str, Any]: A dictionary containing paginated search results.
         """
         resource = "/data/wow/search/decor"
-        return self._get_static_resource(resource, region, locale, **search_params)
+        query_params.update(
+            {
+                "namespace": f"static-{region}",
+            }
+        )
+        return super().get_resource(resource, region, locale, query_params)
 
         # Housing API - Fixture
 
@@ -817,7 +933,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of fixtures.
         """
         resource = "/data/wow/fixture/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_fixture(
         self,
@@ -838,14 +957,17 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the fixture details.
         """
         resource = f"/data/wow/fixture/{fixture_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def search_fixture(
         self,
         *,
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
-        **search_params: Any,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """
         Search for fixtures matching the search criteria.
@@ -853,13 +975,18 @@ class WowGameDataApi(LocaleApi):
         Args:
             region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
             locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
-            **search_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
             Dict[str, Any]: A dictionary containing paginated search results.
         """
         resource = "/data/wow/search/fixture"
-        return self._get_static_resource(resource, region, locale, **search_params)
+        query_params.update(
+            {
+                "namespace": f"static-{region}",
+            }
+        )
+        return super().get_resource(resource, region, locale, query_params)
 
         # Housing API - Fixture Hook
 
@@ -877,7 +1004,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of fixture hooks.
         """
         resource = "/data/wow/fixture-hook/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_fixture_hook(
         self,
@@ -898,14 +1028,17 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the fixture hook details.
         """
         resource = f"/data/wow/fixture-hook/{fixture_hook_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def search_fixture_hook(
         self,
         *,
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
-        **search_params: Any,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """
         Search for fixture hooks matching the search criteria.
@@ -913,13 +1046,18 @@ class WowGameDataApi(LocaleApi):
         Args:
             region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
             locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
-            **search_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
             Dict[str, Any]: A dictionary containing paginated search results.
         """
         resource = "/data/wow/search/fixture-hook"
-        return self._get_static_resource(resource, region, locale, **search_params)
+        query_params.update(
+            {
+                "namespace": f"static-{region}",
+            }
+        )
+        return super().get_resource(resource, region, locale, query_params)
 
         # Housing API - Room
 
@@ -937,7 +1075,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of rooms.
         """
         resource = "/data/wow/room/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_room(
         self,
@@ -958,14 +1099,17 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the room details.
         """
         resource = f"/data/wow/room/{room_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def search_room(
         self,
         *,
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
-        **search_params: Any,
+        **query_params: Any,
     ) -> dict[str, Any]:
         """
         Search for rooms matching the search criteria.
@@ -973,13 +1117,18 @@ class WowGameDataApi(LocaleApi):
         Args:
             region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
             locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
-            **search_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
+            **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
             Dict[str, Any]: A dictionary containing paginated search results.
         """
         resource = "/data/wow/search/room"
-        return self._get_static_resource(resource, region, locale, **search_params)
+        query_params.update(
+            {
+                "namespace": f"static-{region}",
+            }
+        )
+        return super().get_resource(resource, region, locale, query_params)
 
         # Heirloom API
 
@@ -997,7 +1146,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of heirlooms.
         """
         resource = "/data/wow/heirloom/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_heirloom(
         self,
@@ -1018,7 +1170,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the heirloom details.
         """
         resource = f"/data/wow/heirloom/{heirloom_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Item API
 
@@ -1041,7 +1196,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item classes.
         """
         resource = "/data/wow/item-class/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_class(
         self,
@@ -1064,7 +1223,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item class details.
         """
         resource = f"/data/wow/item-class/{item_class_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_sets_index(
         self,
@@ -1085,7 +1248,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item sets.
         """
         resource = "/data/wow/item-set/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_set(
         self,
@@ -1108,7 +1275,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item set details.
         """
         resource = f"/data/wow/item-set/{item_set_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_subclass(
         self,
@@ -1135,7 +1306,11 @@ class WowGameDataApi(LocaleApi):
         resource = (
             f"/data/wow/item-class/{item_class_id}/item-subclass/{item_subclass_id}"
         )
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item(
         self,
@@ -1158,7 +1333,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item details.
         """
         resource = f"/data/wow/item/{item_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_media(
         self,
@@ -1181,7 +1360,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item media.
         """
         resource = f"/data/wow/media/item/{item_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Item Appearance API
 
@@ -1206,7 +1389,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item appearance details.
         """
         resource = f"/data/wow/item-appearance/{appearance_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_appearance_sets_index(
         self,
@@ -1227,7 +1414,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item appearance sets.
         """
         resource = "/data/wow/item-appearance/set/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_appearance_set(
         self,
@@ -1250,7 +1441,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item appearance set details.
         """
         resource = f"/data/wow/item-appearance/set/{appearance_set_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_appearance_slot_index(
         self,
@@ -1271,7 +1466,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item appearance slots.
         """
         resource = "/data/wow/item-appearance/slot/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_item_appearance_slot(
         self,
@@ -1294,7 +1493,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item appearance slot details.
         """
         resource = f"/data/wow/item-appearance/slot/{slot_type}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     # Journal API
 
@@ -1312,7 +1515,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of journal expansions.
         """
         resource = "/data/wow/journal-expansion/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_journal_expansion(
         self,
@@ -1333,7 +1539,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the journal expansion details.
         """
         resource = f"/data/wow/journal-expansion/{journal_expansion_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_journal_encounters_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1349,7 +1558,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of journal encounters.
         """
         resource = "/data/wow/journal-encounter/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_journal_encounter(
         self,
@@ -1370,7 +1582,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the journal encounter details.
         """
         resource = f"/data/wow/journal-encounter/{journal_encounter_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_journal_instances_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1386,7 +1601,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of journal instances.
         """
         resource = "/data/wow/journal-instance/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_journal_instance(
         self,
@@ -1407,7 +1625,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the journal instance details.
         """
         resource = f"/data/wow/journal-instance/{journal_instance_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_journal_instance_media(
         self,
@@ -1428,7 +1649,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the journal instance media.
         """
         resource = f"/data/wow/media/journal-instance/{journal_instance_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Modified Crafting API
 
@@ -1446,7 +1670,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index for Modified Crafting.
         """
         resource = "/data/wow/modified-crafting/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_modified_crafting_category_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1462,7 +1689,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of Modified Crafting categories.
         """
         resource = "/data/wow/modified-crafting/category/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_modified_crafting_category(
         self,
@@ -1483,7 +1713,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Modified Crafting category details.
         """
         resource = f"/data/wow/modified-crafting/category/{category_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_modified_crafting_reagent_slot_type_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1499,7 +1732,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of reagent slot types.
         """
         resource = "/data/wow/modified-crafting/reagent-slot-type/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_modified_crafting_reagent_slot_type(
         self,
@@ -1520,7 +1756,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the reagent slot type details.
         """
         resource = f"/data/wow/modified-crafting/reagent-slot-type/{slot_type_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Mount API
 
@@ -1538,7 +1777,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of mounts.
         """
         resource = "/data/wow/mount/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mount(
         self,
@@ -1559,7 +1801,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the mount details.
         """
         resource = f"/data/wow/mount/{mount_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Mythic Keystone Affix API
 
@@ -1577,7 +1822,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of mythic keystone affixes.
         """
         resource = "/data/wow/keystone-affix/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_affix(
         self,
@@ -1598,7 +1846,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the mythic keystone affix details.
         """
         resource = f"/data/wow/keystone-affix/{keystone_affix_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_affix_media(
         self,
@@ -1619,7 +1870,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the mythic keystone affix media.
         """
         resource = f"/data/wow/media/keystone-affix/{keystone_affix_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Mythic Keystone Dungeon API
 
@@ -1637,7 +1891,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone dungeons.
         """
         resource = "/data/wow/mythic-keystone/dungeon/index"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_dungeon(
         self,
@@ -1658,7 +1915,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Mythic Keystone dungeon details.
         """
         resource = f"/data/wow/mythic-keystone/dungeon/{dungeon_id}"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1674,7 +1934,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of links to related documents.
         """
         resource = "/data/wow/mythic-keystone/index"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_periods_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1690,7 +1953,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone periods.
         """
         resource = "/data/wow/mythic-keystone/period/index"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_period(
         self,
@@ -1711,7 +1977,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Mythic Keystone period details.
         """
         resource = f"/data/wow/mythic-keystone/period/{period_id}"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_seasons_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1727,7 +1996,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone seasons.
         """
         resource = "/data/wow/mythic-keystone/season/index"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_season(
         self,
@@ -1748,7 +2020,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Mythic Keystone season details.
         """
         resource = f"/data/wow/mythic-keystone/season/{season_id}"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Mythic Keystone Leaderboard API
 
@@ -1773,7 +2048,10 @@ class WowGameDataApi(LocaleApi):
         resource = (
             f"/data/wow/connected-realm/{connected_realm_id}/mythic-leaderboard/index"
         )
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_mythic_keystone_leaderboard(
         self,
@@ -1798,7 +2076,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Mythic Keystone Leaderboard details for the specified period.
         """
         resource = f"/data/wow/connected-realm/{connected_realm_id}/mythic-leaderboard/{dungeon_id}/period/{period_id}"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Mythic Raid Leaderboard API
 
@@ -1823,7 +2104,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the raid leaderboard details for the specified faction.
         """
         resource = f"/data/wow/leaderboard/hall-of-fame/{raid}/{faction}"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Pet API
 
@@ -1841,7 +2125,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of battle pets.
         """
         resource = "/data/wow/pet/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pet(
         self,
@@ -1862,7 +2149,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the battle pet details.
         """
         resource = f"/data/wow/pet/{pet_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pet_media(
         self,
@@ -1883,7 +2173,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the battle pet media.
         """
         resource = f"/data/wow/media/pet/{pet_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pet_abilities_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -1899,7 +2192,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of pet abilities.
         """
         resource = "/data/wow/pet-ability/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pet_ability(
         self,
@@ -1920,7 +2216,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the pet ability details.
         """
         resource = f"/data/wow/pet-ability/{pet_ability_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pet_ability_media(
         self,
@@ -1941,7 +2240,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the pet ability media.
         """
         resource = f"/data/wow/media/pet-ability/{pet_ability_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Playable Class API
 
@@ -1964,7 +2266,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of playable classes.
         """
         resource = "/data/wow/playable-class/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_playable_class(
         self,
@@ -1987,7 +2293,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable class details.
         """
         resource = f"/data/wow/playable-class/{class_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_playable_class_media(
         self,
@@ -2010,7 +2320,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable class media.
         """
         resource = f"/data/wow/media/playable-class/{playable_class_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_talent_slots(
         self,
@@ -2031,7 +2345,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the PvP talent slots.
         """
         resource = f"/data/wow/playable-class/{class_id}/pvp-talent-slots"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Playable Race API
 
@@ -2053,7 +2370,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of playable races.
         """
         resource = "/data/wow/playable-race/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_playable_race(
         self,
@@ -2075,7 +2396,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable race details.
         """
         resource = f"/data/wow/playable-race/{playable_race_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Playable Specialization API
 
@@ -2093,7 +2418,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of playable specializations.
         """
         resource = "/data/wow/playable-specialization/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_playable_specialization(
         self,
@@ -2114,7 +2442,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable specialization details.
         """
         resource = f"/data/wow/playable-specialization/{spec_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_playable_specialization_media(
         self,
@@ -2135,7 +2466,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable specialization media.
         """
         resource = f"/data/wow/media/playable-specialization/{spec_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Power Type API
 
@@ -2158,7 +2492,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of power types.
         """
         resource = "/data/wow/power-type/index"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_power_type(
         self,
@@ -2181,7 +2519,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the power type details.
         """
         resource = f"/data/wow/power-type/{power_type_id}"
-        return self._get_static_resource(resource, region, locale, is_classic)
+        namespace = f"static-classic-{region}" if is_classic else f"static-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Profession API
 
@@ -2199,7 +2541,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of professions.
         """
         resource = "/data/wow/profession/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_profession(
         self,
@@ -2220,7 +2565,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the profession details.
         """
         resource = f"/data/wow/profession/{profession_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_profession_media(
         self,
@@ -2241,7 +2589,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the profession media.
         """
         resource = f"/data/wow/media/profession/{profession_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_profession_skill_tier(
         self,
@@ -2264,7 +2615,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the skill tier details.
         """
         resource = f"/data/wow/profession/{profession_id}/skill-tier/{skill_tier_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_recipe(
         self,
@@ -2285,7 +2639,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the recipe details.
         """
         resource = f"/data/wow/recipe/{recipe_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_recipe_media(
         self,
@@ -2306,7 +2663,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the recipe media.
         """
         resource = f"/data/wow/media/recipe/{recipe_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # PvP Season API
 
@@ -2324,7 +2684,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of PvP seasons.
         """
         resource = "/data/wow/pvp-season/index"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_season(
         self,
@@ -2345,7 +2708,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the PvP season details.
         """
         resource = f"/data/wow/pvp-season/{pvp_season_id}"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_leaderboards_index(
         self,
@@ -2366,7 +2732,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of PvP leaderboards.
         """
         resource = f"/data/wow/pvp-season/{pvp_season_id}/pvp-leaderboard/index"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_leaderboard(
         self,
@@ -2389,7 +2758,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the PvP leaderboard details.
         """
         resource = f"/data/wow/pvp-season/{pvp_season_id}/pvp-leaderboard/{pvp_bracket}"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_rewards_index(
         self,
@@ -2410,7 +2782,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of PvP rewards.
         """
         resource = f"/data/wow/pvp-season/{pvp_season_id}/pvp-reward/index"
-        return self._get_dynamic_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"dynamic-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # PvP Tier API
 
@@ -2433,7 +2808,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the PvP tier media.
         """
         resource = f"/data/wow/media/pvp-tier/{pvp_tier_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_tiers_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -2449,7 +2827,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of PvP tiers.
         """
         resource = "/data/wow/pvp-tier/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_tier(
         self,
@@ -2470,7 +2851,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the PvP tier details.
         """
         resource = f"/data/wow/pvp-tier/{pvp_tier_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Quest API
 
@@ -2488,7 +2872,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the parent index for quests.
         """
         resource = "/data/wow/quest/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_quest(
         self,
@@ -2509,7 +2896,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the quest details.
         """
         resource = f"/data/wow/quest/{quest_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_quest_categories_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -2525,7 +2915,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of quest categories.
         """
         resource = "/data/wow/quest/category/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_quest_category(
         self,
@@ -2546,7 +2939,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the quest category details.
         """
         resource = f"/data/wow/quest/category/{quest_category_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_quest_areas_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -2562,7 +2958,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of quest areas.
         """
         resource = "/data/wow/quest/area/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_quest_area(
         self,
@@ -2583,7 +2982,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the quest area details.
         """
         resource = f"/data/wow/quest/area/{quest_area_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_quest_types_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -2599,7 +3001,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of quest types.
         """
         resource = "/data/wow/quest/type/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_quest_type(
         self,
@@ -2620,7 +3025,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the quest type details.
         """
         resource = f"/data/wow/quest/type/{quest_type_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Realm API
 
@@ -2643,7 +3051,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of realms.
         """
         resource = "/data/wow/realm/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic)
+        namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_realm(
         self,
@@ -2666,7 +3078,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the realm details.
         """
         resource = f"/data/wow/realm/{realm_slug}"
-        return self._get_dynamic_resource(resource, region, locale, is_classic)
+        namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Region API
 
@@ -2689,7 +3105,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of regions.
         """
         resource = "/data/wow/region/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic)
+        namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_region(
         self,
@@ -2712,7 +3132,11 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the region details.
         """
         resource = f"/data/wow/region/{region_id}"
-        return self._get_dynamic_resource(resource, region, locale, is_classic)
+        namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Reputations API
 
@@ -2730,7 +3154,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of reputation factions.
         """
         resource = "/data/wow/reputation-faction/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_reputation_faction(
         self,
@@ -2751,7 +3178,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the reputation faction details.
         """
         resource = f"/data/wow/reputation-faction/{reputation_faction_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_reputation_tiers_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -2767,7 +3197,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of reputation tiers.
         """
         resource = "/data/wow/reputation-tiers/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_reputation_tier(
         self,
@@ -2788,7 +3221,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the reputation tier details.
         """
         resource = f"/data/wow/reputation-tiers/{reputation_tiers_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Spell API
 
@@ -2811,7 +3247,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the spell details.
         """
         resource = f"/data/wow/spell/{spell_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_spell_media(
         self,
@@ -2832,7 +3271,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the spell media.
         """
         resource = f"/data/wow/media/spell/{spell_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Talent API
 
@@ -2850,7 +3292,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of talents.
         """
         resource = "/data/wow/talent/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_talent(
         self,
@@ -2871,7 +3316,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the talent details.
         """
         resource = f"/data/wow/talent/{talent_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_talents_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -2887,7 +3335,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of PvP talents.
         """
         resource = "/data/wow/pvp-talent/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_pvp_talent(
         self,
@@ -2908,7 +3359,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the PvP talent details.
         """
         resource = f"/data/wow/pvp-talent/{pvp_talent_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Tech Talent API
 
@@ -2926,7 +3380,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of tech talent trees.
         """
         resource = "/data/wow/tech-talent-tree/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_tech_talent_tree(
         self,
@@ -2947,7 +3404,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the tech talent tree details.
         """
         resource = f"/data/wow/tech-talent-tree/{tech_talent_tree_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_tech_talent_index(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -2963,7 +3423,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of tech talents.
         """
         resource = "/data/wow/tech-talent/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_tech_talent(
         self,
@@ -2984,7 +3447,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the tech talent details.
         """
         resource = f"/data/wow/tech-talent/{tech_talent_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_tech_talent_media(
         self,
@@ -3005,7 +3471,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the tech talent media.
         """
         resource = f"/data/wow/media/tech-talent/{tech_talent_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Title API
 
@@ -3023,7 +3492,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of titles.
         """
         resource = "/data/wow/title/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_title(
         self,
@@ -3044,7 +3516,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the title details.
         """
         resource = f"/data/wow/title/{title_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Toy API
 
@@ -3062,7 +3537,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of toys.
         """
         resource = "/data/wow/toy/index"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
     def get_toy(
         self,
@@ -3083,7 +3561,10 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the toy details.
         """
         resource = f"/data/wow/toy/{toy_id}"
-        return self._get_static_resource(resource, region, locale)
+        query_params = {
+            "namespace": f"static-{region}",
+        }
+        return super().get_resource(resource, region, locale, query_params)
 
         # Wow Token API
 
@@ -3106,4 +3587,8 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Wow Token index.
         """
         resource = "/data/wow/token/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic)
+        namespace = f"dynamic-classic-{region}" if is_classic else f"dynamic-{region}"
+        query_params = {
+            "namespace": namespace,
+        }
+        return super().get_resource(resource, region, locale, query_params)
