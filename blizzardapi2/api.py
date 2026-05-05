@@ -2,7 +2,6 @@
 
 from datetime import UTC, datetime, timedelta
 from typing import Any, Optional
-from unittest.mock import Base
 
 import requests
 
@@ -15,7 +14,6 @@ class BaseApi(ApiEndpoint):
 
     Provides common functionality for authentication, token management,
     and HTTP requests to Blizzard APIs.
-
     """
 
     # Region-specific URL mappings
@@ -41,15 +39,6 @@ class BaseApi(ApiEndpoint):
         self._access_token: Optional[str] = None
         self._token_expires_at: Optional[datetime] = None
         self._session = requests.Session()
-
-    def _get_region_for_request(self, region: OptionalRegion) -> str:
-        """Determine the region to use for a request."""
-        _region = region or self.region
-        if _region is None or _region not in [member.value for member in Region]:
-            raise ValueError(
-                "No valid region supplied for request and no valid default region set on client."
-            )
-        return _region
 
     def _is_token_expired(self) -> bool:
         """Check if the token is expiring within the refresh buffer window."""
@@ -185,7 +174,7 @@ class BaseApi(ApiEndpoint):
         Returns:
             The API response as a dictionary.
         """
-        _region = self._get_region_for_request(region)
+        _region = Region(region or self.region)
         url = self._build_api_url(resource, _region)
         return self._make_request(url, _region, query_params)
 
@@ -205,7 +194,7 @@ class BaseApi(ApiEndpoint):
         Returns:
             The API response as a dictionary.
         """
-        _region = self._get_region_for_request(region)
+        _region = Region(region or self.region)
         url = self._build_oauth_url(resource, _region)
         return self._make_request(url, _region, query_params)
 
@@ -214,18 +203,7 @@ class LocaleApi(BaseApi):
     """Locale-aware  API class for Blizzard API clients.
 
     Extends the base API to handle locale-aware services
-    Args:
-        BaseApi (_type_): _description_
     """
-
-    def _get_locale_for_request(self, locale: OptionalLocale) -> str:
-        """Determine the locale to use for a request."""
-        _locale = locale or self.locale
-        if _locale is None or _locale not in [member.value for member in Locale]:
-            raise ValueError(
-                "No valid locale supplied for request and no valid default locale set on client."
-            )
-        return _locale
 
     def get_resource(
         self,
@@ -234,8 +212,8 @@ class LocaleApi(BaseApi):
         locale: OptionalLocale = None,
         query_params: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
-        # Override the locale in the query_params (if any) with the one determined for this request
-        _query_params = (query_params or {}) | {
-            "locale": self._get_locale_for_request(locale)
-        }
+        # Allow the locale in the query_params (if any) to override any othe locale provided (explicitly or by default)
+        _query_params = (query_params or {})
+        if _query_params.get("locale") is None:
+            _query_params["locale"] = Locale(locale or self.locale)
         return super().get_resource(resource, region, _query_params)

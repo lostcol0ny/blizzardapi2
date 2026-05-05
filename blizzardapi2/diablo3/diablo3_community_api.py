@@ -1,6 +1,7 @@
-from typing import Any, Optional
+from typing import Any
 
 from ..api import LocaleApi
+from ..types import OptionalLocale, OptionalRegion
 
 """diablo3_community_api.py file."""
 
@@ -16,7 +17,7 @@ class Diablo3CommunityApi(LocaleApi):
     """
 
     def get_act_index(
-        self, region: Optional[str] = None, locale: Optional[str] = None
+        self, *, region: OptionalRegion = None, locale: OptionalLocale = None
     ) -> dict[str, Any]:
         """
         Return an index of acts.
@@ -32,7 +33,11 @@ class Diablo3CommunityApi(LocaleApi):
         return super().get_resource(resource, region, locale)
 
     def get_act(
-        self, act_id: int, region: Optional[str] = None, locale: Optional[str] = None
+        self,
+        act_id: int,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single act by ID.
@@ -51,8 +56,9 @@ class Diablo3CommunityApi(LocaleApi):
     def get_artisan(
         self,
         artisan_slug: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single artisan by slug.
@@ -72,8 +78,9 @@ class Diablo3CommunityApi(LocaleApi):
         self,
         artisan_slug: str,
         recipe_slug: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single recipe by slug for the specified artisan.
@@ -93,8 +100,9 @@ class Diablo3CommunityApi(LocaleApi):
     def get_follower(
         self,
         follower_slug: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single follower by slug.
@@ -113,8 +121,9 @@ class Diablo3CommunityApi(LocaleApi):
     def get_character_class(
         self,
         class_slug: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single character class by slug.
@@ -134,8 +143,9 @@ class Diablo3CommunityApi(LocaleApi):
         self,
         class_slug: str,
         skill_slug: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single skill by slug for a specific character class.
@@ -152,7 +162,12 @@ class Diablo3CommunityApi(LocaleApi):
         resource = f"/d3/data/hero/{class_slug}/skill/{skill_slug}"
         return super().get_resource(resource, region, locale)
 
-    def get_item_type_index(self, region: str, locale: str) -> dict[str, Any]:
+    def get_item_type_index(
+        self,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
+    ) -> dict[str, Any]:
         """
         Return an index of item types.
 
@@ -169,8 +184,9 @@ class Diablo3CommunityApi(LocaleApi):
     def get_item_type(
         self,
         item_type_slug: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single item type by slug.
@@ -189,8 +205,9 @@ class Diablo3CommunityApi(LocaleApi):
     def get_item(
         self,
         item_slug_id: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single item by item slug and ID.
@@ -209,8 +226,9 @@ class Diablo3CommunityApi(LocaleApi):
     def get_api_account(
         self,
         account_id: str,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return the specified account profile.
@@ -230,8 +248,9 @@ class Diablo3CommunityApi(LocaleApi):
         self,
         account_id: str,
         hero_id: int,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a single hero.
@@ -252,8 +271,9 @@ class Diablo3CommunityApi(LocaleApi):
         self,
         account_id: str,
         hero_id: int,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a list of items for the specified hero.
@@ -274,8 +294,9 @@ class Diablo3CommunityApi(LocaleApi):
         self,
         account_id: str,
         hero_id: int,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        *,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return the equipped follower items for a given hero.
