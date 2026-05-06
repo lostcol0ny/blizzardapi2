@@ -23,7 +23,7 @@ class BattlenetOAuthApi(BaseApi):
     """
 
     def get_user_info(
-        self, access_token: str, region: OptionalRegion = None
+        self, access_token: str, *, region: OptionalRegion = None
     ) -> dict[str, Any]:
         """Get basic information about the user associated with the current bearer token.
 

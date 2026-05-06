@@ -1,5 +1,5 @@
 from enum import StrEnum
-from typing import Optional, TypeAliasType
+from typing import Optional
 
 
 class Region(StrEnum):
