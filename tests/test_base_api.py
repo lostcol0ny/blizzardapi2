@@ -13,7 +13,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from blizzardapi2.api import BaseApi
+from blizzardapi2.api import BaseApi, LocaleApi
+from blizzardapi2.types import Locale, Region
 from tests.conftest import CLIENT_ID, CLIENT_SECRET, FAKE_TOKEN, prime_token
 
 
@@ -289,7 +290,7 @@ def test_get_resource_end_to_end(api: BaseApi, mock_get, mock_post) -> None:
 
     result = api.get_resource(
         "/data/wow/realm/index",
-        "eu",
+        Region.EU,
         query_params={"locale": "en_GB"},
     )
 
@@ -312,7 +313,7 @@ def test_get_oauth_resource_end_to_end(api: BaseApi, mock_get, mock_post) -> Non
 
     result = api.get_oauth_resource(
         "/oauth/userinfo",
-        "us",
+        Region.US,
         query_params={"access_token": "user_token"},
     )
 
@@ -383,3 +384,164 @@ def test_subclass_can_override_default_timeout(mock_get, fake_credentials) -> No
     prime_token(api)
     api._make_request("https://us.api.blizzard.com/x", "us")
     assert mock_get.call_args.kwargs["timeout"] == 5.0
+
+
+# ---------------------------------------------------------------------------
+# Default values execution in get_resource / get_oauth_resource
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture
+def with_defaults_api(fake_credentials) -> LocaleApi:
+    """A fresh LocaleApi instance with no token primed."""
+    client_id, client_secret = fake_credentials
+    return LocaleApi(client_id, client_secret, region=Region.KR, locale=Locale.ES_MX)
+
+
+def test_get_resource_with_defaults(
+    with_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_resource builds API URL, fetches token, and issues GET using default values."""
+    mock_get.return_value.json.return_value = {"realms": []}
+
+    result = with_defaults_api.get_resource("/data/wow/realm/index")
+
+    assert result == {"realms": []}
+    # Token POST happened once (lazy fetch).
+    assert mock_post.call_count == 1
+    # GET hit the KR API host.
+    assert (
+        mock_get.call_args.args[0] == "https://kr.api.blizzard.com/data/wow/realm/index"
+    )
+    assert mock_get.call_args.kwargs["params"] == {"locale": "es_MX"}
+    assert (
+        mock_get.call_args.kwargs["headers"]["Authorization"] == f"Bearer {FAKE_TOKEN}"
+    )
+
+
+def test_get_resource_with_overridden_defaults(
+    with_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_resource builds API URL, fetches token, and issues GET using explicitly provided values."""
+    mock_get.return_value.json.return_value = {"realms": []}
+
+    result = with_defaults_api.get_resource(
+        "/data/wow/realm/index", region=Region.EU, locale=Locale.EN_GB
+    )
+
+    assert result == {"realms": []}
+    # Token POST happened once (lazy fetch).
+    assert mock_post.call_count == 1
+    # GET hit the KR API host.
+    assert (
+        mock_get.call_args.args[0] == "https://eu.api.blizzard.com/data/wow/realm/index"
+    )
+    assert mock_get.call_args.kwargs["params"] == {"locale": "en_GB"}
+    assert (
+        mock_get.call_args.kwargs["headers"]["Authorization"] == f"Bearer {FAKE_TOKEN}"
+    )
+
+
+def test_get_oauth_resource_with_defaults(
+    with_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_oauth_resource builds OAuth URL and forwards user token to header."""
+    mock_get.return_value.json.return_value = {"id": 42, "battletag": "x#1"}
+
+    result = with_defaults_api.get_oauth_resource(
+        "/oauth/userinfo",
+        query_params={"access_token": "user_token"},
+    )
+
+    assert result == {"id": 42, "battletag": "x#1"}
+    # No client-credentials POST when a user token is supplied.
+    assert mock_post.call_count == 0
+    # URL is the OAuth host, not the API host.
+    assert mock_get.call_args.args[0] == "https://oauth.battle.net/oauth/userinfo"
+    # Token in header, NOT in params.
+    assert "access_token" not in mock_get.call_args.kwargs["params"]
+    assert mock_get.call_args.kwargs["headers"]["Authorization"] == "Bearer user_token"
+
+
+def test_get_oauth_resource_with_overridden_defaults(
+    with_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_oauth_resource builds OAuth URL and forwards user token to header."""
+    mock_get.return_value.json.return_value = {"id": 42, "battletag": "x#1"}
+
+    result = with_defaults_api.get_oauth_resource(
+        "/oauth/userinfo",
+        Region.CN,
+        query_params={"access_token": "user_token"},
+    )
+
+    assert result == {"id": 42, "battletag": "x#1"}
+    # No client-credentials POST when a user token is supplied.
+    assert mock_post.call_count == 0
+    # URL is the OAuth host, not the API host.
+    assert (
+        mock_get.call_args.args[0]
+        == "https://www.gateway.battlenet.com.cn/oauth/userinfo"
+    )
+    # Token in header, NOT in params.
+    assert "access_token" not in mock_get.call_args.kwargs["params"]
+    assert mock_get.call_args.kwargs["headers"]["Authorization"] == "Bearer user_token"
+
+
+@pytest.fixture
+def without_defaults_api(fake_credentials) -> LocaleApi:
+    """A fresh LocaleApi instance with no token primed."""
+    client_id, client_secret = fake_credentials
+    return LocaleApi(client_id, client_secret)
+
+
+def test_get_resource_failure_without_default_region(
+    without_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_resource builds API URL, fetches token, and issues GET."""
+    with pytest.raises(ValueError, match="Region"):
+        without_defaults_api.get_resource("/data/wow/realm/index", locale=Locale.EN_GB)
+
+
+def test_get_resource_failure_with_invalid_region(
+    without_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_resource builds API URL, fetches token, and issues GET."""
+    with pytest.raises(ValueError, match="Region"):
+        without_defaults_api.get_resource(
+            "/data/wow/realm/index", region="invalid", locale=Locale.EN_GB  # type: ignore
+        )
+
+
+def test_get_resource_failure_without_default_locale(
+    without_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_resource builds API URL, fetches token, and issues GET."""
+    with pytest.raises(ValueError, match="Locale"):
+        without_defaults_api.get_resource("/data/wow/realm/index", region=Region.CN)
+
+
+def test_get_resource_failure_with_invalid_locale(
+    without_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_resource builds API URL, fetches token, and issues GET."""
+    with pytest.raises(ValueError, match="Locale"):
+        without_defaults_api.get_resource(
+            "/data/wow/realm/index", region=Region.CN, locale="invalid"  # type: ignore
+        )
+
+
+def test_get_resource_with_locale_in_query_params(
+    without_defaults_api: LocaleApi, mock_get, mock_post
+) -> None:
+    """get_resource builds API URL, fetches token, and issues GET using explicitly provided values."""
+    mock_get.return_value.json.return_value = {"realms": []}
+
+    result = without_defaults_api.get_resource(
+        "/data/wow/realm/index", region=Region.EU, query_params={"locale": "my_stuff"}
+    )
+
+    assert (
+        mock_get.call_args.args[0] == "https://eu.api.blizzard.com/data/wow/realm/index"
+    )
+    assert mock_get.call_args.kwargs["params"] == {"locale": "my_stuff"}

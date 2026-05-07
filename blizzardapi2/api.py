@@ -5,19 +5,15 @@ from typing import Any, Optional
 
 import requests
 
+from .endpoint import ApiEndpoint
+from .types import Locale, OptionalLocale, OptionalRegion, Region
 
-class BaseApi:
-    """Base API class for Blizzard API clients.
+
+class BaseApi(ApiEndpoint):
+    """Shared API services for Blizzard API clients.
 
     Provides common functionality for authentication, token management,
     and HTTP requests to Blizzard APIs.
-
-    Attributes:
-        _client_id: Blizzard API client ID.
-        _client_secret: Blizzard API client secret.
-        _access_token: Current access token for API requests.
-        _token_expires_at: Token expiration timestamp as datetime object.
-        _session: HTTP session for making requests.
     """
 
     # Region-specific URL mappings
@@ -39,15 +35,7 @@ class BaseApi:
     DEFAULT_GET_TIMEOUT = 30.0
     DEFAULT_POST_TIMEOUT = 10.0
 
-    def __init__(self, client_id: str, client_secret: str) -> None:
-        """Initialize the API client.
-
-        Args:
-            client_id: Blizzard API client ID.
-            client_secret: Blizzard API client secret.
-        """
-        self._client_id = client_id
-        self._client_secret = client_secret
+    def extend_endpoint(self) -> None:
         self._access_token: Optional[str] = None
         self._token_expires_at: Optional[datetime] = None
         self._session = requests.Session()
@@ -62,7 +50,7 @@ class BaseApi:
         """Fetch an access token using client credentials flow.
 
         Args:
-            region: The region for URL construction.
+            region: The region to query (e.g., us, eu, kr, tw, cn).  Defaults to None, in which case the default region provided at instantiation is used.
 
         Returns:
             The token response from the API.
@@ -71,7 +59,7 @@ class BaseApi:
         response = self._session.post(
             url,
             params={"grant_type": "client_credentials"},
-            auth=(self._client_id, self._client_secret),
+            auth=(self.client_id, self._client_secret),
             timeout=self.DEFAULT_POST_TIMEOUT,
         )
         response.raise_for_status()
@@ -89,12 +77,12 @@ class BaseApi:
         if self._access_token is None or self._is_token_expired():
             self._get_client_token(region)
 
-    def _build_oauth_url(self, resource: str, region: str) -> str:
+    def _build_oauth_url(self, resource: str, region: Region | str) -> str:
         """Build URL for OAuth endpoints.
 
         Args:
             resource: The API resource path.
-            region: The region (us, eu, kr, tw, cn).
+            region: The region to query (e.g., us, eu, kr, tw, cn).  Defaults to None, in which case the default region provided at instantiation is used.
 
         Returns:
             The complete OAuth URL.
@@ -107,15 +95,14 @@ class BaseApi:
 
         Args:
             resource: The API resource path.
-            region: The region (us, eu, kr, tw, cn).
+            region: The region to query (e.g., us, eu, kr, tw, cn).  Defaults to None, in which case the default region provided at instantiation is used.
 
         Returns:
             The complete API URL.
         """
-        if region == "cn":
-            base_url = self.API_URLS["cn"]
-        else:
-            base_url = self.API_URLS["default"].format(region=region)
+        base_url = self.API_URLS.get(
+            region, self.API_URLS["default"].format(region=region)
+        )
         return f"{base_url}{resource}"
 
     def _make_request(
@@ -128,7 +115,7 @@ class BaseApi:
 
         Args:
             url: The complete URL to request.
-            region: The region for token management.
+            region: The region to query (e.g., us, eu, kr, tw, cn).  Defaults to None, in which case the default region provided at instantiation is used.
             query_params: Optional query parameters.
 
         Returns:
@@ -172,33 +159,76 @@ class BaseApi:
         return response.json()
 
     def get_resource(
-        self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
+        self,
+        resource: str,
+        region: OptionalRegion = None,
+        query_params: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Make a request to a regular API resource.
 
         Args:
             resource: The API resource path.
-            region: The region to query.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
             query_params: Optional query parameters.
 
         Returns:
             The API response as a dictionary.
         """
-        url = self._build_api_url(resource, region)
-        return self._make_request(url, region, query_params)
+        _region = Region(region or self.region)
+        url = self._build_api_url(resource, _region)
+        return self._make_request(url, _region, query_params)
 
     def get_oauth_resource(
-        self, resource: str, region: str, query_params: Optional[dict[str, Any]] = None
+        self,
+        resource: str,
+        region: OptionalRegion = None,
+        query_params: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Make a request to an OAuth API resource.
 
         Args:
             resource: The API resource path.
-            region: The region to query.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
             query_params: Optional query parameters.
 
         Returns:
             The API response as a dictionary.
         """
-        url = self._build_oauth_url(resource, region)
-        return self._make_request(url, region, query_params)
+        _region = Region(region or self.region)
+        url = self._build_oauth_url(resource, _region)
+        return self._make_request(url, _region, query_params)
+
+
+class LocaleApi(BaseApi):
+    """Locale-aware  API class for Blizzard API clients.
+
+    Extends the base API to handle locale-aware services
+    """
+
+    def get_resource(
+        self,
+        resource: str,
+        region: OptionalRegion = None,
+        query_params: Optional[dict[str, Any]] = None,
+        *,
+        locale: OptionalLocale = None,
+    ) -> dict[str, Any]:
+        """Make a request to a locale-aware API resource.
+
+        Args:
+            resource: The API resource path.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            query_params: Optional query parameters.
+            locale (Locale, optional, keyword-only): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
+
+        Returns:
+            The API response as a dictionary.
+        """
+        # Allow the locale in the query_params (if any) to override any other
+        # locale provided (explicitly or by default). Copy the dict so we don't
+        # mutate the caller's — repeated calls with a shared dict would otherwise
+        # accumulate baked-in locale values.
+        _query_params = (query_params or {}).copy()
+        if _query_params.get("locale") is None:
+            _query_params["locale"] = Locale(locale or self.locale)
+        return super().get_resource(resource, region=region, query_params=_query_params)

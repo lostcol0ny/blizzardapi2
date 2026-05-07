@@ -12,7 +12,6 @@ from __future__ import annotations
 from blizzardapi2.diablo3.diablo3_api import Diablo3Api
 from blizzardapi2.diablo3.diablo3_community_api import Diablo3CommunityApi
 from blizzardapi2.diablo3.diablo3_game_data_api import Diablo3GameDataApi
-
 from tests.conftest import FAKE_TOKEN, prime_token
 
 # ---------------------------------------------------------------------------
@@ -60,7 +59,7 @@ def test_community_get_act_builds_path_with_id(fake_credentials, mock_get):
     api = Diablo3CommunityApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_act(region="eu", locale="en_GB", act_id=2)
+    api.get_act(act_id=2, region="eu", locale="en_GB")
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://eu.api.blizzard.com/d3/data/act/2"
@@ -74,10 +73,10 @@ def test_community_get_recipe_nested_path(fake_credentials, mock_get):
     prime_token(api)
 
     api.get_recipe(
-        region="us",
-        locale="en_US",
         artisan_slug="blacksmith",
         recipe_slug="apprentice-flamberge",
+        region="us",
+        locale="en_US",
     )
 
     args, kwargs = mock_get.call_args
@@ -106,7 +105,8 @@ def test_community_profile_endpoint_strips_user_access_token(
     api.get_resource(
         "/d3/profile/Player-1234/",
         region="us",
-        query_params={"locale": "en_US", "access_token": "user-supplied-token"},
+        locale="en_US",
+        query_params={"access_token": "user-supplied-token"},
     )
 
     args, kwargs = mock_get.call_args
@@ -145,7 +145,7 @@ def test_game_data_get_era_leaderboard_path(fake_credentials, mock_get):
     api = Diablo3GameDataApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_era_leaderboard(region="eu", era_id=10, leaderboard_id=42)
+    api.get_era_leaderboard(era_id=10, leaderboard_id=42, region="eu")
 
     args, kwargs = mock_get.call_args
     assert args[0] == ("https://eu.api.blizzard.com/data/d3/era/10/leaderboard/42")
@@ -163,7 +163,7 @@ def test_cn_region_uses_gateway_host(fake_credentials, mock_get):
     api = Diablo3GameDataApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_season(region="cn", season_id=27)
+    api.get_season(season_id=27, region="cn")
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://gateway.battlenet.com.cn/data/d3/season/27"

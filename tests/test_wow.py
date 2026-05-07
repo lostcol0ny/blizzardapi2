@@ -163,6 +163,87 @@ def test_dynamic_namespace_endpoint(wow_api: WowApi, mock_get) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Default region/locale: namespace must resolve, never leak "None"
+# ---------------------------------------------------------------------------
+#
+# Regression guard for a class of bug where a leaf method built its
+# namespace string from the bare `region` parameter (e.g. f"static-{region}")
+# instead of routing through the helpers that fall back to self.region.
+# When the caller relied on the constructor-supplied default, region was
+# None at the f-string interpolation point and the namespace went out as
+# literally "static-None", which Blizzard rejects.
+
+
+@pytest.fixture
+def wow_with_defaults(fake_credentials: tuple[str, str]) -> WowApi:
+    """A WowApi whose sub-clients carry a default region+locale."""
+    client_id, client_secret = fake_credentials
+    api = WowApi(client_id, client_secret, region="us", locale="en_US")
+    prime_token(api)
+    prime_token(api.game_data)
+    prime_token(api.profile)
+    return api
+
+
+def test_default_region_resolves_in_static_namespace(
+    wow_with_defaults: WowApi, mock_get
+) -> None:
+    """Plain static endpoint with no explicit region must use the default."""
+    wow_with_defaults.game_data.get_achievements_index()
+
+    kwargs = mock_get.call_args.kwargs
+    assert kwargs["params"]["namespace"] == "static-us"
+    assert "None" not in kwargs["params"]["namespace"]
+    assert kwargs["params"]["locale"] == "en_US"
+
+
+def test_default_region_resolves_in_dynamic_namespace(
+    wow_with_defaults: WowApi, mock_get
+) -> None:
+    """Plain dynamic endpoint with no explicit region must use the default."""
+    wow_with_defaults.game_data.get_commodities()
+
+    kwargs = mock_get.call_args.kwargs
+    assert kwargs["params"]["namespace"] == "dynamic-us"
+    assert "None" not in kwargs["params"]["namespace"]
+
+
+def test_default_region_resolves_in_is_classic_namespace(
+    wow_with_defaults: WowApi, mock_get
+) -> None:
+    """The is_classic=True branch must also pick up the default region."""
+    wow_with_defaults.game_data.get_creature_families_index(is_classic=True)
+
+    kwargs = mock_get.call_args.kwargs
+    assert kwargs["params"]["namespace"] == "static-classic-us"
+    assert "None" not in kwargs["params"]["namespace"]
+
+
+def test_default_region_resolves_in_hardcoded_classic_namespace(
+    wow_with_defaults: WowApi, mock_get
+) -> None:
+    """CLASSIC-ONLY endpoints (no is_classic toggle) must still resolve defaults."""
+    wow_with_defaults.game_data.get_auction_house_index(connected_realm_id=42)
+
+    kwargs = mock_get.call_args.kwargs
+    assert kwargs["params"]["namespace"] == "dynamic-classic-us"
+    assert "None" not in kwargs["params"]["namespace"]
+
+
+def test_default_region_resolves_in_search_namespace(
+    wow_with_defaults: WowApi, mock_get
+) -> None:
+    """Search endpoints with extra **query_params must not clobber namespace."""
+    wow_with_defaults.game_data.search_decor(**{"orderby": "id", "_page": 1})
+
+    kwargs = mock_get.call_args.kwargs
+    assert kwargs["params"]["namespace"] == "static-us"
+    assert "None" not in kwargs["params"]["namespace"]
+    assert kwargs["params"]["orderby"] == "id"
+    assert kwargs["params"]["_page"] == 1
+
+
+# ---------------------------------------------------------------------------
 # Profile: OAuth-protected endpoints
 # ---------------------------------------------------------------------------
 
@@ -196,11 +277,11 @@ def test_oauth_protected_character_uses_user_token(wow_api: WowApi, mock_get) ->
     """A second OAuth-protected endpoint to guard against per-method drift."""
     user_token = "another_user_token"
     wow_api.profile.get_protected_character_profile_summary(
-        region="eu",
-        locale="en_GB",
         access_token=user_token,
         realm_id=1234,
         character_id=5678,
+        region="eu",
+        locale="en_GB",
     )
 
     args, kwargs = mock_get.call_args
@@ -222,10 +303,10 @@ def test_character_profile_summary_uses_client_token(wow_api: WowApi, mock_get) 
     """Profile endpoints without an access_token param fall back to the
     client-credentials token (primed on the fixture)."""
     wow_api.profile.get_character_profile_summary(
-        region="us",
-        locale="en_US",
         realm_slug="stormrage",
         character_name="dwarfprist",
+        region="us",
+        locale="en_US",
     )
 
     args, kwargs = mock_get.call_args
@@ -243,10 +324,10 @@ def test_guild_endpoint_uses_data_path_with_profile_namespace(
     """Guild endpoints sit under /data/wow/guild but use a profile-{region}
     namespace -- worth pinning since it's a routing oddity."""
     wow_api.profile.get_guild_roster(
-        region="us",
-        locale="en_US",
         realm_slug="stormrage",
         name_slug="example-guild",
+        region="us",
+        locale="en_US",
     )
 
     args, kwargs = mock_get.call_args
@@ -268,7 +349,9 @@ def test_method_returns_decoded_json_body(wow_api: WowApi, mock_get) -> None:
     mock_get.return_value.json.return_value = payload
 
     result = wow_api.game_data.get_achievement(
-        region="us", locale="en_US", achievement_id=99
+        achievement_id=99,
+        region="us",
+        locale="en_US",
     )
 
     assert result == payload
