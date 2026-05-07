@@ -537,7 +537,7 @@ def test_get_resource_with_locale_in_query_params(
     """get_resource builds API URL, fetches token, and issues GET using explicitly provided values."""
     mock_get.return_value.json.return_value = {"realms": []}
 
-    result = without_defaults_api.get_resource(
+    without_defaults_api.get_resource(
         "/data/wow/realm/index", region=Region.EU, query_params={"locale": "my_stuff"}
     )
 

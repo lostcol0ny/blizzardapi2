@@ -1,5 +1,3 @@
-from typing import Optional
-
 from ..endpoint import ApiEndpoint
 from .starcraft2_community_api import Starcraft2CommunityApi
 from .starcraft2_game_data_api import Starcraft2GameDataApi

@@ -40,6 +40,9 @@ jobs:
           uv venv
           uv pip install -e ".[dev]"
 
+      - name: Lint with ruff
+        run: uv run ruff check .
+
       - name: Run tests
         run: uv run pytest tests/ -v
 

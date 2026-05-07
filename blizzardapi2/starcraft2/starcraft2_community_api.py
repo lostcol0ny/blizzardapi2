@@ -3,7 +3,7 @@
 from typing import Any
 
 from ..api import LocaleApi
-from ..types import OptionalLocale, OptionalRegion, Region
+from ..types import OptionalLocale, OptionalRegion
 
 
 class Starcraft2CommunityApi(LocaleApi):

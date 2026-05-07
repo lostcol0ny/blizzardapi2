@@ -42,7 +42,7 @@ The project uses several tools to maintain code quality:
 
 - **Black**: Code formatting
 - **isort**: Import sorting
-- **flake8**: Linting
+- **ruff**: Linting
 
 ### Manual Formatting
 
@@ -56,7 +56,7 @@ black .
 isort .
 
 # Check linting
-flake8 .
+ruff check .
 ```
 
 ## GitHub Workflows
