@@ -355,7 +355,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of connected realms.
         """
         resource = "/data/wow/connected-realm/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_dynamic_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_connected_realm(
         self,
@@ -378,7 +380,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the connected realm details.
         """
         resource = f"/data/wow/connected-realm/{connected_realm_id}"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_dynamic_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Covenant API
 
@@ -535,7 +539,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of creature families.
         """
         resource = "/data/wow/creature-family/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_creature_family(
         self,
@@ -558,7 +564,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature family details.
         """
         resource = f"/data/wow/creature-family/{creature_family_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_creature_types_index(
         self,
@@ -579,7 +587,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of creature types.
         """
         resource = "/data/wow/creature-type/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_creature_type(
         self,
@@ -602,7 +612,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature type details.
         """
         resource = f"/data/wow/creature-type/{creature_type_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_creature(
         self,
@@ -625,7 +637,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature details.
         """
         resource = f"/data/wow/creature/{creature_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_creature_display_media(
         self,
@@ -648,7 +662,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature display media.
         """
         resource = f"/data/wow/media/creature-display/{creature_display_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_creature_family_media(
         self,
@@ -671,7 +687,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the creature family media.
         """
         resource = f"/data/wow/media/creature-family/{creature_family_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Guild Crest API
 
@@ -694,7 +712,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of guild crest media.
         """
         resource = "/data/wow/guild-crest/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_guild_crest_border_media(
         self,
@@ -717,7 +737,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the guild crest border media.
         """
         resource = f"/data/wow/media/guild-crest/border/{border_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_guild_crest_emblem_media(
         self,
@@ -740,7 +762,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the guild crest emblem media.
         """
         resource = f"/data/wow/media/guild-crest/emblem/{emblem_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Housing API - Decor
 
@@ -1041,7 +1065,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item classes.
         """
         resource = "/data/wow/item-class/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_class(
         self,
@@ -1064,7 +1090,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item class details.
         """
         resource = f"/data/wow/item-class/{item_class_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_sets_index(
         self,
@@ -1085,7 +1113,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item sets.
         """
         resource = "/data/wow/item-set/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_set(
         self,
@@ -1108,7 +1138,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item set details.
         """
         resource = f"/data/wow/item-set/{item_set_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_subclass(
         self,
@@ -1135,7 +1167,9 @@ class WowGameDataApi(LocaleApi):
         resource = (
             f"/data/wow/item-class/{item_class_id}/item-subclass/{item_subclass_id}"
         )
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item(
         self,
@@ -1158,7 +1192,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item details.
         """
         resource = f"/data/wow/item/{item_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_media(
         self,
@@ -1181,7 +1217,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item media.
         """
         resource = f"/data/wow/media/item/{item_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Item Appearance API
 
@@ -1206,7 +1244,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item appearance details.
         """
         resource = f"/data/wow/item-appearance/{appearance_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_appearance_sets_index(
         self,
@@ -1227,7 +1267,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item appearance sets.
         """
         resource = "/data/wow/item-appearance/set/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_appearance_set(
         self,
@@ -1250,7 +1292,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item appearance set details.
         """
         resource = f"/data/wow/item-appearance/set/{appearance_set_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_appearance_slot_index(
         self,
@@ -1271,7 +1315,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item appearance slots.
         """
         resource = "/data/wow/item-appearance/slot/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_item_appearance_slot(
         self,
@@ -1294,7 +1340,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item appearance slot details.
         """
         resource = f"/data/wow/item-appearance/slot/{slot_type}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     # Journal API
 
@@ -1964,7 +2012,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of playable classes.
         """
         resource = "/data/wow/playable-class/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_playable_class(
         self,
@@ -1987,7 +2037,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable class details.
         """
         resource = f"/data/wow/playable-class/{class_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_playable_class_media(
         self,
@@ -2010,7 +2062,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable class media.
         """
         resource = f"/data/wow/media/playable-class/{playable_class_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_pvp_talent_slots(
         self,
@@ -2053,7 +2107,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of playable races.
         """
         resource = "/data/wow/playable-race/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_playable_race(
         self,
@@ -2075,7 +2131,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the playable race details.
         """
         resource = f"/data/wow/playable-race/{playable_race_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Playable Specialization API
 
@@ -2158,7 +2216,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of power types.
         """
         resource = "/data/wow/power-type/index"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_power_type(
         self,
@@ -2181,7 +2241,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the power type details.
         """
         resource = f"/data/wow/power-type/{power_type_id}"
-        return self._get_static_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_static_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Profession API
 
@@ -2643,7 +2705,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of realms.
         """
         resource = "/data/wow/realm/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_dynamic_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_realm(
         self,
@@ -2666,7 +2730,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the realm details.
         """
         resource = f"/data/wow/realm/{realm_slug}"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_dynamic_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Region API
 
@@ -2689,7 +2755,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of regions.
         """
         resource = "/data/wow/region/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_dynamic_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
     def get_region(
         self,
@@ -2712,7 +2780,9 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the region details.
         """
         resource = f"/data/wow/region/{region_id}"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_dynamic_resource(
+            resource, region, locale, is_classic=is_classic
+        )
 
         # Reputations API
 
@@ -3106,4 +3176,6 @@ class WowGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the Wow Token index.
         """
         resource = "/data/wow/token/index"
-        return self._get_dynamic_resource(resource, region, locale, is_classic=is_classic)
+        return self._get_dynamic_resource(
+            resource, region, locale, is_classic=is_classic
+        )

@@ -5,6 +5,7 @@ from typing import Any
 from ..api import LocaleApi
 from ..types import OptionalLocale, OptionalRegion, Region
 
+
 class Starcraft2CommunityApi(LocaleApi):
     """All Starcraft 2 Community API methods.
 

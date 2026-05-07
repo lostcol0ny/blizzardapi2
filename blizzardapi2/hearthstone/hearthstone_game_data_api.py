@@ -65,7 +65,9 @@ class HearthstoneGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the card details.
         """
         resource = f"/hearthstone/cards/{id_or_slug}"
-        return super().get_resource(resource, region, {"game_mode": game_mode}, locale=locale)
+        return super().get_resource(
+            resource, region, {"game_mode": game_mode}, locale=locale
+        )
 
     def search_card_backs(
         self,
