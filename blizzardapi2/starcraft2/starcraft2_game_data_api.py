@@ -3,6 +3,7 @@
 from typing import Any, Optional
 
 from ..api import BaseApi
+from ..types import OptionalRegion
 
 
 class Starcraft2GameDataApi(BaseApi):
@@ -11,7 +12,7 @@ class Starcraft2GameDataApi(BaseApi):
     Attributes:
         client_id (str): A string client ID supplied by Blizzard.
         client_secret (str): A string client secret supplied by Blizzard.
-        region (str, optional): A default region to use for requests.
+        region (Region, optional): A default region to use for requests.
     """
 
     def get_league_data(
@@ -20,7 +21,7 @@ class Starcraft2GameDataApi(BaseApi):
         queue_id: int,
         team_type: int,
         league_id: int,
-        region: Optional[str] = None,
+        region: OptionalRegion = None,
     ) -> dict[str, Any]:
         """
         Return data for the specified season, queue, team, and league.
@@ -30,7 +31,7 @@ class Starcraft2GameDataApi(BaseApi):
             queue_id (int): The queue ID (e.g., 1=WoL 1v1, 101=HotS 1v1, 201=LotV 1v1).
             team_type (int): The team type (0=arranged, 1=random).
             league_id (int): The league ID (e.g., 0=Bronze, 1=Silver, 2=Gold).
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the league data.

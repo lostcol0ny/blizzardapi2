@@ -4,7 +4,7 @@ This module provides access to Battle.net OAuth endpoints,
 including user information and authentication.
 """
 
-from typing import Any, Dict
+from typing import Any
 
 from ..api import BaseApi
 from ..types import OptionalRegion
@@ -28,10 +28,8 @@ class BattlenetOAuthApi(BaseApi):
         """Get basic information about the user associated with the current bearer token.
 
         Args:
-            region: The region to query — either a ``Region`` enum member or
-                a bare string (e.g. ``"us"`` or ``Region.US``). Bare strings
-                are accepted for ergonomics and parity with the other game APIs.
             access_token: The OAuth access token.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
 
         Returns:
             A dictionary containing user information.

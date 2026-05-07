@@ -12,8 +12,8 @@ class HearthstoneGameDataApi(LocaleApi):
     Attributes:
         client_id (str): A string client ID supplied by Blizzard.
         client_secret (str): A string client secret supplied by Blizzard.
-        region (str, optional): A default region to use for requests.
-        locale (str, optional): A default locale to use for requests.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for requests.
     """
 
     def search_cards(
@@ -29,8 +29,8 @@ class HearthstoneGameDataApi(LocaleApi):
 
         Args:
             card_class (str, optional): The card class (e.g., "mage", "warrior").
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional search parameters.
 
         Returns:
@@ -58,8 +58,8 @@ class HearthstoneGameDataApi(LocaleApi):
         Args:
             id_or_slug (str): The ID or slug of the card to retrieve.
             game_mode (str, optional): The game mode (default is "constructed").
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the card details.
@@ -78,8 +78,8 @@ class HearthstoneGameDataApi(LocaleApi):
         Return an up-to-date list of all card backs matching the search criteria.
 
         Args:
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional search parameters.
 
         Returns:
@@ -100,8 +100,8 @@ class HearthstoneGameDataApi(LocaleApi):
 
         Args:
             id_or_slug (str): The ID or slug of the card back to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the card back details.
@@ -120,8 +120,8 @@ class HearthstoneGameDataApi(LocaleApi):
         Find a deck by list of cards or code, including the hero.
 
         Args:
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional search parameters.
 
         Returns:
@@ -137,8 +137,8 @@ class HearthstoneGameDataApi(LocaleApi):
         Return information about the categorization of cards.
 
         Args:
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the metadata.
@@ -158,8 +158,8 @@ class HearthstoneGameDataApi(LocaleApi):
 
         Args:
             type_id (str): The ID of the metadata type to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the metadata type details.

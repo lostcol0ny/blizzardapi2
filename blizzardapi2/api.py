@@ -162,13 +162,15 @@ class BaseApi(ApiEndpoint):
         self,
         resource: str,
         region: OptionalRegion = None,
+        locale: OptionalLocale = None,
         query_params: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """Make a request to a regular API resource.
 
         Args:
             resource: The API resource path.
-            region: the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             query_params: Optional query parameters.
 
         Returns:
@@ -188,7 +190,7 @@ class BaseApi(ApiEndpoint):
 
         Args:
             resource: The API resource path.
-            region: the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
             query_params: Optional query parameters.
 
         Returns:
@@ -212,8 +214,19 @@ class LocaleApi(BaseApi):
         locale: OptionalLocale = None,
         query_params: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
+        """Make a request to a locale-aware API resource.
+
+        Args:
+            resource: The API resource path.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
+            query_params: Optional query parameters.
+
+        Returns:
+            The API response as a dictionary.
+        """
         # Allow the locale in the query_params (if any) to override any othe locale provided (explicitly or by default)
         _query_params = (query_params or {})
         if _query_params.get("locale") is None:
             _query_params["locale"] = Locale(locale or self.locale)
-        return super().get_resource(resource, region, _query_params)
+        return super().get_resource(resource, region=region, query_params=_query_params)

@@ -12,8 +12,8 @@ class Diablo3CommunityApi(LocaleApi):
     Attributes:
         client_id (str): A string client ID supplied by Blizzard.
         client_secret (str): A string client secret supplied by Blizzard.
-        region (str, optional): A default region to use for requests.
-        locale (str, optional): A default locale to use for requests.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for requests.
     """
 
     def get_act_index(
@@ -23,8 +23,8 @@ class Diablo3CommunityApi(LocaleApi):
         Return an index of acts.
 
         Args:
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of acts.
@@ -44,8 +44,8 @@ class Diablo3CommunityApi(LocaleApi):
 
         Args:
             act_id (int): The ID of the act to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the act details.
@@ -65,8 +65,8 @@ class Diablo3CommunityApi(LocaleApi):
 
         Args:
             artisan_slug (str): The slug of the artisan to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the artisan details.
@@ -88,8 +88,8 @@ class Diablo3CommunityApi(LocaleApi):
         Args:
             artisan_slug (str): The slug of the artisan.
             recipe_slug (str): The slug of the recipe to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the recipe details.
@@ -109,8 +109,8 @@ class Diablo3CommunityApi(LocaleApi):
 
         Args:
             follower_slug (str): The slug of the follower to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the follower details.
@@ -130,8 +130,8 @@ class Diablo3CommunityApi(LocaleApi):
 
         Args:
             class_slug (str): The slug of the character class to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character class details.
@@ -153,8 +153,8 @@ class Diablo3CommunityApi(LocaleApi):
         Args:
             class_slug (str): The slug of the character class.
             skill_slug (str): The slug of the skill to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the skill details.
@@ -172,8 +172,8 @@ class Diablo3CommunityApi(LocaleApi):
         Return an index of item types.
 
         Args:
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of item types.
@@ -193,8 +193,8 @@ class Diablo3CommunityApi(LocaleApi):
 
         Args:
             item_type_slug (str): The slug of the item type to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the item type details.
@@ -214,8 +214,8 @@ class Diablo3CommunityApi(LocaleApi):
 
         Args:
             item_slug_id (str): The slug and ID of the item to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the item details.
@@ -235,8 +235,8 @@ class Diablo3CommunityApi(LocaleApi):
 
         Args:
             account_id (str): The ID of the account to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the account profile details.
@@ -258,8 +258,8 @@ class Diablo3CommunityApi(LocaleApi):
         Args:
             account_id (str): The ID of the account.
             hero_id (int): The ID of the hero to retrieve.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the hero details.
@@ -281,8 +281,8 @@ class Diablo3CommunityApi(LocaleApi):
         Args:
             account_id (str): The ID of the account.
             hero_id (int): The ID of the hero.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the list of items for the hero.
@@ -304,8 +304,8 @@ class Diablo3CommunityApi(LocaleApi):
         Args:
             account_id (str): The ID of the account.
             hero_id (int): The ID of the hero.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the follower items

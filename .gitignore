@@ -142,3 +142,6 @@ test_project/
 
 # Version file
 blizzardapi2/_version.py
+
+# Poetry lock file (project uses uv instead of poetry for CI)
+poetry.lock

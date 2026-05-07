@@ -19,8 +19,8 @@ class HearthstoneApi(ApiEndpoint):
     Example:
         ```python
         api = BlizzardApi("your_id", "your_secret")
-        cards = api.hearthstone.game_data.search_cards("us", "en_US")
-        card = api.hearthstone.game_data.get_card("us", "en_US", "test-card")
+        cards = api.hearthstone.game_data.search_cards(Region.US, Locale.EN_US)
+        card = api.hearthstone.game_data.get_card(Region.US, Locale.EN_US, "test-card")
         ```
 
     Attributes:

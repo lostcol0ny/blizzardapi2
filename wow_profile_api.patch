@@ -1,0 +1,1067 @@
+diff --git b/blizzardapi2/wow/wow_profile_api.py a/blizzardapi2/wow/wow_profile_api.py
+index 174a567..6bf67b1 100644
+--- b/blizzardapi2/wow/wow_profile_api.py
++++ a/blizzardapi2/wow/wow_profile_api.py
+@@ -2,9 +2,8 @@
+ 
+-from typing import Any, Optional
++from typing import Any
+ 
+-from ..api import LocaleApi
+-from ..types import OptionalLocale, OptionalRegion
++from ..api import BaseApi
+ 
+ 
+-class WowProfileApi(LocaleApi):
++class WowProfileApi(BaseApi):
+     """All Wow Profile API methods.
+@@ -12,39 +11,18 @@ class WowProfileApi(LocaleApi):
+     Attributes:
+-        _client_id (str): A string client ID supplied by Blizzard.
+-        _client_secret (str): A string client secret supplied by Blizzard.
+-        _region (str, optional): A default region to use for requests.
+-        _locale (str, optional): A default locale to use for requests.
++        client_id (str): A string client ID supplied by Blizzard.
++        client_secret (str): A string client secret supplied by Blizzard.
+     """
+ 
+-    def _get_resource(
+-        self,
+-        resource: str,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
+-        **query_params: Any,
+-    ) -> dict[str, Any]:
+-        """Internal function to get resources from the World of Warcraft Game Data API
++    def __init__(self, client_id: str, client_secret: str) -> None:
++        """
++        Initialize the WowProfileApi class.
+ 
+         Args:
+-            resource (str): the requested resource
+-            region (Region, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response. Defaults to None, in which case the default locale provided at instantiation is used.
+-            query_params (dict, optional): additional arguments to to the resource request.
+-
+-        Returns:
+-            dict[str, Any]: the JSON response transformed to a dict structure.
++            client_id (str): The client ID supplied by Blizzard.
++            client_secret (str): The client secret supplied by Blizzard.
+         """
+-        query_params.update(
+-            {
+-                "namespace": f"profile-{region or self.region}",
+-            }
+-        )
+-        return super().get_resource(resource, region, locale, query_params)
++        super().__init__(client_id, client_secret)
+ 
+     def get_account_profile_summary(
+-        self,
+-        access_token: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, access_token: str
+     ) -> dict[str, Any]:
+@@ -54,5 +32,5 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query (e.g., "us", "eu").
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -62,3 +40,8 @@ class WowProfileApi(LocaleApi):
+         resource = "/profile/user/wow"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+@@ -66,2 +49,4 @@ class WowProfileApi(LocaleApi):
+         self,
++        region: str,
++        locale: str,
+         access_token: str,
+@@ -69,5 +54,2 @@ class WowProfileApi(LocaleApi):
+         character_id: int,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
+     ) -> dict[str, Any]:
+@@ -77,2 +59,4 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+@@ -80,4 +64,2 @@ class WowProfileApi(LocaleApi):
+             character_id (int): The ID of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -87,10 +69,11 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/user/wow/protected-character/{realm_id}-{character_id}"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_account_collections_index(
+-        self,
+-        access_token: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, access_token: str
+     ) -> dict[str, Any]:
+@@ -100,5 +83,5 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -108,10 +91,11 @@ class WowProfileApi(LocaleApi):
+         resource = "/profile/user/wow/collections"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_account_heirlooms_collection_summary(
+-        self,
+-        access_token: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, access_token: str
+     ) -> dict[str, Any]:
+@@ -121,5 +105,5 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -129,10 +113,11 @@ class WowProfileApi(LocaleApi):
+         resource = "/profile/user/wow/collections/heirlooms"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_account_mounts_collection_summary(
+-        self,
+-        access_token: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, access_token: str
+     ) -> dict[str, Any]:
+@@ -142,5 +127,5 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -150,10 +135,11 @@ class WowProfileApi(LocaleApi):
+         resource = "/profile/user/wow/collections/mounts"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_account_pets_collection_summary(
+-        self,
+-        access_token: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, access_token: str
+     ) -> dict[str, Any]:
+@@ -163,5 +149,5 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -171,10 +157,11 @@ class WowProfileApi(LocaleApi):
+         resource = "/profile/user/wow/collections/pets"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_account_toys_collection_summary(
+-        self,
+-        access_token: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, access_token: str
+     ) -> dict[str, Any]:
+@@ -184,5 +171,5 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -192,10 +179,11 @@ class WowProfileApi(LocaleApi):
+         resource = "/profile/user/wow/collections/toys"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_account_transmog_collection_summary(
+-        self,
+-        access_token: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, access_token: str
+     ) -> dict[str, Any]:
+@@ -205,5 +193,5 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             access_token (str): The access token for authorization.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -213,11 +201,11 @@ class WowProfileApi(LocaleApi):
+         resource = "/profile/user/wow/collections/transmogs"
+-        return self._get_resource(resource, region, locale, access_token=access_token)
++        query_params = {
++            "namespace": f"profile-{region}",
++            "locale": locale,
++            "access_token": access_token,
++        }
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_achievements_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -227,6 +215,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -236,11 +224,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/achievements"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_achievement_statistics(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -250,6 +234,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -259,11 +243,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/achievements/statistics"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_appearance_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -273,6 +253,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -282,10 +262,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/appearance"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_collections_index(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -295,6 +272,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -304,11 +281,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/collections"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_heirlooms_collection_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -318,6 +291,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -327,11 +300,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/collections/heirlooms"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_mounts_collection_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -341,6 +310,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -352,11 +321,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_pets_collection_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -366,6 +331,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -377,11 +342,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_toys_collection_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -391,6 +352,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -402,11 +363,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_transmog_collection_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -416,6 +373,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -425,11 +382,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/collections/transmogs"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_encounters_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -439,6 +392,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -448,11 +401,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/encounters"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_dungeons(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -462,6 +411,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -473,11 +422,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_raids(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -487,6 +432,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -498,11 +443,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_equipment_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -512,6 +453,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -521,11 +462,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/equipment"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_hunter_pets_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -535,6 +472,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -544,11 +481,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/hunter-pets"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_media_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -558,6 +491,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -569,11 +502,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_mythic_keystone_profile_index(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -583,6 +512,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -592,3 +521,4 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/mythic-keystone-profile"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+@@ -596,2 +526,4 @@ class WowProfileApi(LocaleApi):
+         self,
++        region: str,
++        locale: str,
+         realm_slug: str,
+@@ -599,5 +531,2 @@ class WowProfileApi(LocaleApi):
+         season_id: int,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
+     ) -> dict[str, Any]:
+@@ -607,2 +536,4 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+@@ -610,4 +541,2 @@ class WowProfileApi(LocaleApi):
+             season_id (int): The ID of the season.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -617,11 +546,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/mythic-keystone-profile/season/{season_id}"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_professions_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -631,6 +556,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -640,11 +565,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/professions"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_profile_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -654,6 +575,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -663,11 +584,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_profile_status(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -677,6 +594,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -686,3 +603,4 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/status"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+@@ -690,2 +608,4 @@ class WowProfileApi(LocaleApi):
+         self,
++        region: str,
++        locale: str,
+         realm_slug: str,
+@@ -693,5 +613,2 @@ class WowProfileApi(LocaleApi):
+         pvp_bracket: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
+     ) -> dict[str, Any]:
+@@ -701,2 +618,4 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+@@ -704,4 +623,2 @@ class WowProfileApi(LocaleApi):
+             pvp_bracket (str): The PvP bracket (e.g., "2v2", "3v3").
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -711,11 +628,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/pvp-bracket/{pvp_bracket}"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_pvp_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -725,6 +638,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -734,11 +647,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/pvp-summary"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_quests(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -748,6 +657,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -757,11 +666,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/quests"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_completed_quests(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -771,6 +676,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -782,11 +687,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_reputations_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -796,6 +697,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -805,11 +706,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/reputations"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_soulbinds(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -819,6 +716,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -828,11 +725,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/soulbinds"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_specializations_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -842,6 +735,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -853,11 +746,7 @@ class WowProfileApi(LocaleApi):
+         )
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_statistics_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -867,6 +756,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -876,11 +765,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/statistics"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_character_titles_summary(
+-        self,
+-        realm_slug: str,
+-        character_name: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, character_name: str
+     ) -> dict[str, Any]:
+@@ -890,6 +775,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             character_name (str): The name of the character.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -899,11 +784,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/profile/wow/character/{realm_slug}/{character_name}/titles"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_guild(
+-        self,
+-        realm_slug: str,
+-        name_slug: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, name_slug: str
+     ) -> dict[str, Any]:
+@@ -913,6 +794,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             name_slug (str): The slug of the guild name.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -922,11 +803,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/data/wow/guild/{realm_slug}/{name_slug}"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_guild_activity(
+-        self,
+-        realm_slug: str,
+-        name_slug: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, name_slug: str
+     ) -> dict[str, Any]:
+@@ -936,6 +813,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             name_slug (str): The slug of the guild name.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -945,11 +822,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/data/wow/guild/{realm_slug}/{name_slug}/activity"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_guild_achievements(
+-        self,
+-        realm_slug: str,
+-        name_slug: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, name_slug: str
+     ) -> dict[str, Any]:
+@@ -959,6 +832,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             name_slug (str): The slug of the guild name.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -968,11 +841,7 @@ class WowProfileApi(LocaleApi):
+         resource = f"/data/wow/guild/{realm_slug}/{name_slug}/achievements"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)
+ 
+     def get_guild_roster(
+-        self,
+-        realm_slug: str,
+-        name_slug: str,
+-        *,
+-        region: OptionalRegion = None,
+-        locale: OptionalLocale = None,
++        self, region: str, locale: str, realm_slug: str, name_slug: str
+     ) -> dict[str, Any]:
+@@ -982,6 +851,6 @@ class WowProfileApi(LocaleApi):
+         Args:
++            region (str): The region to query.
++            locale (str): The locale to use for the response.
+             realm_slug (str): The slug of the realm.
+             name_slug (str): The slug of the guild name.
+-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
+-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+ 
+@@ -991,2 +860,3 @@ class WowProfileApi(LocaleApi):
+         resource = f"/data/wow/guild/{realm_slug}/{name_slug}/roster"
+-        return self._get_resource(resource, region, locale)
++        query_params = {"namespace": f"profile-{region}", "locale": locale}
++        return super().get_resource(resource, region, query_params)

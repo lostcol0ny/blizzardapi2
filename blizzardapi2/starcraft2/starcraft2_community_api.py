@@ -1,9 +1,9 @@
 """starcraft2_community_api.py file."""
 
-from typing import Any, Optional
+from typing import Any
 
 from ..api import LocaleApi
-
+from ..types import OptionalLocale, OptionalRegion, Region
 
 class Starcraft2CommunityApi(LocaleApi):
     """All Starcraft 2 Community API methods.
@@ -11,24 +11,24 @@ class Starcraft2CommunityApi(LocaleApi):
     Attributes:
         client_id (str): A string client ID supplied by Blizzard.
         client_secret (str): A string client secret supplied by Blizzard.nch
-        region (str, optional): A default region to use for requests.
-        locale (str, optional): A default locale to use for requests.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for requests.
     """
 
     def get_static(
         self,
         region_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return all static SC2 profile data (achievements, categories, criteria, and rewards).
 
         Args:
             region_id (int): The ID of the region.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the static profile data.
@@ -42,8 +42,8 @@ class Starcraft2CommunityApi(LocaleApi):
         realm_id: int,
         profile_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return metadata for an individual's profile.
@@ -52,8 +52,8 @@ class Starcraft2CommunityApi(LocaleApi):
             region_id (int): The ID of the region.
             realm_id (int): The ID of the realm.
             profile_id (int): The ID of the profile.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the profile metadata.
@@ -67,8 +67,8 @@ class Starcraft2CommunityApi(LocaleApi):
         realm_id: int,
         profile_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
         **query_params: Any,
     ) -> dict[str, Any]:
         """
@@ -78,8 +78,8 @@ class Starcraft2CommunityApi(LocaleApi):
             region_id (int): The ID of the region.
             realm_id (int): The ID of the realm.
             profile_id (int): The ID of the profile.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional query parameters.
 
         Returns:
@@ -94,8 +94,8 @@ class Starcraft2CommunityApi(LocaleApi):
         realm_id: int,
         profile_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return a ladder summary for an individual SC2 profile.
@@ -104,8 +104,8 @@ class Starcraft2CommunityApi(LocaleApi):
             region_id (int): The ID of the region.
             realm_id (int): The ID of the realm.
             profile_id (int): The ID of the profile.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the ladder summary.
@@ -120,8 +120,8 @@ class Starcraft2CommunityApi(LocaleApi):
         profile_id: int,
         ladder_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
         **query_params: Any,
     ) -> dict[str, Any]:
         """
@@ -132,8 +132,8 @@ class Starcraft2CommunityApi(LocaleApi):
             realm_id (int): The ID of the realm.
             profile_id (int): The ID of the profile.
             ladder_id (int): The ID of the ladder.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional query parameters.
 
         Returns:
@@ -148,16 +148,16 @@ class Starcraft2CommunityApi(LocaleApi):
         self,
         region_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return ladder data for the current season's grandmaster leaderboard.
 
         Args:
             region_id (int): The ID of the region.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the grandmaster leaderboard data.
@@ -169,16 +169,16 @@ class Starcraft2CommunityApi(LocaleApi):
         self,
         region_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return data about the current season.
 
         Args:
             region_id (int): The ID of the region.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the season data.
@@ -190,16 +190,16 @@ class Starcraft2CommunityApi(LocaleApi):
         self,
         account_id: int,
         *,
-        region: Optional[str] = None,
-        locale: Optional[str] = None,
+        region: OptionalRegion = None,
+        locale: OptionalLocale = None,
     ) -> dict[str, Any]:
         """
         Return metadata for an individual's account.
 
         Args:
             account_id (int): The ID of the account.
-            region (str, optional): the region to query (e.g., "us", "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., "en_US", "es_MX"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, Locale.de_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the account metadata.

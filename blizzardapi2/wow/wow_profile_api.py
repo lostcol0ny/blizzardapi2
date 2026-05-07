@@ -10,10 +10,10 @@ class WowProfileApi(LocaleApi):
     """All Wow Profile API methods.
 
     Attributes:
-        _client_id (str): A string client ID supplied by Blizzard.
-        _client_secret (str): A string client secret supplied by Blizzard.
-        _region (str, optional): A default region to use for requests.
-        _locale (str, optional): A default locale to use for requests.
+        client_id (str): A string client ID supplied by Blizzard.
+        client_secret (str): A string client secret supplied by Blizzard.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for requests.
     """
 
     def get_account_profile_summary(
@@ -28,8 +28,8 @@ class WowProfileApi(LocaleApi):
 
         Args:
             access_token (str): The access token for authorization.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the account profile summary.
@@ -57,8 +57,8 @@ class WowProfileApi(LocaleApi):
             access_token (str): The access token for authorization.
             realm_id (int): The ID of the realm.
             character_id (int): The ID of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the protected character profile summary.
@@ -82,8 +82,8 @@ class WowProfileApi(LocaleApi):
 
         Args:
             access_token (str): The access token for authorization.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of collection types.
@@ -107,8 +107,8 @@ class WowProfileApi(LocaleApi):
 
         Args:
             access_token (str): The access token for authorization.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the heirlooms collection summary.
@@ -132,8 +132,8 @@ class WowProfileApi(LocaleApi):
 
         Args:
             access_token (str): The access token for authorization.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the mounts collection summary.
@@ -157,8 +157,8 @@ class WowProfileApi(LocaleApi):
 
         Args:
             access_token (str): The access token for authorization.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the pets collection summary.
@@ -182,8 +182,8 @@ class WowProfileApi(LocaleApi):
 
         Args:
             access_token (str): The access token for authorization.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the toys collection summary.
@@ -207,8 +207,8 @@ class WowProfileApi(LocaleApi):
 
         Args:
             access_token (str): The access token for authorization.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the transmog collection summary.
@@ -234,8 +234,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's achievements summary.
@@ -260,8 +260,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's achievement statistics.
@@ -286,8 +286,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's appearance summary.
@@ -311,8 +311,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of collection types for the character.
@@ -337,8 +337,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's heirlooms collection summary.
@@ -363,8 +363,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's mounts collection summary.
@@ -391,8 +391,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's pets collection summary.
@@ -419,8 +419,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's toys collection summary.
@@ -447,8 +447,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's transmog collection summary.
@@ -473,8 +473,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's encounters summary.
@@ -499,8 +499,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's dungeons summary.
@@ -527,8 +527,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's raids summary.
@@ -555,8 +555,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's equipment summary.
@@ -581,8 +581,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the hunter pets summary.
@@ -607,8 +607,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the media assets summary.
@@ -635,8 +635,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Mythic Keystone profile index.
@@ -663,8 +663,8 @@ class WowProfileApi(LocaleApi):
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
             season_id (int): The ID of the season.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Mythic Keystone season details.
@@ -689,8 +689,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's professions summary.
@@ -715,8 +715,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's profile summary.
@@ -741,8 +741,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's status and unique ID.
@@ -769,8 +769,8 @@ class WowProfileApi(LocaleApi):
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
             pvp_bracket (str): The PvP bracket (e.g., "2v2", "3v3").
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's PvP bracket statistics.
@@ -795,8 +795,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's PvP summary.
@@ -821,8 +821,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's active quests and a link to completed quests.
@@ -847,8 +847,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's completed quests.
@@ -875,8 +875,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's reputations summary.
@@ -901,8 +901,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's soulbinds summary.
@@ -927,8 +927,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's specializations summary.
@@ -955,8 +955,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's statistics summary.
@@ -981,8 +981,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             character_name (str): The name of the character.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the character's titles summary.
@@ -1007,8 +1007,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             name_slug (str): The slug of the guild name.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the guild details.
@@ -1033,8 +1033,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             name_slug (str): The slug of the guild name.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the guild's activity details.
@@ -1059,8 +1059,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             name_slug (str): The slug of the guild name.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the guild's achievements.
@@ -1085,8 +1085,8 @@ class WowProfileApi(LocaleApi):
         Args:
             realm_slug (str): The slug of the realm.
             name_slug (str): The slug of the guild name.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the guild's roster.

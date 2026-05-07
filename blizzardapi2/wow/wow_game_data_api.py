@@ -12,8 +12,8 @@ class WowGameDataApi(LocaleApi):
     Attributes:
         client_id (str): A string client ID supplied by Blizzard.
         client_secret (str): A string client secret supplied by Blizzard.
-        region (str, optional): A default region to use for requests.
-        locale (str, optional): A default locale to use for requests.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for requests.
     """
 
     def _get_resource(
@@ -29,8 +29,8 @@ class WowGameDataApi(LocaleApi):
         Args:
             resource (str): the requested resource
             namespace (str): the namespace in which the requested resource lives
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (dict, optional): additional arguments to to the resource request to support search requests.
 
         Returns:
@@ -51,8 +51,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             resource (str): the requested resource
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): a boolean flag indicating whether to use a Classic WOW namespace. Defaults to False.
             **query_params (optional): additional arguments to to the resource request to support search requests.
 
@@ -74,8 +74,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             resource (str): the requested resource
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): a boolean flag indicating whether to use a Classic WOW namespace. Defaults to False.
             **query_params (optional): additional arguments to to the resource request to support search requests.
 
@@ -94,8 +94,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of achievements.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of achievements.
@@ -118,8 +118,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             achievement_id (int): The ID of the achievement to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the achievement details.
@@ -137,8 +137,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of achievement categories.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of achievement categories.
@@ -161,8 +161,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             achievement_category_id (int): The ID of the achievement category to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the achievement category details.
@@ -185,8 +185,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             achievement_id (int): The ID of the achievement to retrieve media for.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the achievement media.
@@ -213,8 +213,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             connected_realm_id (int): The ID of the connected realm.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the auction house index for the connected realm.
@@ -241,8 +241,8 @@ class WowGameDataApi(LocaleApi):
         Args:
             connected_realm_id (int): The ID of the connected realm.
             auction_house_id (int): The ID of the auction house.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the active auctions for the specified auction house.
@@ -265,8 +265,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             connected_realm_id (int): The ID of the connected realm.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the active auctions for the connected realm.
@@ -289,8 +289,8 @@ class WowGameDataApi(LocaleApi):
         sometimes exceeding 10 MB.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing all active auctions for commodity items.
@@ -310,8 +310,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of Azerite essences.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of Azerite essences.
@@ -334,8 +334,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             azerite_essence_id (int): The ID of the Azerite essence to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Azerite essence details.
@@ -358,8 +358,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             azerite_essence_id (int): The ID of the Azerite essence to retrieve media for.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Azerite essence media.
@@ -383,8 +383,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of connected realms.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -410,8 +410,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             connected_realm_id (int): The ID of the connected realm to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -433,8 +433,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of covenants.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of covenants.
@@ -457,8 +457,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             covenant_id (int): The ID of the covenant to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the covenant details.
@@ -481,8 +481,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             covenant_id (int): The ID of the covenant to retrieve media for.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the covenant media.
@@ -500,8 +500,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of soulbinds.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of soulbinds.
@@ -524,8 +524,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             soulbind_id (int): The ID of the soulbind to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the soulbind details.
@@ -543,8 +543,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of conduits.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of conduits.
@@ -567,8 +567,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             conduit_id (int): The ID of the conduit to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the conduit details.
@@ -592,8 +592,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of creature families.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -619,8 +619,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             creature_family_id (int): The ID of the creature family to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -644,8 +644,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of creature types.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -671,8 +671,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             creature_type_id (int): The ID of the creature type to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -698,8 +698,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             creature_id (int): The ID of the creature to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -725,8 +725,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             creature_display_id (int): The ID of the creature display to retrieve media for.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -752,8 +752,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             creature_family_id (int): The ID of the creature family to retrieve media for.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -779,8 +779,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of guild crest media.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -806,8 +806,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             border_id (int): The ID of the guild crest border to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -833,8 +833,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             emblem_id (int): The ID of the guild crest emblem to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -856,8 +856,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of decor.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of decor.
@@ -879,8 +879,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             decor_id (int): The ID of the decor to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the decor details.
@@ -902,8 +902,8 @@ class WowGameDataApi(LocaleApi):
         Search for decor matching the search criteria.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
@@ -926,8 +926,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of fixtures.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of fixtures.
@@ -950,8 +950,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             fixture_id (int): The ID of the fixture to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the fixture details.
@@ -973,8 +973,8 @@ class WowGameDataApi(LocaleApi):
         Search for fixtures matching the search criteria.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
@@ -997,8 +997,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of fixture hooks.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of fixture hooks.
@@ -1021,8 +1021,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             fixture_hook_id (int): The ID of the fixture hook to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the fixture hook details.
@@ -1044,8 +1044,8 @@ class WowGameDataApi(LocaleApi):
         Search for fixture hooks matching the search criteria.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
@@ -1068,8 +1068,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of rooms.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of rooms.
@@ -1092,8 +1092,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             room_id (int): The ID of the room to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the room details.
@@ -1115,8 +1115,8 @@ class WowGameDataApi(LocaleApi):
         Search for rooms matching the search criteria.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             **query_params (Any): Additional search parameters (e.g., name.en_US, orderby, _page).
 
         Returns:
@@ -1139,8 +1139,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of heirlooms.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of heirlooms.
@@ -1163,8 +1163,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             heirloom_id (int): The ID of the heirloom to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the heirloom details.
@@ -1188,8 +1188,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of item classes.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1215,8 +1215,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             item_class_id (int): The ID of the item class to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1240,8 +1240,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of item sets.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1267,8 +1267,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             item_set_id (int): The ID of the item set to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1296,8 +1296,8 @@ class WowGameDataApi(LocaleApi):
         Args:
             item_class_id (int): The ID of the item class.
             item_subclass_id (int): The ID of the item subclass to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1325,8 +1325,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             item_id (int): The ID of the item to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1352,8 +1352,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             item_id (int): The ID of the item to retrieve media for.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1381,8 +1381,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             appearance_id (int): The ID of the item appearance to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1406,8 +1406,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of item appearance sets.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1433,8 +1433,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             appearance_set_id (int): The ID of the item appearance set to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1458,8 +1458,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of item appearance slots.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1485,8 +1485,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             slot_type (str): The type of slot to retrieve (e.g., "head", "chest").
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -1508,8 +1508,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of journal expansions.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of journal expansions.
@@ -1532,8 +1532,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             journal_expansion_id (int): The ID of the journal expansion to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the journal expansion details.
@@ -1551,8 +1551,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of journal encounters.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of journal encounters.
@@ -1575,8 +1575,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             journal_encounter_id (int): The ID of the journal encounter to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the journal encounter details.
@@ -1594,8 +1594,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of journal instances.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of journal instances.
@@ -1618,8 +1618,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             journal_instance_id (int): The ID of the journal instance to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the journal instance details.
@@ -1642,8 +1642,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             journal_instance_id (int): The ID of the journal instance to retrieve media for.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the journal instance media.
@@ -1663,8 +1663,8 @@ class WowGameDataApi(LocaleApi):
         Return the parent index for Modified Crafting.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index for Modified Crafting.
@@ -1682,8 +1682,8 @@ class WowGameDataApi(LocaleApi):
         Return the index of Modified Crafting categories.
 
         Args:
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of Modified Crafting categories.
@@ -1706,8 +1706,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             category_id (int): The ID of the Modified Crafting category to retrieve.
-            region (Region, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (Locale, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Modified Crafting category details.
@@ -1725,8 +1725,8 @@ class WowGameDataApi(LocaleApi):
         Return the index of Modified Crafting reagent slot types.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of reagent slot types.
@@ -1749,8 +1749,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             slot_type_id (int): The ID of the reagent slot type to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the reagent slot type details.
@@ -1770,8 +1770,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of mounts.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of mounts.
@@ -1794,8 +1794,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             mount_id (int): The ID of the mount to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the mount details.
@@ -1815,8 +1815,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of mythic keystone affixes.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of mythic keystone affixes.
@@ -1839,8 +1839,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             keystone_affix_id (int): The ID of the mythic keystone affix to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the mythic keystone affix details.
@@ -1863,8 +1863,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             keystone_affix_id (int): The ID of the mythic keystone affix to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the mythic keystone affix media.
@@ -1884,8 +1884,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of Mythic Keystone dungeons.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone dungeons.
@@ -1908,8 +1908,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             dungeon_id (int): The ID of the dungeon to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Mythic Keystone dungeon details.
@@ -1927,8 +1927,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of links to other documents related to Mythic Keystone dungeons.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of links to related documents.
@@ -1946,8 +1946,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of Mythic Keystone periods.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone periods.
@@ -1970,8 +1970,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             period_id (int): The ID of the Mythic Keystone period to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Mythic Keystone period details.
@@ -1989,8 +1989,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of Mythic Keystone seasons.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone seasons.
@@ -2013,8 +2013,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             season_id (int): The ID of the Mythic Keystone season to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Mythic Keystone season details.
@@ -2039,8 +2039,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             connected_realm_id (int): The ID of the connected realm.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of Mythic Keystone Leaderboard dungeon instances.
@@ -2069,8 +2069,8 @@ class WowGameDataApi(LocaleApi):
             connected_realm_id (int): The ID of the connected realm.
             dungeon_id (int): The ID of the dungeon.
             period_id (int): The ID of the period to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the Mythic Keystone Leaderboard details for the specified period.
@@ -2097,8 +2097,8 @@ class WowGameDataApi(LocaleApi):
         Args:
             raid (str): The raid to retrieve the leaderboard for (e.g., "castle-nathria").
             faction (str): The faction to retrieve the leaderboard for (e.g., "alliance", "horde").
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the raid leaderboard details for the specified faction.
@@ -2118,8 +2118,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of battle pets.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of battle pets.
@@ -2142,8 +2142,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pet_id (int): The ID of the battle pet to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the battle pet details.
@@ -2166,8 +2166,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pet_id (int): The ID of the battle pet to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the battle pet media.
@@ -2185,8 +2185,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of pet abilities.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of pet abilities.
@@ -2209,8 +2209,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pet_ability_id (int): The ID of the pet ability to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the pet ability details.
@@ -2233,8 +2233,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pet_ability_id (int): The ID of the pet ability to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the pet ability media.
@@ -2258,8 +2258,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of playable classes.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -2285,8 +2285,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             class_id (int): The ID of the playable class to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -2312,8 +2312,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             playable_class_id (int): The ID of the playable class to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -2338,8 +2338,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             class_id (int): The ID of the playable class to retrieve PvP talent slots for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the PvP talent slots.
@@ -2362,8 +2362,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of playable races.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -2388,8 +2388,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             playable_race_id (int): The ID of the playable race to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -2411,8 +2411,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of playable specializations.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of playable specializations.
@@ -2435,8 +2435,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             spec_id (int): The ID of the playable specialization to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the playable specialization details.
@@ -2459,8 +2459,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             spec_id (int): The ID of the playable specialization to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the playable specialization media.
@@ -2484,8 +2484,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of power types.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -2511,8 +2511,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             power_type_id (int): The ID of the power type to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -2534,8 +2534,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of professions.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of professions.
@@ -2558,8 +2558,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             profession_id (int): The ID of the profession to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the profession details.
@@ -2582,8 +2582,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             profession_id (int): The ID of the profession to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the profession media.
@@ -2608,8 +2608,8 @@ class WowGameDataApi(LocaleApi):
         Args:
             profession_id (int): The ID of the profession.
             skill_tier_id (int): The ID of the skill tier to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the skill tier details.
@@ -2632,8 +2632,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             recipe_id (int): The ID of the recipe to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the recipe details.
@@ -2656,8 +2656,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             recipe_id (int): The ID of the recipe to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the recipe media.
@@ -2677,8 +2677,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of PvP seasons.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of PvP seasons.
@@ -2701,8 +2701,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pvp_season_id (int): The ID of the PvP season to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the PvP season details.
@@ -2725,8 +2725,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pvp_season_id (int): The ID of the PvP season.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of PvP leaderboards.
@@ -2751,8 +2751,8 @@ class WowGameDataApi(LocaleApi):
         Args:
             pvp_season_id (int): The ID of the PvP season.
             pvp_bracket (str): The PvP bracket to retrieve (e.g., "2v2", "3v3").
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the PvP leaderboard details.
@@ -2775,8 +2775,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pvp_season_id (int): The ID of the PvP season.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of PvP rewards.
@@ -2801,8 +2801,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pvp_tier_id (int): The ID of the PvP tier to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the PvP tier media.
@@ -2820,8 +2820,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of PvP tiers.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of PvP tiers.
@@ -2844,8 +2844,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pvp_tier_id (int): The ID of the PvP tier to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the PvP tier details.
@@ -2865,8 +2865,8 @@ class WowGameDataApi(LocaleApi):
         Return the parent index for quests.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the parent index for quests.
@@ -2889,8 +2889,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             quest_id (int): The ID of the quest to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the quest details.
@@ -2908,8 +2908,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of quest categories (such as quests for a specific class, profession, or storyline).
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of quest categories.
@@ -2932,8 +2932,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             quest_category_id (int): The ID of the quest category to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the quest category details.
@@ -2951,8 +2951,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of quest areas.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of quest areas.
@@ -2975,8 +2975,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             quest_area_id (int): The ID of the quest area to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the quest area details.
@@ -2994,8 +2994,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of quest types (such as PvP quests, raid quests, or account quests).
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of quest types.
@@ -3018,8 +3018,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             quest_type_id (int): The ID of the quest type to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the quest type details.
@@ -3043,8 +3043,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of realms.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -3070,8 +3070,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             realm_slug (str): The slug of the realm to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -3097,8 +3097,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of regions.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -3124,8 +3124,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             region_id (int): The ID of the region to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:
@@ -3147,8 +3147,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of reputation factions.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of reputation factions.
@@ -3171,8 +3171,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             reputation_faction_id (int): The ID of the reputation faction to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the reputation faction details.
@@ -3190,8 +3190,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of reputation tiers.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of reputation tiers.
@@ -3214,8 +3214,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             reputation_tiers_id (int): The ID of the reputation tier to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the reputation tier details.
@@ -3240,8 +3240,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             spell_id (int): The ID of the spell to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the spell details.
@@ -3264,8 +3264,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             spell_id (int): The ID of the spell to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the spell media.
@@ -3285,8 +3285,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of talents.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of talents.
@@ -3309,8 +3309,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             talent_id (int): The ID of the talent to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the talent details.
@@ -3328,8 +3328,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of PvP talents.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of PvP talents.
@@ -3352,8 +3352,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             pvp_talent_id (int): The ID of the PvP talent to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the PvP talent details.
@@ -3373,8 +3373,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of tech talent trees.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of tech talent trees.
@@ -3397,8 +3397,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             tech_talent_tree_id (int): The ID of the tech talent tree to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the tech talent tree details.
@@ -3416,8 +3416,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of tech talents.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of tech talents.
@@ -3440,8 +3440,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             tech_talent_id (int): The ID of the tech talent to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the tech talent details.
@@ -3464,8 +3464,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             tech_talent_id (int): The ID of the tech talent to retrieve media for.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the tech talent media.
@@ -3485,8 +3485,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of titles.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of titles.
@@ -3509,8 +3509,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             title_id (int): The ID of the title to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the title details.
@@ -3530,8 +3530,8 @@ class WowGameDataApi(LocaleApi):
         Return an index of toys.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the index of toys.
@@ -3554,8 +3554,8 @@ class WowGameDataApi(LocaleApi):
 
         Args:
             toy_id (int): The ID of the toy to retrieve.
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
 
         Returns:
             Dict[str, Any]: A dictionary containing the toy details.
@@ -3579,8 +3579,8 @@ class WowGameDataApi(LocaleApi):
         Return the Wow Token index.
 
         Args:
-            region (str, optional): the region to query (e.g., Region.US, "eu"). Defaults to None, in which case the default region provided at instantiation is used.
-            locale (str, optional): the locale to use for the response (e.g., Locale.es_MX, "en_GB"). Defaults to None, in which case the default locale provided at instantiation is used.
+            region (Region, optional): the region to query (e.g., Region.US, Region.EU). Defaults to None, in which case the default region provided at instantiation is used.
+            locale (Locale, optional): the locale to use for the response (e.g., Locale.ES_MX, Locale.DE_DE). Defaults to None, in which case the default locale provided at instantiation is used.
             is_classic (bool, optional): Whether to query for classic realms. Defaults to False.
 
         Returns:

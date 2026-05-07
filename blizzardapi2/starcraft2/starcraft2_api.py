@@ -13,8 +13,8 @@ class Starcraft2Api(ApiEndpoint):
     Attributes:
         client_id: A string client id supplied by Blizzard.
         client_secret: A string client secret supplied by Blizzard.
-        region (str, optional): A default region to use for requests.
-        locale (str, optional): A default locale to use for community requests.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for community requests.
         community: An instance of ``Starcraft2CommunityApi`` for accessing community services.
         game_data: An instance of ``Starcraft2GameDataApi`` for accessing game data services.
     """
