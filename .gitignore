@@ -148,3 +148,6 @@ poetry.lock
 
 # Dev-time diff artifacts
 *.patch
+
+# Node deps for release-it tooling
+node_modules/
