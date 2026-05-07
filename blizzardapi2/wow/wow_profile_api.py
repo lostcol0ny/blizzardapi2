@@ -39,7 +39,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_protected_character_profile_summary(
         self,
@@ -68,7 +68,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_account_collections_index(
         self,
@@ -93,7 +93,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_account_heirlooms_collection_summary(
         self,
@@ -118,7 +118,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_account_mounts_collection_summary(
         self,
@@ -143,7 +143,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_account_pets_collection_summary(
         self,
@@ -168,7 +168,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_account_toys_collection_summary(
         self,
@@ -193,7 +193,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_account_transmog_collection_summary(
         self,
@@ -218,7 +218,7 @@ class WowProfileApi(LocaleApi):
             "namespace": f"profile-{region or self.region}",
             "access_token": access_token,
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_achievements_summary(
         self,
@@ -244,7 +244,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_achievement_statistics(
         self,
@@ -270,7 +270,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_appearance_summary(
         self,
@@ -296,7 +296,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_collections_index(
         self,
@@ -321,7 +321,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_heirlooms_collection_summary(
         self,
@@ -347,7 +347,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_mounts_collection_summary(
         self,
@@ -375,7 +375,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_pets_collection_summary(
         self,
@@ -403,7 +403,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_toys_collection_summary(
         self,
@@ -431,7 +431,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_transmog_collection_summary(
         self,
@@ -457,7 +457,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_encounters_summary(
         self,
@@ -483,7 +483,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_dungeons(
         self,
@@ -511,7 +511,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_raids(
         self,
@@ -539,7 +539,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_equipment_summary(
         self,
@@ -565,7 +565,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_hunter_pets_summary(
         self,
@@ -591,7 +591,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_media_summary(
         self,
@@ -619,7 +619,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_mythic_keystone_profile_index(
         self,
@@ -645,7 +645,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_mythic_keystone_profile_season_details(
         self,
@@ -673,7 +673,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_professions_summary(
         self,
@@ -699,7 +699,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_profile_summary(
         self,
@@ -725,7 +725,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_profile_status(
         self,
@@ -751,7 +751,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_pvp_bracket_statistics(
         self,
@@ -779,7 +779,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_pvp_summary(
         self,
@@ -805,7 +805,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_quests(
         self,
@@ -831,7 +831,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_completed_quests(
         self,
@@ -859,7 +859,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_reputations_summary(
         self,
@@ -885,7 +885,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_soulbinds(
         self,
@@ -911,7 +911,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_specializations_summary(
         self,
@@ -939,7 +939,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_statistics_summary(
         self,
@@ -965,7 +965,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_character_titles_summary(
         self,
@@ -991,7 +991,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_guild(
         self,
@@ -1017,7 +1017,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_guild_activity(
         self,
@@ -1043,7 +1043,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_guild_achievements(
         self,
@@ -1069,7 +1069,7 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_guild_roster(
         self,
@@ -1095,4 +1095,4 @@ class WowProfileApi(LocaleApi):
         query_params = {
             "namespace": f"profile-{region or self.region}",
         }
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)

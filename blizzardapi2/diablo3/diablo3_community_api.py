@@ -30,7 +30,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of acts.
         """
         resource = "/d3/data/act"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_act(
         self,
@@ -51,7 +51,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the act details.
         """
         resource = f"/d3/data/act/{act_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_artisan(
         self,
@@ -72,7 +72,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the artisan details.
         """
         resource = f"/d3/data/artisan/{artisan_slug}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_recipe(
         self,
@@ -95,7 +95,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the recipe details.
         """
         resource = f"/d3/data/artisan/{artisan_slug}/recipe/{recipe_slug}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_follower(
         self,
@@ -116,7 +116,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the follower details.
         """
         resource = f"/d3/data/follower/{follower_slug}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_character_class(
         self,
@@ -137,7 +137,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the character class details.
         """
         resource = f"/d3/data/hero/{class_slug}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_api_skill(
         self,
@@ -160,7 +160,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the skill details.
         """
         resource = f"/d3/data/hero/{class_slug}/skill/{skill_slug}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_item_type_index(
         self,
@@ -179,7 +179,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the index of item types.
         """
         resource = "/d3/data/item-type"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_item_type(
         self,
@@ -200,7 +200,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item type details.
         """
         resource = f"/d3/data/item-type/{item_type_slug}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_item(
         self,
@@ -221,7 +221,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the item details.
         """
         resource = f"/d3/data/item/{item_slug_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_api_account(
         self,
@@ -242,7 +242,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the account profile details.
         """
         resource = f"/d3/profile/{account_id}/"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_api_hero(
         self,
@@ -265,7 +265,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the hero details.
         """
         resource = f"/d3/profile/{account_id}/hero/{hero_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_api_detailed_hero_items(
         self,
@@ -288,7 +288,7 @@ class Diablo3CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the list of items for the hero.
         """
         resource = f"/d3/profile/{account_id}/hero/{hero_id}/items"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_api_detailed_follower_items(
         self,
@@ -312,4 +312,4 @@ class Diablo3CommunityApi(LocaleApi):
                 equipped on the specified hero.
         """
         resource = f"/d3/profile/{account_id}/hero/{hero_id}/follower-items"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)

@@ -42,7 +42,7 @@ class HearthstoneGameDataApi(LocaleApi):
         if card_class is not None:
             query_params["class"] = card_class
 
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_card(
         self,
@@ -65,7 +65,7 @@ class HearthstoneGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the card details.
         """
         resource = f"/hearthstone/cards/{id_or_slug}"
-        return super().get_resource(resource, region, locale, {"game_mode": game_mode})
+        return super().get_resource(resource, region, {"game_mode": game_mode}, locale=locale)
 
     def search_card_backs(
         self,
@@ -86,7 +86,7 @@ class HearthstoneGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the list of matching card backs.
         """
         resource = "/hearthstone/cardbacks"
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_card_back(
         self,
@@ -107,7 +107,7 @@ class HearthstoneGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the card back details.
         """
         resource = f"/hearthstone/cardbacks/{id_or_slug}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_deck(
         self,
@@ -128,7 +128,7 @@ class HearthstoneGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the deck details.
         """
         resource = "/hearthstone/deck"
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_metadata(
         self, *, region: OptionalRegion = None, locale: OptionalLocale = None
@@ -144,7 +144,7 @@ class HearthstoneGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the metadata.
         """
         resource = "/hearthstone/metadata"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_metadata_type(
         self,
@@ -165,4 +165,4 @@ class HearthstoneGameDataApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the metadata type details.
         """
         resource = f"/hearthstone/metadata/{type_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)

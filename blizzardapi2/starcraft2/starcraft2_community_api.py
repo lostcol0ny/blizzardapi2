@@ -34,7 +34,7 @@ class Starcraft2CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the static profile data.
         """
         resource = f"/sc2/static/profile/{region_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_metadata(
         self,
@@ -59,7 +59,7 @@ class Starcraft2CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the profile metadata.
         """
         resource = f"/sc2/metadata/profile/{region_id}/{realm_id}/{profile_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_profile(
         self,
@@ -86,7 +86,7 @@ class Starcraft2CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the profile data.
         """
         resource = f"/sc2/profile/{region_id}/{realm_id}/{profile_id}"
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_ladder_summary(
         self,
@@ -111,7 +111,7 @@ class Starcraft2CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the ladder summary.
         """
         resource = f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/summary"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_ladder(
         self,
@@ -142,7 +142,7 @@ class Starcraft2CommunityApi(LocaleApi):
         resource = (
             f"/sc2/profile/{region_id}/{realm_id}/{profile_id}/ladder/{ladder_id}"
         )
-        return super().get_resource(resource, region, locale, query_params)
+        return super().get_resource(resource, region, query_params, locale=locale)
 
     def get_grandmaster_leaderboard(
         self,
@@ -163,7 +163,7 @@ class Starcraft2CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the grandmaster leaderboard data.
         """
         resource = f"/sc2/ladder/grandmaster/{region_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_season(
         self,
@@ -184,7 +184,7 @@ class Starcraft2CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the season data.
         """
         resource = f"/sc2/ladder/season/{region_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
 
     def get_player(
         self,
@@ -205,4 +205,4 @@ class Starcraft2CommunityApi(LocaleApi):
             Dict[str, Any]: A dictionary containing the account metadata.
         """
         resource = f"/sc2/player/{account_id}"
-        return super().get_resource(resource, region, locale)
+        return super().get_resource(resource, region, locale=locale)
