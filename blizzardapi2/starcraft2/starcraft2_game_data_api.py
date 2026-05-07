@@ -1,6 +1,6 @@
 """starcraft2_game_data_api.py file."""
 
-from typing import Any, Optional
+from typing import Any
 
 from ..api import BaseApi
 from ..types import OptionalRegion

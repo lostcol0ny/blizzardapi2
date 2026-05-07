@@ -1,6 +1,6 @@
 """wow_profile_api.py file."""
 
-from typing import Any, Optional
+from typing import Any
 
 from ..api import LocaleApi
 from ..types import OptionalLocale, OptionalRegion
