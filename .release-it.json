@@ -6,7 +6,7 @@
   "github": {
     "release": true,
     "releaseName": "Release v${version}",
-    "releaseNotes": "git log --pretty=format:\"* %s (%h)\" ${latestTag}...HEAD"
+    "releaseNotes": "${changelog}"
   },
   "npm": {
     "publish": false
@@ -15,5 +15,10 @@
     "after:bump": [
       "sed -i 's/^version = \".*\"/version = \"${version}\"/' pyproject.toml"
     ]
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits"
+    }
   }
 }
