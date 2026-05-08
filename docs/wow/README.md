@@ -148,34 +148,8 @@ For these endpoints, you'll need to provide an access token obtained through OAu
 
 ## Response Types
 
-The API uses dataclasses for structured responses:
-
-```python
-@dataclass
-class CharacterProfileResponse:
-    data: dict[str, Any]
-    status_code: int
-    headers: dict[str, str]
-    character_name: str
-    realm_slug: str
-    region: str
-    locale: str
-```
+All API responses are returned as structured dataclasses with proper type hints. This provides better code completion and type checking in your IDE.
 
 ## Error Handling
 
-The API includes comprehensive error handling for:
-
-- Invalid regions/locales
-- API rate limits
-- Authentication errors
-- Network issues
-- Invalid responses
-
-## Best Practices
-
-1. Use async methods for better performance
-2. Use enums for regions and locales to prevent errors
-3. Handle API rate limits appropriately
-4. Cache responses when possible
-5. Use concurrent requests for multiple API calls
+The library includes comprehensive error handling for API responses. All errors are raised as exceptions with descriptive messages to help with debugging.
