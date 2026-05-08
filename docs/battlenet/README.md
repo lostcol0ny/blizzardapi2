@@ -7,30 +7,29 @@ This document provides information about the Battle.net API endpoints available 
 The Battle.net API provides access to user profile data and OAuth functionality.
 
 ```python
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.battlenet.battlenet_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 api_client = BlizzardApi("client_id", "client_secret")
 
 # Get user info
 user_info = api_client.battlenet.get_user_info(
-    Region.US,
-    Locale.EN_US,
-    "access_token"
+    "access_token",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get user profile
 user_profile = api_client.battlenet.get_user_profile(
-    Region.US,
-    Locale.EN_US,
-    "access_token"
+    "access_token",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get user profile status
 user_profile_status = api_client.battlenet.get_user_profile_status(
-    Region.US,
-    Locale.EN_US,
-    "access_token"
+    "access_token",
+    region=Region.US,
+    region=Locale.EN_US
 )
 ```
 
@@ -39,30 +38,45 @@ user_profile_status = api_client.battlenet.get_user_profile_status(
 The library supports the OAuth authorization code flow for accessing protected endpoints. Here's how to use it:
 
 ```python
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.battlenet.battlenet_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 api_client = BlizzardApi("client_id", "client_secret")
 
 # Get authorization URL
 auth_url = api_client.battlenet.get_authorization_url(
-    Region.US,
     "redirect_uri",
-    "scope"
+    "scope",
+    region=Region.US
 )
 
 # Exchange authorization code for access token
 access_token = api_client.battlenet.get_access_token(
-    Region.US,
     "authorization_code",
-    "redirect_uri"
+    "redirect_uri",
+    region=Region.US
 )
 
 # Refresh access token
 new_access_token = api_client.battlenet.refresh_access_token(
-    Region.US,
-    "refresh_token"
+    "refresh_token",
+    region=Region.US
 )
+```
+
+### Default Region & Locale Values
+
+You can also specify a default `Region` and `Locale` the API should use.
+
+```python
+from blizzardapi2 import BlizzardApi, Region, Locale
+
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+
+# Get user info
+user_info = api_client.battlenet.get_user_info("access_token")
+
+# Refresh access token
+new_access_token = api_client.battlenet.refresh_access_token("refresh_token")
 ```
 
 ## Async Usage
@@ -71,17 +85,16 @@ All endpoints support async/await for better performance:
 
 ```python
 import asyncio
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.battlenet.battlenet_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 async def main():
     api_client = BlizzardApi("client_id", "client_secret")
 
     # Get user info
     user_info = await api_client.battlenet.get_user_info(
-        Region.US,
-        Locale.EN_US,
-        "access_token"
+        "access_token",
+        region=Region.US,
+        region=Locale.EN_US
     )
 
 asyncio.run(main())

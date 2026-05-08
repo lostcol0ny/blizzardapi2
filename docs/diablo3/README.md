@@ -9,24 +9,23 @@ This document provides information about the Diablo 3 API endpoints available in
 The Community API provides access to Diablo 3 community data.
 
 ```python
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.diablo3.diablo3_community_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 api_client = BlizzardApi("client_id", "client_secret")
 
 # Get career profile
 career_profile = api_client.diablo3.community.get_career_profile(
-    Region.US,
-    Locale.EN_US,
-    "battletag"
+    "battletag",
+    region=Region.US,
+    region=Locale.EN_US,
 )
 
 # Get hero profile
 hero_profile = api_client.diablo3.community.get_hero_profile(
-    Region.US,
-    Locale.EN_US,
     "battletag",
-    "hero_id"
+    "hero_id",
+    region=Region.US,
+    region=Locale.EN_US,
 )
 ```
 
@@ -37,24 +36,40 @@ The Game Data API provides access to Diablo 3 game data.
 ```python
 # Get season index
 season_index = api_client.diablo3.game_data.get_season_index(
-    Region.US,
-    Locale.EN_US
+    region=Region.US,
+    region=Locale.EN_US,
 )
 
 # Get season
 season = api_client.diablo3.game_data.get_season(
-    Region.US,
-    Locale.EN_US,
-    "season_id"
+    "season_id",
+    region=Region.US,
+    region=Locale.EN_US,
 )
 
 # Get leaderboard
 leaderboard = api_client.diablo3.game_data.get_leaderboard(
-    Region.US,
-    Locale.EN_US,
     "season_id",
-    "leaderboard"
+    "leaderboard",
+    region=Region.US,
+    region=Locale.EN_US,
 )
+```
+
+### Default Region & Locale Values
+
+You can also specify a default `Region` and `Locale` the API should use.
+
+```python
+from blizzardapi2 import BlizzardApi, Region, Locale
+
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+
+# Get career profile
+career_profile = api_client.diablo3.community.get_career_profile("battletag")
+
+# Get leaderboard
+leaderboard = api_client.diablo3.game_data.get_leaderboard("season_id", "leaderboard")
 ```
 
 ## Async Usage
@@ -63,17 +78,16 @@ All endpoints support async/await for better performance:
 
 ```python
 import asyncio
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.diablo3.diablo3_community_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 async def main():
     api_client = BlizzardApi("client_id", "client_secret")
 
     # Get career profile
     career_profile = await api_client.diablo3.community.get_career_profile(
-        Region.US,
-        Locale.EN_US,
-        "battletag"
+        "battletag",
+        region=Region.US,
+        region=Locale.EN_US
     )
 
 asyncio.run(main())

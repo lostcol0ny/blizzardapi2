@@ -43,23 +43,57 @@ The Game Data API provides access to game data such as:
 ### Basic Usage
 
 ```python
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.wow.wow_profile_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 api_client = BlizzardApi("client_id", "client_secret")
 
 # Get character profile
 profile = api_client.wow.profile.get_character_profile_summary(
-    Region.US,
-    Locale.EN_US,
+    "realm-slug",
+    "character-name",
+    region=Region.US,
+    region=Locale.EN_US
+)
+
+# Get achievement categories
+achievements = api_client.wow.game_data.get_achievement_categories_index(
+    region=Region.US,
+    region=Locale.EN_US
+)
+```
+
+### Default Region & Locale Values
+
+You can also specify a default `Region` and `Locale` the API should use.
+
+```python
+from blizzardapi2 import BlizzardApi, Region, Locale
+
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+
+# Get character profile
+profile = api_client.wow.profile.get_character_profile_summary(
     "realm-slug",
     "character-name"
 )
 
 # Get achievement categories
+achievements = api_client.wow.game_data.get_achievement_categories_index()
+```
+
+And then selectively override those values when necessary
+
+```python
+# Get character profile
+profile = api_client.wow.profile.get_character_profile_summary(
+    "realm-slug",
+    "character-name",
+    region=Region.EU
+)
+
+# Get achievement categories
 achievements = api_client.wow.game_data.get_achievement_categories_index(
-    Region.US,
-    Locale.EN_US
+    locale=Locale.ES_MX
 )
 ```
 
@@ -67,8 +101,7 @@ achievements = api_client.wow.game_data.get_achievement_categories_index(
 
 ```python
 import asyncio
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.wow.wow_profile_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 async def main():
     api_client = BlizzardApi("client_id", "client_secret")
@@ -78,22 +111,24 @@ async def main():
         Region.US,
         Locale.EN_US,
         "realm-slug",
-        "character-name"
+        "character-name",
+        region=Region.US,
+        region=Locale.EN_US
     )
 
     # Get multiple character collections concurrently
     tasks = [
         api_client.wow.profile.get_character_mounts_collection_summary(
-            Region.US,
-            Locale.EN_US,
             "realm-slug",
-            "character-name"
+            "character-name",
+            region=Region.US,
+            region=Locale.EN_US
         ),
         api_client.wow.profile.get_character_pets_collection_summary(
-            Region.US,
-            Locale.EN_US,
             "realm-slug",
-            "character-name"
+            "character-name",
+            region=Region.US,
+            region=Locale.EN_US
         )
     ]
     collections = await asyncio.gather(*tasks)

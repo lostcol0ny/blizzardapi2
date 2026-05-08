@@ -9,60 +9,59 @@ This document provides information about the StarCraft 2 API endpoints available
 The Community API provides access to StarCraft 2 community data.
 
 ```python
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.starcraft2.starcraft2_community_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 api_client = BlizzardApi("client_id", "client_secret")
 
 # Get profile
 profile = api_client.starcraft2.community.get_profile(
-    Region.US,
-    Locale.EN_US,
     "region_id",
     "realm_id",
-    "profile_id"
+    "profile_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get metadata
 metadata = api_client.starcraft2.community.get_metadata(
-    Region.US,
-    Locale.EN_US,
     "region_id",
     "realm_id",
-    "profile_id"
+    "profile_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get profile ladder
 profile_ladder = api_client.starcraft2.community.get_profile_ladder(
-    Region.US,
-    Locale.EN_US,
     "region_id",
     "realm_id",
     "profile_id",
-    "ladder_id"
+    "ladder_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get grandmaster leaderboard
 grandmaster = api_client.starcraft2.community.get_grandmaster_leaderboard(
-    Region.US,
-    Locale.EN_US,
-    "region_id"
+    "region_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get season
 season = api_client.starcraft2.community.get_season(
-    Region.US,
-    Locale.EN_US,
-    "region_id"
+    "region_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get player account
 player_account = api_client.starcraft2.community.get_player_account(
-    Region.US,
-    Locale.EN_US,
     "region_id",
     "realm_id",
-    "profile_id"
+    "profile_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 ```
 
@@ -73,18 +72,20 @@ The Game Data API provides access to StarCraft 2 game data.
 ```python
 # Get league data
 league_data = api_client.starcraft2.game_data.get_league_data(
-    Region.US,
-    Locale.EN_US,
     "season_id",
     "queue_id",
     "team_type",
-    "league_id"
+    "league_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get season
 season = api_client.starcraft2.game_data.get_season(
     Region.US,
-    Locale.EN_US
+    Locale.EN_US,
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get player account
@@ -93,7 +94,9 @@ player_account = api_client.starcraft2.game_data.get_player_account(
     Locale.EN_US,
     "region_id",
     "realm_id",
-    "profile_id"
+    "profile_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get profile
@@ -102,24 +105,64 @@ profile = api_client.starcraft2.game_data.get_profile(
     Locale.EN_US,
     "region_id",
     "realm_id",
-    "profile_id"
+    "profile_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get profile ladder
 profile_ladder = api_client.starcraft2.game_data.get_profile_ladder(
-    Region.US,
-    Locale.EN_US,
     "region_id",
     "realm_id",
     "profile_id",
-    "ladder_id"
+    "ladder_id",
+    region=Region.US,
+    region=Locale.EN_US
 )
 
 # Get grandmaster leaderboard
 grandmaster = api_client.starcraft2.game_data.get_grandmaster_leaderboard(
-    Region.US,
-    Locale.EN_US,
-    "region_id"
+    "region_id",
+    region=Region.US,
+    region=Locale.EN_US
+)
+```
+
+### Default Region & Locale Values
+
+You can also specify a default `Region` and `Locale` the API should use.
+
+```python
+from blizzardapi2 import BlizzardApi, Region, Locale
+
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+
+# Get profile
+profile = api_client.starcraft2.community.get_profile(
+    "region_id",
+    "realm_id",
+    "profile_id"
+)
+
+# Get grandmaster leaderboard
+grandmaster = api_client.starcraft2.game_data.get_grandmaster_leaderboard("region_id")
+```
+
+And then selectively override those values when necessary
+
+```python
+# Get profile
+profile = api_client.starcraft2.community.get_profile(
+    "region_id",
+    "realm_id",
+    "profile_id",
+    region=Region.EU
+)
+
+# Get grandmaster leaderboard
+grandmaster = api_client.starcraft2.game_data.get_grandmaster_leaderboard(
+    "region_id",
+    locale=Locale.ES_MX
 )
 ```
 
@@ -129,19 +172,18 @@ All endpoints support async/await for better performance:
 
 ```python
 import asyncio
-from blizzardapi2 import BlizzardApi
-from blizzardapi2.starcraft2.starcraft2_community_api import Region, Locale
+from blizzardapi2 import BlizzardApi, Region, Locale
 
 async def main():
     api_client = BlizzardApi("client_id", "client_secret")
 
     # Get profile
     profile = await api_client.starcraft2.community.get_profile(
-        Region.US,
-        Locale.EN_US,
         "region_id",
         "realm_id",
-        "profile_id"
+        "profile_id",
+        region=Region.US,
+        region=Locale.EN_US
     )
 
 asyncio.run(main())
