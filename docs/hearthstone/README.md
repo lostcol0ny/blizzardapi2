@@ -17,40 +17,40 @@ cards = api_client.hearthstone.game_data.get_cards(
     attack=5,
     health=5,
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get card by ID
 card = api_client.hearthstone.game_data.get_card(
     "card_id",
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get card backs
 card_backs = api_client.hearthstone.game_data.get_card_backs(
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get card back by ID
 card_back = api_client.hearthstone.game_data.get_card_back(
     "card_back_id",
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get deck
 deck = api_client.hearthstone.game_data.get_deck(
     "deck_code",
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get metadata
 metadata = api_client.hearthstone.game_data.get_metadata(
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 ```
 
@@ -61,7 +61,7 @@ You can also specify a default `Region` and `Locale` the API should use.
 ```python
 from blizzardapi2 import BlizzardApi, Region, Locale
 
-api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, locale=Locale.EN_US)
 
 # Get card search
 cards = api_client.hearthstone.game_data.get_cards(
@@ -108,7 +108,7 @@ async def main():
         attack=5,
         health=5,
         region=Region.US,
-        region=Locale.EN_US
+        locale=Locale.EN_US
     )
 
 asyncio.run(main())

@@ -15,21 +15,21 @@ api_client = BlizzardApi("client_id", "client_secret")
 user_info = api_client.battlenet.get_user_info(
     "access_token",
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get user profile
 user_profile = api_client.battlenet.get_user_profile(
     "access_token",
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get user profile status
 user_profile_status = api_client.battlenet.get_user_profile_status(
     "access_token",
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 ```
 
@@ -70,7 +70,7 @@ You can also specify a default `Region` and `Locale` the API should use.
 ```python
 from blizzardapi2 import BlizzardApi, Region, Locale
 
-api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, locale=Locale.EN_US)
 
 # Get user info
 user_info = api_client.battlenet.get_user_info("access_token")
@@ -94,7 +94,7 @@ async def main():
     user_info = await api_client.battlenet.get_user_info(
         "access_token",
         region=Region.US,
-        region=Locale.EN_US
+        locale=Locale.EN_US
     )
 
 asyncio.run(main())

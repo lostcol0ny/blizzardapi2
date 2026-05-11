@@ -17,7 +17,7 @@ api_client = BlizzardApi("client_id", "client_secret")
 career_profile = api_client.diablo3.community.get_career_profile(
     "battletag",
     region=Region.US,
-    region=Locale.EN_US,
+    locale=Locale.EN_US,
 )
 
 # Get hero profile
@@ -25,7 +25,7 @@ hero_profile = api_client.diablo3.community.get_hero_profile(
     "battletag",
     "hero_id",
     region=Region.US,
-    region=Locale.EN_US,
+    locale=Locale.EN_US,
 )
 ```
 
@@ -37,14 +37,14 @@ The Game Data API provides access to Diablo 3 game data.
 # Get season index
 season_index = api_client.diablo3.game_data.get_season_index(
     region=Region.US,
-    region=Locale.EN_US,
+    locale=Locale.EN_US,
 )
 
 # Get season
 season = api_client.diablo3.game_data.get_season(
     "season_id",
     region=Region.US,
-    region=Locale.EN_US,
+    locale=Locale.EN_US,
 )
 
 # Get leaderboard
@@ -52,7 +52,7 @@ leaderboard = api_client.diablo3.game_data.get_leaderboard(
     "season_id",
     "leaderboard",
     region=Region.US,
-    region=Locale.EN_US,
+    locale=Locale.EN_US,
 )
 ```
 
@@ -63,7 +63,7 @@ You can also specify a default `Region` and `Locale` the API should use.
 ```python
 from blizzardapi2 import BlizzardApi, Region, Locale
 
-api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, locale=Locale.EN_US)
 
 # Get career profile
 career_profile = api_client.diablo3.community.get_career_profile("battletag")
@@ -87,7 +87,7 @@ async def main():
     career_profile = await api_client.diablo3.community.get_career_profile(
         "battletag",
         region=Region.US,
-        region=Locale.EN_US
+        locale=Locale.EN_US
     )
 
 asyncio.run(main())

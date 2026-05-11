@@ -52,13 +52,13 @@ profile = api_client.wow.profile.get_character_profile_summary(
     "realm-slug",
     "character-name",
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 
 # Get achievement categories
 achievements = api_client.wow.game_data.get_achievement_categories_index(
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US
 )
 ```
 
@@ -69,7 +69,7 @@ You can also specify a default `Region` and `Locale` the API should use.
 ```python
 from blizzardapi2 import BlizzardApi, Region, Locale
 
-api_client = BlizzardApi("client_id", "client_secret", region=Region.US, region=Locale.EN_US)
+api_client = BlizzardApi("client_id", "client_secret", region=Region.US, locale=Locale.EN_US)
 
 # Get character profile
 profile = api_client.wow.profile.get_character_profile_summary(
@@ -108,12 +108,10 @@ async def main():
 
     # Get character data
     profile = await api_client.wow.profile.get_character_profile_summary(
-        Region.US,
-        Locale.EN_US,
         "realm-slug",
         "character-name",
         region=Region.US,
-        region=Locale.EN_US
+        locale=Locale.EN_US,
     )
 
     # Get multiple character collections concurrently
@@ -122,13 +120,13 @@ async def main():
             "realm-slug",
             "character-name",
             region=Region.US,
-            region=Locale.EN_US
+            locale=Locale.EN_US
         ),
         api_client.wow.profile.get_character_pets_collection_summary(
             "realm-slug",
             "character-name",
             region=Region.US,
-            region=Locale.EN_US
+            locale=Locale.EN_US
         )
     ]
     collections = await asyncio.gather(*tasks)

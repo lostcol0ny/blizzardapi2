@@ -56,21 +56,21 @@ api_client = BlizzardApi("client_id", "client_secret")
 # Public API endpoint (uses automatic client credentials token)
 categories_index = api_client.wow.game_data.get_achievement_categories_index(
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US,
 )
 
 # Protected API endpoint (requires user OAuth token)
 summary = api_client.wow.profile.get_account_profile_summary(
     "user_access_token",  # OAuth token from authorization code flow
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US,
 )
 
 # WoW Classic endpoint
 connected_realms_index = api_client.wow.game_data.get_connected_realms_index(
     region=Region.US,
-    region=Locale.EN_US
-    is_classic=True
+    locale=Locale.EN_US,
+    is_classic=True,
 )
 ```
 
@@ -86,13 +86,13 @@ api_client = BlizzardApi("client_id", "client_secret")
 # First call: library automatically fetches and caches a client credentials token
 realms = api_client.wow.game_data.get_realms_index(
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US,
 )
 
 # Subsequent calls: library reuses the cached token
 achievements = api_client.wow.game_data.get_achievements_index(
     region=Region.US,
-    region=Locale.EN_US
+    locale=Locale.EN_US,
 )
 
 # When token expires: library automatically refreshes it
