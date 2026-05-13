@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import pytest
 
+from blizzardapi2.types import Locale, Region
 from blizzardapi2.wow.wow_api import WowApi
 from blizzardapi2.wow.wow_game_data_api import WowGameDataApi
 from blizzardapi2.wow.wow_profile_api import WowProfileApi
@@ -65,7 +66,9 @@ def test_get_achievements_index_uses_static_namespace(
     wow_api: WowApi, mock_get
 ) -> None:
     """Index endpoints hit the index path with a static-{region} namespace."""
-    result = wow_api.game_data.get_achievements_index(region="us", locale="en_US")
+    result = wow_api.game_data.get_achievements_index(
+        region=Region.US, locale=Locale.EN_US
+    )
 
     mock_get.assert_called_once()
     args, kwargs = mock_get.call_args
@@ -77,7 +80,9 @@ def test_get_achievements_index_uses_static_namespace(
 
 def test_get_achievement_by_id_embeds_id_in_path(wow_api: WowApi, mock_get) -> None:
     """By-id endpoints interpolate the id into the URL path, not the query."""
-    wow_api.game_data.get_achievement(region="eu", locale="en_GB", achievement_id=12345)
+    wow_api.game_data.get_achievement(
+        region=Region.EU, locale=Locale.EN_GB, achievement_id=12345
+    )
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://eu.api.blizzard.com/data/wow/achievement/12345"
@@ -90,7 +95,7 @@ def test_get_achievement_by_id_embeds_id_in_path(wow_api: WowApi, mock_get) -> N
 def test_get_achievement_media_hits_media_subpath(wow_api: WowApi, mock_get) -> None:
     """Media endpoints route under /data/wow/media/<resource>/<id>."""
     wow_api.game_data.get_achievement_media(
-        region="us", locale="en_US", achievement_id=42
+        region=Region.US, locale=Locale.EN_US, achievement_id=42
     )
 
     args, kwargs = mock_get.call_args
@@ -101,8 +106,8 @@ def test_get_achievement_media_hits_media_subpath(wow_api: WowApi, mock_get) -> 
 def test_search_endpoint_passes_through_kwargs(wow_api: WowApi, mock_get) -> None:
     """Search endpoints accept arbitrary kwargs alongside namespace+locale."""
     wow_api.game_data.search_decor(
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
         **{"name.en_US": "lantern", "orderby": "id", "_page": 1},
     )
 
@@ -120,7 +125,7 @@ def test_search_endpoint_passes_through_kwargs(wow_api: WowApi, mock_get) -> Non
 def test_classic_variant_uses_classic_namespace(wow_api: WowApi, mock_get) -> None:
     """`is_classic=True` flips the namespace to static-classic-{region}."""
     wow_api.game_data.get_creature_families_index(
-        region="us", locale="en_US", is_classic=True
+        region=Region.US, locale=Locale.EN_US, is_classic=True
     )
 
     args, kwargs = mock_get.call_args
@@ -134,7 +139,7 @@ def test_classic_variant_uses_classic_namespace(wow_api: WowApi, mock_get) -> No
 def test_classic_false_uses_retail_namespace(wow_api: WowApi, mock_get) -> None:
     """The default branch of an is_classic-aware endpoint stays on retail."""
     wow_api.game_data.get_creature_family(
-        region="eu", locale="en_GB", creature_family_id=7
+        region=Region.EU, locale=Locale.EN_GB, creature_family_id=7
     )
 
     args, kwargs = mock_get.call_args
@@ -144,7 +149,7 @@ def test_classic_false_uses_retail_namespace(wow_api: WowApi, mock_get) -> None:
 
 def test_cn_region_uses_gateway_host(wow_api: WowApi, mock_get) -> None:
     """CN region must route through gateway.battlenet.com.cn (no subdomain)."""
-    wow_api.game_data.get_achievements_index(region="cn", locale="zh_CN")
+    wow_api.game_data.get_achievements_index(region=Region.CN, locale=Locale.ZH_CN)
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://gateway.battlenet.com.cn/data/wow/achievement/index"
@@ -155,7 +160,7 @@ def test_cn_region_uses_gateway_host(wow_api: WowApi, mock_get) -> None:
 
 def test_dynamic_namespace_endpoint(wow_api: WowApi, mock_get) -> None:
     """Auction commodities use a dynamic-{region} namespace, not static."""
-    wow_api.game_data.get_commodities(region="us", locale="en_US")
+    wow_api.game_data.get_commodities(region=Region.US, locale=Locale.EN_US)
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://us.api.blizzard.com/data/wow/auctions/commodities"
@@ -178,7 +183,7 @@ def test_dynamic_namespace_endpoint(wow_api: WowApi, mock_get) -> None:
 def wow_with_defaults(fake_credentials: tuple[str, str]) -> WowApi:
     """A WowApi whose sub-clients carry a default region+locale."""
     client_id, client_secret = fake_credentials
-    api = WowApi(client_id, client_secret, region="us", locale="en_US")
+    api = WowApi(client_id, client_secret, region=Region.US, locale=Locale.EN_US)
     prime_token(api)
     prime_token(api.game_data)
     prime_token(api.profile)
@@ -258,7 +263,7 @@ def test_oauth_token_goes_to_header_not_query(wow_api: WowApi, mock_get) -> None
     """
     user_token = "user_oauth_token_xyz"
     wow_api.profile.get_account_profile_summary(
-        region="us", locale="en_US", access_token=user_token
+        region=Region.US, locale=Locale.EN_US, access_token=user_token
     )
 
     args, kwargs = mock_get.call_args
@@ -280,8 +285,8 @@ def test_oauth_protected_character_uses_user_token(wow_api: WowApi, mock_get) ->
         access_token=user_token,
         realm_id=1234,
         character_id=5678,
-        region="eu",
-        locale="en_GB",
+        region=Region.EU,
+        locale=Locale.EN_GB,
     )
 
     args, kwargs = mock_get.call_args
@@ -305,8 +310,8 @@ def test_character_profile_summary_uses_client_token(wow_api: WowApi, mock_get) 
     wow_api.profile.get_character_profile_summary(
         realm_slug="stormrage",
         character_name="dwarfprist",
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
     )
 
     args, kwargs = mock_get.call_args
@@ -326,8 +331,8 @@ def test_guild_endpoint_uses_data_path_with_profile_namespace(
     wow_api.profile.get_guild_roster(
         realm_slug="stormrage",
         name_slug="example-guild",
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
     )
 
     args, kwargs = mock_get.call_args
@@ -350,8 +355,8 @@ def test_method_returns_decoded_json_body(wow_api: WowApi, mock_get) -> None:
 
     result = wow_api.game_data.get_achievement(
         achievement_id=99,
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
     )
 
     assert result == payload

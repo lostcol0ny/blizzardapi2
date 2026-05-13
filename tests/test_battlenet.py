@@ -18,6 +18,7 @@ import pytest
 
 from blizzardapi2.battlenet.battlenet_api import BattlenetApi
 from blizzardapi2.battlenet.battlenet_oauth_api import BattlenetOAuthApi
+from blizzardapi2.types import Region
 from tests.conftest import FAKE_TOKEN
 
 USER_TOKEN = "user_supplied_oauth_token"
@@ -47,13 +48,13 @@ def test_battlenet_api_passes_default_region_to_oauth_client(
 ) -> None:
     """`BattlenetApi` wires up an `oauth` attribute backed by `BattlenetOAuthApi`."""
     client_id, client_secret = fake_credentials
-    api = BattlenetApi(client_id, client_secret, "kr")
+    api = BattlenetApi(client_id, client_secret, region=Region.KR)
 
     assert isinstance(api.oauth, BattlenetOAuthApi)
     # Credentials propagate to the underlying OAuth client.
     assert api.oauth.client_id == client_id
     assert api.oauth.client_secret == client_secret
-    assert api.oauth.region == "kr"
+    assert api.oauth.region == Region.KR
 
 
 # ---------------------------------------------------------------------------
@@ -73,7 +74,7 @@ def test_get_user_info_uses_global_oauth_host_for_non_cn_regions(
     oauth_api: BattlenetOAuthApi, mock_get: MagicMock, region: str
 ) -> None:
     """Non-CN regions hit `https://oauth.battle.net/oauth/userinfo`."""
-    oauth_api.get_user_info(USER_TOKEN, region=region)
+    oauth_api.get_user_info(USER_TOKEN, region=Region(region))
 
     called_url = mock_get.call_args.args[0]
     assert called_url == "https://oauth.battle.net/oauth/userinfo"
@@ -83,7 +84,7 @@ def test_get_user_info_uses_china_gateway_for_cn_region(
     oauth_api: BattlenetOAuthApi, mock_get: MagicMock
 ) -> None:
     """CN region hits the China-specific gateway host."""
-    oauth_api.get_user_info(USER_TOKEN, region="cn")
+    oauth_api.get_user_info(USER_TOKEN, region=Region.CN)
 
     called_url = mock_get.call_args.args[0]
     assert called_url == "https://www.gateway.battlenet.com.cn/oauth/userinfo"
@@ -102,7 +103,7 @@ def test_get_user_info_sends_access_token_in_authorization_header(
     This is the canonical assertion for the OAuth user-token security model:
     the bearer token is sensitive and must be delivered via the header.
     """
-    oauth_api.get_user_info(USER_TOKEN, region="us")
+    oauth_api.get_user_info(USER_TOKEN, region=Region.US)
 
     headers = mock_get.call_args.kwargs["headers"]
     assert headers["Authorization"] == f"Bearer {USER_TOKEN}"
@@ -117,7 +118,7 @@ def test_get_user_info_does_not_leak_access_token_into_query_params(
     the request is dispatched. If this regresses, tokens would land in server
     logs, proxy logs, and `Referer` headers — a textbook OAuth leak.
     """
-    oauth_api.get_user_info(USER_TOKEN, region="us")
+    oauth_api.get_user_info(USER_TOKEN, region=Region.US)
 
     params = mock_get.call_args.kwargs["params"]
     assert "access_token" not in params
@@ -140,7 +141,7 @@ def test_get_user_info_uses_user_token_verbatim_and_skips_client_credentials(
     is skipped entirely. This protects against accidentally minting an
     application token when the user already provided their own.
     """
-    oauth_api.get_user_info(USER_TOKEN, region="us")
+    oauth_api.get_user_info(USER_TOKEN, region=Region.US)
 
     # No client-credentials POST should have happened.
     mock_post.assert_not_called()
@@ -162,6 +163,6 @@ def test_get_user_info_returns_session_get_json_payload(
     expected = {"id": 12345, "battletag": "Test#1234", "sub": "12345"}
     mock_get.return_value.json.return_value = expected
 
-    result = oauth_api.get_user_info(USER_TOKEN, region="us")
+    result = oauth_api.get_user_info(USER_TOKEN, region=Region.US)
 
     assert result == expected

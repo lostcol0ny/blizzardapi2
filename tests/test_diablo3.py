@@ -12,6 +12,7 @@ from __future__ import annotations
 from blizzardapi2.diablo3.diablo3_api import Diablo3Api
 from blizzardapi2.diablo3.diablo3_community_api import Diablo3CommunityApi
 from blizzardapi2.diablo3.diablo3_game_data_api import Diablo3GameDataApi
+from blizzardapi2.types import Locale, Region
 from tests.conftest import FAKE_TOKEN, prime_token
 
 # ---------------------------------------------------------------------------
@@ -42,7 +43,7 @@ def test_community_get_act_index_us(fake_credentials, mock_get):
     payload = {"acts": [{"slug": "act-i"}]}
     mock_get.return_value.json.return_value = payload
 
-    result = api.get_act_index(region="us", locale="en_US")
+    result = api.get_act_index(region=Region.US, locale=Locale.EN_US)
 
     assert result == payload
     mock_get.assert_called_once()
@@ -59,7 +60,7 @@ def test_community_get_act_builds_path_with_id(fake_credentials, mock_get):
     api = Diablo3CommunityApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_act(act_id=2, region="eu", locale="en_GB")
+    api.get_act(act_id=2, region=Region.EU, locale=Locale.EN_GB)
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://eu.api.blizzard.com/d3/data/act/2"
@@ -75,8 +76,8 @@ def test_community_get_recipe_nested_path(fake_credentials, mock_get):
     api.get_recipe(
         artisan_slug="blacksmith",
         recipe_slug="apprentice-flamberge",
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
     )
 
     args, kwargs = mock_get.call_args
@@ -104,8 +105,8 @@ def test_community_profile_endpoint_strips_user_access_token(
 
     api.get_resource(
         "/d3/profile/Player-1234/",
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
         query_params={"access_token": "user-supplied-token"},
     )
 
@@ -130,7 +131,7 @@ def test_game_data_get_season_index_no_query_params(fake_credentials, mock_get):
     payload = {"seasons": [1, 2, 3]}
     mock_get.return_value.json.return_value = payload
 
-    result = api.get_season_index(region="us")
+    result = api.get_season_index(region=Region.US)
 
     assert result == payload
     args, kwargs = mock_get.call_args
@@ -145,7 +146,7 @@ def test_game_data_get_era_leaderboard_path(fake_credentials, mock_get):
     api = Diablo3GameDataApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_era_leaderboard(era_id=10, leaderboard_id=42, region="eu")
+    api.get_era_leaderboard(era_id=10, leaderboard_id=42, region=Region.EU)
 
     args, kwargs = mock_get.call_args
     assert args[0] == ("https://eu.api.blizzard.com/data/d3/era/10/leaderboard/42")
@@ -163,7 +164,7 @@ def test_cn_region_uses_gateway_host(fake_credentials, mock_get):
     api = Diablo3GameDataApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_season(season_id=27, region="cn")
+    api.get_season(season_id=27, region=Region.CN)
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://gateway.battlenet.com.cn/data/d3/season/27"
@@ -176,7 +177,9 @@ def test_cn_community_endpoint_uses_gateway_host(fake_credentials, mock_get):
     api = Diablo3CommunityApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_character_class(region="cn", locale="zh_CN", class_slug="barbarian")
+    api.get_character_class(
+        region=Region.CN, locale=Locale.ZH_CN, class_slug="barbarian"
+    )
 
     args, kwargs = mock_get.call_args
     assert args[0] == ("https://gateway.battlenet.com.cn/d3/data/hero/barbarian")
@@ -194,7 +197,7 @@ def test_missing_token_triggers_oauth_post(fake_credentials, mock_get, mock_post
     api = Diablo3GameDataApi(client_id, client_secret)
     # Note: NOT calling prime_token — force the OAuth round-trip.
 
-    api.get_era_index(region="us")
+    api.get_era_index(region=Region.US)
 
     mock_post.assert_called_once()
     post_args, post_kwargs = mock_post.call_args

@@ -11,6 +11,7 @@ from __future__ import annotations
 from blizzardapi2.blizzard_api import BlizzardApi
 from blizzardapi2.hearthstone.hearthstone_api import HearthstoneApi
 from blizzardapi2.hearthstone.hearthstone_game_data_api import HearthstoneGameDataApi
+from blizzardapi2.types import Locale, Region
 from tests.conftest import prime_token
 
 
@@ -45,7 +46,7 @@ def test_search_cards_no_filters_builds_bare_cards_url(fake_credentials, mock_ge
     api = HearthstoneApi(client_id, client_secret)
     prime_token(api.game_data)
 
-    api.game_data.search_cards(region="us", locale="en_US")
+    api.game_data.search_cards(region=Region.US, locale=Locale.EN_US)
 
     mock_get.assert_called_once()
     args, kwargs = mock_get.call_args
@@ -59,7 +60,9 @@ def test_get_card_includes_id_in_path_via_game_data(fake_credentials, mock_get):
     api = HearthstoneApi(client_id, client_secret)
     prime_token(api.game_data)
 
-    api.game_data.get_card("52119-arch-villain-rafaam", region="eu", locale="en_GB")
+    api.game_data.get_card(
+        "52119-arch-villain-rafaam", region=Region.EU, locale=Locale.EN_GB
+    )
 
     args, kwargs = mock_get.call_args
     assert (
@@ -78,7 +81,7 @@ def test_search_cards_returns_mocked_payload(fake_credentials, mock_get):
     api = HearthstoneApi(client_id, client_secret)
     prime_token(api.game_data)
 
-    result = api.game_data.search_cards(region="us", locale="en_US")
+    result = api.game_data.search_cards(region=Region.US, locale=Locale.EN_US)
 
     assert result == payload
 
@@ -89,7 +92,7 @@ def test_search_card_backs_uses_cn_gateway(fake_credentials, mock_get):
     api = HearthstoneApi(client_id, client_secret)
     prime_token(api.game_data)
 
-    api.game_data.search_card_backs(region="cn", locale="zh_CN")
+    api.game_data.search_card_backs(region=Region.CN, locale=Locale.ZH_CN)
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://gateway.battlenet.com.cn/hearthstone/cardbacks"
@@ -104,8 +107,8 @@ def test_search_cards_maps_card_class_to_class_param(fake_credentials, mock_get)
 
     api.search_cards(
         card_class="mage",
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
         manaCost=4,
         attack=3,
     )
@@ -126,7 +129,7 @@ def test_search_cards_omits_class_when_card_class_none(fake_credentials, mock_ge
     api = HearthstoneGameDataApi(client_id, client_secret)
     prime_token(api)
 
-    api.search_cards(region="us", locale="en_US", set="rise-of-shadows")
+    api.search_cards(region=Region.US, locale=Locale.EN_US, set="rise-of-shadows")
 
     _, kwargs = mock_get.call_args
     assert "class" not in kwargs["params"]
@@ -139,7 +142,7 @@ def test_game_data_get_card_sends_default_game_mode(fake_credentials, mock_get):
     api = HearthstoneGameDataApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_card("52119-arch-villain-rafaam", region="us", locale="en_US")
+    api.get_card("52119-arch-villain-rafaam", region=Region.US, locale=Locale.EN_US)
 
     args, kwargs = mock_get.call_args
     assert (
@@ -155,7 +158,7 @@ def test_get_metadata_type_path_includes_type_id(fake_credentials, mock_get):
     api = HearthstoneGameDataApi(client_id, client_secret)
     prime_token(api)
 
-    api.get_metadata_type("sets", region="kr", locale="ko_KR")
+    api.get_metadata_type("sets", region=Region.KR, locale=Locale.KO_KR)
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://kr.api.blizzard.com/hearthstone/metadata/sets"
@@ -173,8 +176,8 @@ def test_get_deck_preserves_caller_filters(fake_credentials, mock_get):
     prime_token(api)
 
     api.get_deck(
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
         ids="EX1_046,EX1_054",
         hero="HERO_01",
     )
