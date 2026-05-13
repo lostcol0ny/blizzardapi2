@@ -3,3 +3,4 @@
 from requests.exceptions import *  # noqa
 
 from .blizzard_api import BlizzardApi  # noqa
+from .types import Locale, Region  # noqa
