@@ -108,16 +108,19 @@ You can pass in a `client_id` and `client_secret` and use almost any endpoint ex
 2. Sends it via `Authorization: Bearer <token>` header
 3. Keeps tokens out of URL query strings
 
-Here is the list of endpoints, specified by Blizzard, that require an OAuth token:
+Here is the list of endpoints, and related API methods, that require an OAuth authorization code token:
 
-```
-GET /oauth/userinfo
-GET /profile/user/wow
-GET /profile/user/wow/protected-character/{realm-id}-{character-id}
-GET /profile/user/wow/collections
-GET /profile/user/wow/collections/pets
-GET /profile/user/wow/collections/mounts
-```
+| Resource path | API call |
+| ------------- | -------- |
+| /userinfo | `.battlenet.oauth.get_user_info(access_token)` |
+| /profile/user/wow | `.wow.profile.get_account_profile_summary(access_token)` |
+| /profile/user/wow/protected-character/{realm-id}-{character-id} | `.wow.profile.get_protected_character_profile_summary(access_token, realm_id, character_id)` |
+| /profile/user/wow/collections | `.wow.profile.get_account_collections_index(access_token)` |
+| /profile/user/wow/collections/heirlooms | `.wow.profile.get_account_heirlooms_collection_summary(access_token)` |
+| /profile/user/wow/collections/mounts | `.wow.profile.get_account_mounts_collection_summary(access_token)` |
+| /profile/user/wow/collections/pets | `.wow.profile.get_account_pets_collection_summary(access_token)` |
+| /profile/user/wow/collections/toys | `.wow.profile.get_account_toys_collection_summary(access_token)` |
+| /profile/user/wow/collections/transmogs | `.wow.profile.get_account_transmog_collection_summary(access_token)` |
 
 **Note:** For these protected endpoints, you must implement the OAuth authorization code flow in your application to obtain a user access token. The library does not handle the OAuth flow itself - it only accepts and uses the token you provide.
 
