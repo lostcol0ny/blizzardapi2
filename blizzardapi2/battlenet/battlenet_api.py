@@ -11,9 +11,12 @@ class BattlenetApi(ApiEndpoint):
         client_id (str): A string client id supplied by Blizzard.
         client_secret (str): A string client secret supplied by Blizzard.
         region (Region, optional): Default region to use for requests.
+        session (requests.Session, optional): A default session to use for requests.
         oauth (BattlenetOAuthApi): An instance of the BattlenetOAuthApi class for accessing OAuth endpoints.
     """
 
     def extend_endpoint(self) -> None:
         """Init BattlenetApi."""
-        self.oauth = BattlenetOAuthApi(self.client_id, self.client_secret, self.region)
+        self.oauth = BattlenetOAuthApi(
+            self.client_id, self.client_secret, region=self.region, session=self.session
+        )

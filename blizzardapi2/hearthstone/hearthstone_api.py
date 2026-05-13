@@ -26,13 +26,18 @@ class HearthstoneApi(ApiEndpoint):
     Attributes:
         client_id: The Blizzard API client ID.
         client_secret: The Blizzard API client secret.
-        region: Default region to use for requests.
-        locale: Default locale to use for requests.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for community requests.
+        session (requests.Session, optional): A default session to use for requests.
         game_data: The Hearthstone game-data API client.
     """
 
     def extend_endpoint(self) -> None:
         """Add the Hearthstone game-data endpoint."""
         self.game_data = HearthstoneGameDataApi(
-            self.client_id, self.client_secret, self.region, self.locale
+            self.client_id,
+            self.client_secret,
+            region=self.region,
+            locale=self.locale,
+            session=self.session,
         )

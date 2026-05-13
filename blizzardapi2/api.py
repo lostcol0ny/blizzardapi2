@@ -3,8 +3,6 @@
 from datetime import UTC, datetime, timedelta
 from typing import Any, Optional
 
-import requests
-
 from .endpoint import ApiEndpoint
 from .types import Locale, OptionalLocale, OptionalRegion, Region
 
@@ -38,7 +36,6 @@ class BaseApi(ApiEndpoint):
     def extend_endpoint(self) -> None:
         self._access_token: Optional[str] = None
         self._token_expires_at: Optional[datetime] = None
-        self._session = requests.Session()
 
     def _is_token_expired(self) -> bool:
         """Check if the token is expiring within the refresh buffer window."""
@@ -56,7 +53,7 @@ class BaseApi(ApiEndpoint):
             The token response from the API.
         """
         url = self._build_oauth_url("/oauth/token", region)
-        response = self._session.post(
+        response = self.session.post(
             url,
             params={"grant_type": "client_credentials"},
             auth=(self.client_id, self._client_secret),
@@ -137,7 +134,7 @@ class BaseApi(ApiEndpoint):
             token = self._access_token
 
         # Make the request
-        response = self._session.get(
+        response = self.session.get(
             url,
             params=params,
             headers={"Authorization": f"Bearer {token}"},
@@ -148,7 +145,7 @@ class BaseApi(ApiEndpoint):
         if response.status_code == 401 and not user_token:
             # Token might have expired, refresh and retry
             self._get_client_token(region)
-            response = self._session.get(
+            response = self.session.get(
                 url,
                 params=params,
                 headers={"Authorization": f"Bearer {self._access_token}"},
