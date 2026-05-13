@@ -73,11 +73,11 @@ def oauth_api(fake_credentials) -> BattlenetOAuthApi:
 def test_get_user_info_uses_global_oauth_host_for_non_cn_regions(
     oauth_api: BattlenetOAuthApi, mock_get: MagicMock, region: str
 ) -> None:
-    """Non-CN regions hit `https://oauth.battle.net/oauth/userinfo`."""
+    """Non-CN regions hit `https://oauth.battle.net/userinfo`."""
     oauth_api.get_user_info(USER_TOKEN, region=Region(region))
 
     called_url = mock_get.call_args.args[0]
-    assert called_url == "https://oauth.battle.net/oauth/userinfo"
+    assert called_url == "https://oauth.battle.net/userinfo"
 
 
 def test_get_user_info_uses_china_gateway_for_cn_region(
@@ -87,7 +87,7 @@ def test_get_user_info_uses_china_gateway_for_cn_region(
     oauth_api.get_user_info(USER_TOKEN, region=Region.CN)
 
     called_url = mock_get.call_args.args[0]
-    assert called_url == "https://www.gateway.battlenet.com.cn/oauth/userinfo"
+    assert called_url == "https://www.gateway.battlenet.com.cn/userinfo"
 
 
 # ---------------------------------------------------------------------------
