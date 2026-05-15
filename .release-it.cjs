@@ -37,7 +37,6 @@ module.exports = {
   github: {
     release: true,
     releaseName: "Release v${version}",
-    releaseNotes: "${changelog}",
   },
   npm: {
     publish: false,
