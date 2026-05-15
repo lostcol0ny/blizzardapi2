@@ -1,5 +1,7 @@
 """endpoint.py file."""
 
+from typing import Optional
+
 import requests
 
 from .types import OptionalLocale, OptionalRegion
@@ -27,7 +29,7 @@ class ApiEndpoint:
         *,
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
-        session: requests.Session = requests.Session(),
+        session: Optional[requests.Session] = None,
     ) -> None:
         """Initialize the API endpoint.
 
@@ -40,7 +42,7 @@ class ApiEndpoint:
         self._client_secret = client_secret
         self._region = region
         self._locale = locale
-        self._session = session
+        self._session = session if session is not None else requests.Session()
         self.extend_endpoint()
 
     def extend_endpoint(self) -> None:
