@@ -9,7 +9,7 @@ It is provided as a proof of concept without warranty of any kind.
 
 import configparser
 import os
-from urllib.parse import parse_qs, urljoin, urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 import requests
 from flask import Flask, redirect, request
