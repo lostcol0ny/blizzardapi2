@@ -29,14 +29,34 @@ class BlizzardApi(ApiEndpoint):
     """
 
     def extend_endpoint(self) -> None:
-        self.wow = WowApi(self.client_id, self.client_secret, self.region, self.locale)
+        self.wow = WowApi(
+            self.client_id,
+            self.client_secret,
+            region=self.region,
+            locale=self.locale,
+            session=self.session,
+        )
         self.diablo3 = Diablo3Api(
-            self.client_id, self.client_secret, self.region, self.locale
+            self.client_id,
+            self.client_secret,
+            region=self.region,
+            locale=self.locale,
+            session=self.session,
         )
         self.hearthstone = HearthstoneApi(
-            self.client_id, self.client_secret, self.region, self.locale
+            self.client_id,
+            self.client_secret,
+            region=self.region,
+            locale=self.locale,
+            session=self.session,
         )
         self.starcraft2 = Starcraft2Api(
-            self.client_id, self.client_secret, self.region, self.locale
+            self.client_id,
+            self.client_secret,
+            region=self.region,
+            locale=self.locale,
+            session=self.session,
         )
-        self.battlenet = BattlenetApi(self.client_id, self.client_secret, self.region)
+        self.battlenet = BattlenetApi(
+            self.client_id, self.client_secret, region=self.region, session=self.session
+        )

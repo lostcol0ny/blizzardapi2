@@ -12,6 +12,7 @@ from __future__ import annotations
 from blizzardapi2.starcraft2.starcraft2_api import Starcraft2Api
 from blizzardapi2.starcraft2.starcraft2_community_api import Starcraft2CommunityApi
 from blizzardapi2.starcraft2.starcraft2_game_data_api import Starcraft2GameDataApi
+from blizzardapi2.types import Locale, Region
 from tests.conftest import FAKE_TOKEN, prime_token
 
 
@@ -32,7 +33,9 @@ def test_community_get_static_builds_us_url(fake_credentials, mock_get):
 
     mock_get.return_value.json.return_value = {"achievements": []}
 
-    result = api.community.get_static(region="us", locale="en_US", region_id=1)
+    result = api.community.get_static(
+        region=Region.US, locale=Locale.EN_US, region_id=1
+    )
 
     assert result == {"achievements": []}
     args, kwargs = mock_get.call_args
@@ -48,8 +51,8 @@ def test_community_get_metadata_builds_eu_url(fake_credentials, mock_get):
     prime_token(api.community)
 
     api.community.get_metadata(
-        region="eu",
-        locale="en_GB",
+        region=Region.EU,
+        locale=Locale.EN_GB,
         region_id=2,
         realm_id=1,
         profile_id=12345,
@@ -67,8 +70,8 @@ def test_community_get_profile_merges_extra_query_params(fake_credentials, mock_
     prime_token(api.community)
 
     api.community.get_profile(
-        region="us",
-        locale="en_US",
+        region=Region.US,
+        locale=Locale.EN_US,
         region_id=1,
         realm_id=1,
         profile_id=999,
@@ -92,7 +95,7 @@ def test_community_get_ladder_summary_returns_mocked_payload(
     mock_get.return_value.json.return_value = payload
 
     result = api.community.get_ladder_summary(
-        region="us", locale="en_US", region_id=1, realm_id=1, profile_id=42
+        region=Region.US, locale=Locale.EN_US, region_id=1, realm_id=1, profile_id=42
     )
 
     assert result == payload
@@ -107,7 +110,9 @@ def test_community_get_grandmaster_leaderboard_url_shape(fake_credentials, mock_
     api = Starcraft2Api(client_id, client_secret)
     prime_token(api.community)
 
-    api.community.get_grandmaster_leaderboard(region="us", locale="en_US", region_id=1)
+    api.community.get_grandmaster_leaderboard(
+        region=Region.US, locale=Locale.EN_US, region_id=1
+    )
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://us.api.blizzard.com/sc2/ladder/grandmaster/1"
@@ -120,7 +125,7 @@ def test_community_cn_region_uses_gateway_host(fake_credentials, mock_get):
     api = Starcraft2Api(client_id, client_secret)
     prime_token(api.community)
 
-    api.community.get_player(region="cn", locale="zh_CN", account_id=7)
+    api.community.get_player(region=Region.CN, locale=Locale.ZH_CN, account_id=7)
 
     args, kwargs = mock_get.call_args
     assert args[0] == "https://gateway.battlenet.com.cn/sc2/player/7"
@@ -136,7 +141,7 @@ def test_game_data_get_league_data_no_query_params(fake_credentials, mock_get):
     mock_get.return_value.json.return_value = {"tier": []}
 
     result = api.game_data.get_league_data(
-        region="us",
+        region=Region.US,
         season_id=37,
         queue_id=201,
         team_type=0,

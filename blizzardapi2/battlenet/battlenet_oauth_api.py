@@ -38,7 +38,7 @@ class BattlenetOAuthApi(BaseApi):
             requests.HTTPError: If the API request fails (raised via
                 ``response.raise_for_status()`` in ``BaseApi._make_request``).
         """
-        resource = "/oauth/userinfo"
+        resource = "/userinfo"
         query_params = {
             "access_token": access_token,
         }

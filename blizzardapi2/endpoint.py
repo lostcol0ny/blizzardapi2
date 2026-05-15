@@ -1,5 +1,9 @@
 """endpoint.py file."""
 
+from typing import Optional
+
+import requests
+
 from .types import OptionalLocale, OptionalRegion
 
 
@@ -13,16 +17,19 @@ class ApiEndpoint:
     Attributes:
         client_id (str): The Blizzard API client ID.
         client_secret (str): The Blizzard API client secret.
-        region (Region or str, optional): A default region to use for requests.
-        locale (Locale or str, optional): A default locale to use for requests.
+        region (Region, optional): A default region to use for requests.
+        locale (Locale, optional): A default locale to use for requests.
+        session (requests.Session, optional): A session object for making HTTP requests.
     """
 
     def __init__(
         self,
         client_id: str,
         client_secret: str,
+        *,
         region: OptionalRegion = None,
         locale: OptionalLocale = None,
+        session: Optional[requests.Session] = None,
     ) -> None:
         """Initialize the API endpoint.
 
@@ -35,6 +42,7 @@ class ApiEndpoint:
         self._client_secret = client_secret
         self._region = region
         self._locale = locale
+        self._session = session if session is not None else requests.Session()
         self.extend_endpoint()
 
     def extend_endpoint(self) -> None:
@@ -79,3 +87,12 @@ class ApiEndpoint:
             OptionalLocale: the default locale used for queries or None if no default was provided
         """
         return self._locale
+
+    @property
+    def session(self) -> requests.Session:
+        """Get the HTTP session
+
+        Returns:
+            requests.Session: The session object for making HTTP requests
+        """
+        return self._session
