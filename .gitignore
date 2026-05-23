@@ -136,6 +136,7 @@ dmypy.json
 
 # Claude Code
 .claude
+.claude.local.md
 
 # Test project
 test_project/
