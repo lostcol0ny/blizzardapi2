@@ -1,8 +1,12 @@
 name: PR Agent
 
+# PR-Agent's version, model and settings live in the shared workflow in
+# lostcol0ny/pr-agent-workflows; change them there, not here. This file only
+# forwards events, because triggers, permissions and secrets cannot be shared.
+# The shared workflow decides which of the forwarded events start a review.
 on:
   pull_request:
-    types: [opened, reopened, ready_for_review]
+    types: [opened, reopened, ready_for_review, synchronize]
   issue_comment:
     types: [created]
 
@@ -11,31 +15,10 @@ permissions:
 
 jobs:
   pr_agent:
-    # Bot senders (Dependabot, scheduled scrape PRs) get no Actions secrets and
-    # would loop on the agent's own comments.
-    if: ${{ github.event.sender.type != 'Bot' }}
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       issues: write
       pull-requests: write
-    steps:
-      - name: PR Agent
-        uses: docker://pragent/pr-agent@sha256:548e894a88071180832b2f4233f734d0acd0db1a879e2fcbaa70bac8b8372ebe # 0.50.0-github_action
-        env:
-          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # gpt-6.1-sol is PR-Agent 0.50.0's default. gpt-6.2-sol was tried and
-          # fails: LiteLLM rejects temperature=0.2 while reasoning is active, and
-          # reasoning_effort "none" or "minimal" do not get past that check.
-          config.model: "gpt-6.1-sol"
-          github_action_config.auto_review: "true"
-          github_action_config.auto_describe: "true"
-          github_action_config.auto_improve: "true"
-          pr_reviewer.extra_instructions: >-
-            Prioritise, in order: (1) correctness - does the change actually do
-            what it claims, including edge cases and error paths; (2) efficiency -
-            needless work, allocations, I/O or algorithmic cost; (3) clarity -
-            naming, structure and code that is harder to follow than it needs to
-            be. Also flag security problems such as injection, unsafe handling
-            of untrusted input, and leaked secrets.
+    uses: lostcol0ny/pr-agent-workflows/.github/workflows/pr_agent.yml@main
+    secrets:
+      OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
